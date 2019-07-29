@@ -20,6 +20,7 @@ class CreateProgrammesTable extends Migration
             $table->string('profession');
             $table->integer('durationStudy');
             $table->string('progLevel');
+            $table->decimal('facilitiesFee');
             $table->unsignedBigInteger('facultyid');
             $table->foreign('facultyid')->references('id')->on('faculties');
             $table->timestamps();

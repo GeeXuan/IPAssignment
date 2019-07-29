@@ -14,7 +14,6 @@ class FacultyController extends Controller
      */
     public function index()
     {
-        //
     }
 
     /**
@@ -24,7 +23,7 @@ class FacultyController extends Controller
      */
     public function create()
     {
-        //
+        return view('facultycreate');
     }
 
     /**
@@ -35,7 +34,13 @@ class FacultyController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $faculty = new Faculty();
+        $faculty->name = $request->get('name');
+        $faculty->abbreviation = $request->get('abbreviation');
+        $faculty->description = $request->get('description');
+        $faculty->costPerCreditHour = $request->get('costPerCreditHour');
+        $faculty->save();
+        return redirect('faculties')->with('success', 'Information has been added');
     }
 
     /**

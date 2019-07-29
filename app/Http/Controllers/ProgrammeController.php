@@ -24,7 +24,7 @@ class ProgrammeController extends Controller
      */
     public function create()
     {
-        //
+        return view('progcreate');
     }
 
     /**
