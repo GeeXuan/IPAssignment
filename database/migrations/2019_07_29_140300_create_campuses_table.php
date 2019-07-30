@@ -18,6 +18,7 @@ class CreateCampusesTable extends Migration
             $table->string('name');
             $table->string('abbreviation');
             $table->string('address');
+            $table->string('phone');
             $table->timestamps();
         });
     }
