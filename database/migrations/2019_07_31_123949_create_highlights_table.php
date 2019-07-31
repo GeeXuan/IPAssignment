@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateAccommodationsTable extends Migration
+class CreateHighlightsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,14 @@ class CreateAccommodationsTable extends Migration
      */
     public function up()
     {
-        Schema::create('accommodations', function (Blueprint $table) {
+        Schema::create('highlights', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('name');
+            $table->date('date');	
+            $table->string('eventname');
             $table->text('description');
-            $table->string('address');
-            $table->string('roomType');
-            $table->string('utilities');
-            $table->unsignedBigInteger('campusId');
-            $table->foreign('campusId')->references('id')->on('campuses')->onDelete('cascade');
+            $table->string('category');
+            $table->unsignedBigInteger('facultyid');
+            $table->foreign('facultyid')->references('id')->on('faculties')->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -33,6 +32,6 @@ class CreateAccommodationsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('accommodations');
+        Schema::dropIfExists('highlights');
     }
 }

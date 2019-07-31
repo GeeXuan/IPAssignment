@@ -22,7 +22,9 @@ class CreateProgrammesTable extends Migration
             $table->string('progLevel');
             $table->decimal('facilitiesFee');
             $table->unsignedBigInteger('facultyid');
-            $table->foreign('facultyid')->references('id')->on('faculties');
+            $table->unsignedBigInteger('levelofstudyid');
+            $table->foreign('facultyid')->references('id')->on('faculties')->onDelete('cascade');
+            $table->foreign('levelofstudyid')->references('id')->on('level_of_studies')->onDelete('cascade');
             $table->timestamps();
         });
     }

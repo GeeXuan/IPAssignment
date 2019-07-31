@@ -17,7 +17,7 @@ class CreateStpmMERSTable extends Migration
             $table->bigIncrements('stpmMERId');
             $table->string('stpmSubjectName');
             $table->unsignedBigInteger('merId');
-            $table->foreign('merId')->references('merId')->on('m_e_r_s');
+            $table->foreign('merId')->references('merId')->on('m_e_r_s')->onDelete('cascade');
             $table->timestamps();
         });
     }
