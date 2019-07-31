@@ -16,9 +16,10 @@ class CreateAccommodationsTable extends Migration
         Schema::create('accommodations', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name');
-            $table->string('description');
+            $table->text('description');
             $table->string('address');
             $table->string('roomType');
+            $table->string('utilities');
             $table->unsignedBigInteger('campusId');
             $table->foreign('campusId')->references('id')->on('campuses');
             $table->timestamps();

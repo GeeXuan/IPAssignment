@@ -17,7 +17,7 @@ class CreateFacultiesTable extends Migration
             $table->bigIncrements('id');
             $table->string('name');
             $table->string('abbreviation');
-            $table->string('description');
+            $table->text('description');
             $table->decimal('costPerCreditHour');
             $table->timestamps();
         });

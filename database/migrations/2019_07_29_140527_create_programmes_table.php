@@ -16,7 +16,7 @@ class CreateProgrammesTable extends Migration
         Schema::create('programmes', function (Blueprint $table) {
             $table->string('progId', 5);
             $table->string('progName');
-            $table->string('progDesc');
+            $table->text('progDesc');
             $table->string('profession');
             $table->integer('durationStudy');
             $table->string('progLevel');

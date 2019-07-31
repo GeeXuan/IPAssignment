@@ -17,7 +17,7 @@ class CreateCoursesTable extends Migration
             $table->bigIncrements('courseId');
             $table->string('courseCode');
             $table->string('courseTitle');
-            $table->string('courseDesc');
+            $table->text('courseDesc');
             $table->Integer('creditHours');
             $table->timestamps();
         });
