@@ -18,6 +18,8 @@ class CreateMERSTable extends Migration
             $table->boolean('spmRequired');
             $table->boolean('olevelRequired');
             $table->decimal('cgpaRequired');
+            $table->string('progId', 5);
+            $table->foreign('progId')->references('progId')->on('programmes')->onDelete('cascade');
             $table->timestamps();
         });
     }

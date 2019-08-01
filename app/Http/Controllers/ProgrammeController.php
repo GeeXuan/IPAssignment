@@ -14,7 +14,7 @@ class ProgrammeController extends Controller
      */
     public function index()
     {
-        //
+        
     }
 
     /**
@@ -24,7 +24,11 @@ class ProgrammeController extends Controller
      */
     public function create()
     {
-        return view('progcreate');
+        $campus = \App\Campus::all();
+        $levelOfStudy = \App\LevelOfStudy::all();
+        $faculty = \App\Faculty::all();
+        return view('progcreate')->with('campus', $campus)->with('levelOfStudy', $levelOfStudy)->with('faculty', $faculty);
+
     }
 
     /**
@@ -35,7 +39,21 @@ class ProgrammeController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $programme = new Programme();
+        $programme->progId = $request->get('progId');
+        $programme->progName = $request->get('progName');
+        $programme->progDesc = $request->get('progDesc');
+        $programme->profession = $request->get('profession');
+        $programme->facilitiesFee = $request->get('facilitiesFee');
+        $programme->progLevel = $request->get('progLevel');
+        $programme->facultyid = $request->get('faculty');
+        $programme->durationStudy = $request->get('duration');
+        $programme->levelofstudyid = $request->get('levelOfStudy');
+        $programme->save();
+        
+        $campus = \App\Campus::find($request->get('camplist'));
+        $programme->campuses()->attach($campus);
+        return redirect('programmes')->with('success', 'Information has been added');
     }
 
     /**

@@ -399,6 +399,7 @@ class ComposerStaticInite490c6d1326e83f6e4cb8e855c0a934b
         'App\\Http\\Controllers\\Controller' => __DIR__ . '/../..' . '/app/Http/Controllers/Controller.php',
         'App\\Http\\Controllers\\CourseController' => __DIR__ . '/../..' . '/app/Http/Controllers/CourseController.php',
         'App\\Http\\Controllers\\FacultyController' => __DIR__ . '/../..' . '/app/Http/Controllers/FacultyController.php',
+        'App\\Http\\Controllers\\HighlightController' => __DIR__ . '/../..' . '/app/Http/Controllers/HighlightController.php',
         'App\\Http\\Controllers\\LevelOfStudyController' => __DIR__ . '/../..' . '/app/Http/Controllers/LevelOfStudyController.php',
         'App\\Http\\Controllers\\LoanInformationController' => __DIR__ . '/../..' . '/app/Http/Controllers/LoanInformationController.php',
         'App\\Http\\Controllers\\MERController' => __DIR__ . '/../..' . '/app/Http/Controllers/MERController.php',
