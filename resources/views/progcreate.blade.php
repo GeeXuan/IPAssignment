@@ -66,22 +66,22 @@
         <![endif]-->
 
         <script type="text/javascript">
-            $('input:radio[name="levelOfStudy"]').click(function(){
+            $('input:radio[name="levelOfStudy"]').click(function () {
                 var selectedValue = $(this).val();
-                $("input[value="+selectedValue+"]").each(function(){
-                    if(!$(this).is(':checked')) {
-                        $("#progLevel option[value='Diploma']").prop('disabled',false);
-                        $("#progLevel option[value='Degree']").prop('disabled',false);
-                        $("#progLevel option[value='Foundation']").prop('disabled',true);
-                        $("#progLevel option[value='ALevel']").prop('disabled',true);
+                $("input[value=" + selectedValue + "]").each(function () {
+                    if (selectedValue === 1) {
+                        $("#progLevel option[value='Diploma']").prop('disabled', false);
+                        $("#progLevel option[value='Degree']").prop('disabled', false);
+                        $("#progLevel option[value='Foundation']").prop('disabled', true);
+                        $("#progLevel option[value='ALevel']").prop('disabled', true);
                     } else {
-                        $("#progLevel option[value='Foundation']").prop('disabled',false);
-                        $("#progLevel option[value='ALevel']").prop('disabled',false);
-                        $("#progLevel option[value='Diploma']").prop('disabled',true);
-                        $("#progLevel option[value='Degree']").prop('disabled',true);
+                        $("#progLevel option[value='Foundation']").prop('disabled', false);
+                        $("#progLevel option[value='ALevel']").prop('disabled', false);
+                        $("#progLevel option[value='Diploma']").prop('disabled', true);
+                        $("#progLevel option[value='Degree']").prop('disabled', true);
                     }
-                } 
-        });
+                }
+           )});
         </script>
 
     </head>
@@ -137,12 +137,12 @@
                             <label for="profession">Profession:</label>
                             <input type="text" name="profession" />
                         </p>
-                        
+
                         <p>
                             <label for="facilitiesFee">Facilities Fee:</label>
                             <input type="text" name="facilitiesFee" /> 
                         </p>
-                        
+
                         <p>
                             <label for="levelOfStudy">Level of study:</label><br/>
                             @foreach($levelOfStudy as $row)
@@ -152,17 +152,17 @@
                         </tr>
                         @endforeach
                         </p>
-                        
+
                         <p>
                             <label for="progLevel">Programme Level:</label>
-                            <select name="progLevel[]" id="progLevel">
+                            <select name="progLevel" id="progLevel">
                                 <option value="Diploma">Diploma</option>
                                 <option value="Degree">Degree</option>
                                 <option value="Foundation">Foundation</option>
-                                <option value="ALevel">ALevel</option>
+                                <option value="ALevel">A Level</option>
                             </select>
                         </p>
-                        
+
                         <p>
                             <label for="faculty">Faculty:</label>
                             @foreach($faculty as $row)
@@ -192,7 +192,7 @@
                         @endforeach
                         </p>
 
-                        
+
 
                         <p>
                             <button type="submit">Next</button>
