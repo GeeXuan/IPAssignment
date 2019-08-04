@@ -96,42 +96,37 @@
             <div id="fh5co-main">
 
                 <div class="fh5co-narrow-content">
-                    <h2 class="fh5co-heading animate-box" data-animate-effect="fadeInLeft">Add New Programme<span></h2>
-                    <form method="post" action="{{URL::to('/progstruccreate')}}">
+                    <h2 class="fh5co-heading animate-box" data-animate-effect="fadeInLeft">Programme List<span></h2>
+                    <form method="post" action="{{url('programmes',$programme->progId)}}">
+                        @method('patch')
                         @csrf
                         <p>
                             <label for="progId">Programme Id:</label>
-                            <input type="hidden" name="_token" value="{{csrf_token()}}" />
-                            <input type="text" name="progId" /> 
+                            <input type="text" name="progId" value="{{$programme->progId}}" /> 
                         </p>
 
                         <p>
                             <label for="progName">Programme Name:</label>
-                            <input type="hidden" name="_token" value="{{csrf_token()}}" />
-                            <input type="text" name="progName" size="30" /> 
+                            <input type="text" name="progName" size="30" value="{{$programme->progName}}" /> 
                         </p>
 
                         <p>
                             <label for="progDesc">Programme Description:</label>
-                            <input type="hidden" name="_token" value="{{csrf_token()}}" />
-                            <textarea rows="4" cols="50" name="progDesc"></textarea>
+                            <textarea rows="4" cols="50" name="progDesc">{{$programme->progDesc}}</textarea>
                         </p>
 
                         <p>
                             <label for="profession">Profession:</label>
-                            <input type="hidden" name="_token" value="{{csrf_token()}}" />
-                            <input type="text" name="profession" />
+                            <input type="text" name="profession" value="{{$programme->profession}}"  />
                         </p>
                         
                         <p>
                             <label for="facilitiesFee">Facilities Fee:</label>
-                            <input type="hidden" name="_token" value="{{csrf_token()}}" />
-                            <input type="text" name="facilitiesFee" /> 
+                            <input type="text" name="facilitiesFee" value="{{$programme->facilitiesFee}}" /> 
                         </p>
                         
                         <p>
                             <label for="progLevel">Programme Level:</label>
-                            <input type="hidden" name="_token" value="{{csrf_token()}}" />
                             <select name="progLevel" id="progLevel">
                                 <option value="Diploma">Diploma</option>
                                 <option value="Degree">Degree</option>
@@ -142,7 +137,6 @@
                         
                         <p>
                             <label for="faculty">Faculty:</label>
-                            <input type="hidden" name="_token" value="{{csrf_token()}}" />
                             <tr>
                                 <td>
                                     <select name="faculty">
@@ -156,14 +150,12 @@
 
                         <p>
                             <label for="duration">Duration of study:</label><br/>
-                            <input type="hidden" name="_token" value="{{csrf_token()}}" />
                             <input type="radio" name="duration" value="2">Two
                             <br/><input type="radio" name="duration" value="3">Three
                         </p>
 
                         <p>
                             <label for="camplist[]">Campuses offered:</label><br/>
-                            <input type="hidden" name="_token" value="{{csrf_token()}}" />
                             @foreach($campus as $row)
                         <tr>
                             <td><input type="checkbox" name="camplist[]" value="{{$row->id}}"></td>
@@ -173,7 +165,7 @@
                         </p>
 
                         <p>
-                            <button type="submit">Next</button>
+                            <button type="submit">Submit</button>
                         </p>
                     </form>
                 </div>

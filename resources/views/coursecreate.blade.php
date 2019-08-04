@@ -96,84 +96,42 @@
             <div id="fh5co-main">
 
                 <div class="fh5co-narrow-content">
-                    <h2 class="fh5co-heading animate-box" data-animate-effect="fadeInLeft">Add New Programme<span></h2>
-                    <form method="post" action="{{URL::to('/progstruccreate')}}">
+                    <h2 class="fh5co-heading animate-box" data-animate-effect="fadeInLeft">Add New Course<span></h2>
+                    <form method="post" action="{{url('courses')}}">
                         @csrf
                         <p>
-                            <label for="progId">Programme Id:</label>
-                            <input type="hidden" name="_token" value="{{csrf_token()}}" />
-                            <input type="text" name="progId" /> 
+                            <label for="courseId">Course Id:</label>
+                            <input type="text" name="courseId" /> 
                         </p>
 
                         <p>
-                            <label for="progName">Programme Name:</label>
-                            <input type="hidden" name="_token" value="{{csrf_token()}}" />
-                            <input type="text" name="progName" size="30" /> 
+                            <label for="courseCode">Course Code:</label>
+                            <input type="text" name="courseCode" /> 
                         </p>
 
                         <p>
-                            <label for="progDesc">Programme Description:</label>
-                            <input type="hidden" name="_token" value="{{csrf_token()}}" />
-                            <textarea rows="4" cols="50" name="progDesc"></textarea>
-                        </p>
-
-                        <p>
-                            <label for="profession">Profession:</label>
-                            <input type="hidden" name="_token" value="{{csrf_token()}}" />
-                            <input type="text" name="profession" />
+                            <label for="courseTitle">Course Title:</label>
+                            <input type="text" name="courseTitle" size="30" /> 
                         </p>
                         
                         <p>
-                            <label for="facilitiesFee">Facilities Fee:</label>
-                            <input type="hidden" name="_token" value="{{csrf_token()}}" />
-                            <input type="text" name="facilitiesFee" /> 
+                            <label for="creditHours">Credit Hours:</label>
+                            <input type="text" name="creditHours" /> 
                         </p>
                         
                         <p>
-                            <label for="progLevel">Programme Level:</label>
-                            <input type="hidden" name="_token" value="{{csrf_token()}}" />
-                            <select name="progLevel" id="progLevel">
-                                <option value="Diploma">Diploma</option>
-                                <option value="Degree">Degree</option>
-                                <option value="Foundation">Foundation</option>
-                                <option value="ALevel">ALevel</option>
+                            <label for="category">Category:</label>
+                            <select name="category">
+                                <option value="IT">IT</option>
+                                <option value="Business">Business</option>
+                                <option value="Science">Science</option>
+                                <option value="Engineering">Engineering</option>
+                                <option value="Communication">Communication</option>
                             </select>
                         </p>
                         
                         <p>
-                            <label for="faculty">Faculty:</label>
-                            <input type="hidden" name="_token" value="{{csrf_token()}}" />
-                            <tr>
-                                <td>
-                                    <select name="faculty">
-                                        @foreach($faculty as $row)
-                                        <option value="{{$row->id}}">{{$row->name}}</option>
-                                        @endforeach
-                                    </select>
-                                </td>
-                            </tr>
-                        </p>
-
-                        <p>
-                            <label for="duration">Duration of study:</label><br/>
-                            <input type="hidden" name="_token" value="{{csrf_token()}}" />
-                            <input type="radio" name="duration" value="2">Two
-                            <br/><input type="radio" name="duration" value="3">Three
-                        </p>
-
-                        <p>
-                            <label for="camplist[]">Campuses offered:</label><br/>
-                            <input type="hidden" name="_token" value="{{csrf_token()}}" />
-                            @foreach($campus as $row)
-                        <tr>
-                            <td><input type="checkbox" name="camplist[]" value="{{$row->id}}"></td>
-                            <td>{{$row->name}}<br/></td>
-                        </tr>
-                        @endforeach
-                        </p>
-
-                        <p>
-                            <button type="submit">Next</button>
+                            <button type="submit">Submit</button>
                         </p>
                     </form>
                 </div>

@@ -14,7 +14,8 @@ class CourseController extends Controller
      */
     public function index()
     {
-        //
+        $courses = Course::all();
+        return view('courseindex', compact('courses'));
     }
 
     /**
@@ -24,7 +25,7 @@ class CourseController extends Controller
      */
     public function create()
     {
-        //
+        return view('coursecreate');
     }
 
     /**
@@ -35,7 +36,14 @@ class CourseController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $course = new Course();
+        $course->courseId = $request->get('courseId');
+        $course->courseCode = $request->get('courseCode');
+        $course->courseTitle = $request->get('courseTitle');
+        $course->creditHours = $request->get('creditHours');
+        $course->category = $request->get('category');
+        $course->save();
+        return redirect('courses')->with('success', 'Information has been added');
     }
 
     /**
@@ -55,9 +63,10 @@ class CourseController extends Controller
      * @param  \App\Course  $course
      * @return \Illuminate\Http\Response
      */
-    public function edit(Course $course)
+    public function edit($courseId)
     {
-        //
+        $course = Course::find($courseId);
+        return view('editcourse', compact('course', 'courseId'));
     }
 
     /**
@@ -67,9 +76,16 @@ class CourseController extends Controller
      * @param  \App\Course  $course
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Course $course)
+    public function update(Request $request, $courseId)
     {
-        //
+        $course = Course::find($courseId);
+        $course->courseId = $request->get('courseId');
+        $course->courseCode = $request->get('courseCode');
+        $course->courseTitle = $request->get('courseTitle');
+        $course->creditHours = $request->get('creditHours');
+        $course->category = $request->get('category');
+        $course->save();
+        return redirect('courses');
     }
 
     /**
@@ -78,8 +94,10 @@ class CourseController extends Controller
      * @param  \App\Course  $course
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Course $course)
+    public function destroy($courseId)
     {
-        //
+        $course = Course::find($courseId);
+        $course->delete();
+        return redirect('courses')->with('success', 'Information has been deleted');
     }
 }

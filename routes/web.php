@@ -17,3 +17,9 @@ Route::get('/', function () {
 
 Route::resource('programmes', 'ProgrammeController');
 Route::resource('faculties', 'FacultyController');
+Route::patch('programmes/{programme}/edit','ProgrammeController@edit')->name('programmes.edit');
+Route::patch('courses/{course}/edit','CourseController@edit')->name('courses.edit');
+Route::resource('courses', 'CourseController');
+Route::resource('progstruc', 'ProgrammeStructureController');
+Route::view('/', 'new');
+Route::post('/progstruccreate','ProgrammeController@show');

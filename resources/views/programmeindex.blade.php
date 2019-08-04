@@ -1,5 +1,4 @@
-<!-- create.blade.php -->
-
+<!-- programmeindex.blade.php -->
 
 <!DOCTYPE html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
@@ -96,86 +95,59 @@
             <div id="fh5co-main">
 
                 <div class="fh5co-narrow-content">
-                    <h2 class="fh5co-heading animate-box" data-animate-effect="fadeInLeft">Add New Programme<span></h2>
-                    <form method="post" action="{{URL::to('/progstruccreate')}}">
-                        @csrf
-                        <p>
-                            <label for="progId">Programme Id:</label>
-                            <input type="hidden" name="_token" value="{{csrf_token()}}" />
-                            <input type="text" name="progId" /> 
-                        </p>
+                    <h2 class="fh5co-heading animate-box" data-animate-effect="fadeInLeft">View Programme<span></h2>
+                    <div class="container">
+                        <br />
+                        @if (\Session::has('success'))
+                        <div class="alert alert-success">
+                            <p>{{ \Session::get('success') }}</p>
+                        </div><br />
+                        @endif
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Programme ID</th>
+                                    <th>Programme Name</th>
+                                    <th>Programme Description</th>
+                                    <th>Profession</th>
+                                    <th>Duration of Study</th>
+                                    <th>Programme Level</th>
+                                    <th>Facilities Fee</th>
+                                    <th>Faculty ID</th>
+                                    <th colspan="2">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
 
-                        <p>
-                            <label for="progName">Programme Name:</label>
-                            <input type="hidden" name="_token" value="{{csrf_token()}}" />
-                            <input type="text" name="progName" size="30" /> 
-                        </p>
+                                @foreach($programmes as $programme)
+                                <tr>
+                                    <td>{{$programme['progId']}}</td>
+                                    <td>{{$programme['progName']}}</td>
+                                    <td>{{$programme['progDesc']}}</td>
+                                    <td>{{$programme['profession']}}</td>
+                                    <td>{{$programme['durationStudy']}}</td>
+                                    <td>{{$programme['progLevel']}}</td>
+                                    <td>{{$programme['facilitiesFee']}}</td>
+                                    <td>{{$programme['facultyid']}}</td>
 
-                        <p>
-                            <label for="progDesc">Programme Description:</label>
-                            <input type="hidden" name="_token" value="{{csrf_token()}}" />
-                            <textarea rows="4" cols="50" name="progDesc"></textarea>
-                        </p>
 
-                        <p>
-                            <label for="profession">Profession:</label>
-                            <input type="hidden" name="_token" value="{{csrf_token()}}" />
-                            <input type="text" name="profession" />
-                        </p>
-                        
-                        <p>
-                            <label for="facilitiesFee">Facilities Fee:</label>
-                            <input type="hidden" name="_token" value="{{csrf_token()}}" />
-                            <input type="text" name="facilitiesFee" /> 
-                        </p>
-                        
-                        <p>
-                            <label for="progLevel">Programme Level:</label>
-                            <input type="hidden" name="_token" value="{{csrf_token()}}" />
-                            <select name="progLevel" id="progLevel">
-                                <option value="Diploma">Diploma</option>
-                                <option value="Degree">Degree</option>
-                                <option value="Foundation">Foundation</option>
-                                <option value="ALevel">ALevel</option>
-                            </select>
-                        </p>
-                        
-                        <p>
-                            <label for="faculty">Faculty:</label>
-                            <input type="hidden" name="_token" value="{{csrf_token()}}" />
-                            <tr>
-                                <td>
-                                    <select name="faculty">
-                                        @foreach($faculty as $row)
-                                        <option value="{{$row->id}}">{{$row->name}}</option>
-                                        @endforeach
-                                    </select>
-                                </td>
-                            </tr>
-                        </p>
-
-                        <p>
-                            <label for="duration">Duration of study:</label><br/>
-                            <input type="hidden" name="_token" value="{{csrf_token()}}" />
-                            <input type="radio" name="duration" value="2">Two
-                            <br/><input type="radio" name="duration" value="3">Three
-                        </p>
-
-                        <p>
-                            <label for="camplist[]">Campuses offered:</label><br/>
-                            <input type="hidden" name="_token" value="{{csrf_token()}}" />
-                            @foreach($campus as $row)
-                        <tr>
-                            <td><input type="checkbox" name="camplist[]" value="{{$row->id}}"></td>
-                            <td>{{$row->name}}<br/></td>
-                        </tr>
-                        @endforeach
-                        </p>
-
-                        <p>
-                            <button type="submit">Next</button>
-                        </p>
-                    </form>
+                                    <td>
+                                        <a href="{{action('ProgrammeController@edit', $programme['progId'])}}" 
+                                           class="btn btn-warning">Edit</a>
+                                    </td>
+                                    <td>
+                                        <form action="{{action('ProgrammeController@destroy', $programme['progId'])}}" 
+                                              method="post">
+                                            @csrf
+                                            <input name="_method" type="hidden" value="DELETE">
+                                            <button class="btn btn-danger" type="submit">Delete</button>
+                                        </form>
+                                    </td>
+                                </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
@@ -201,7 +173,3 @@
 
     </body>
 </html>
-
-
-
-
