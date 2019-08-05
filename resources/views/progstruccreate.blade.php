@@ -6,6 +6,32 @@
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
 <!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
 <!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <?php
+        if(isset($_POST['search'])){
+            $valueToSearch = $_POST['valueToSearch'];
+            $query = "SELECT * FROM courses WHERE category LIKE '%".$valueToSearch."%'";
+            $search_result = filterTable($query);
+            
+        } else {
+            $query = "SELECT * FROM `courses`";
+            $search_result = filterTable($query);
+        }
+        
+        function filterTable($query) {
+            $connect = mysqli_connect("localhost", "root", "secret", "IPAssignment");
+            if (mysqli_connect_errno()){ 
+                echo "Failed to connect to MySQL: " . mysqli_connect_error(); 
+            } 
+
+            $filterResult = mysqli_query($connect, $query);
+            if (!$filterResult) {
+                printf("Error: %s\n", mysqli_error($connect));
+            exit();
+            }
+            return $filterResult;
+        }
+    ?>
+
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -122,7 +148,7 @@
                             <td>{{$faculty}}</td>
                             <td>
                                 @foreach ($camplist as $camp)
-                                {{$camp}}
+                                    {{$camp}}
                                 @endforeach
                             </td>
                         </tr>
@@ -137,21 +163,31 @@
                         </p>
 
                         <p>
-                            <label for="course">Enter keyword:</label>
-                            <input type="text" name="course"/>
-                            <button type="submit">Search</button>
+                            <label for="searchCourse">Filter by Category:</label>
+                            <input type="text" name="valueToSearch"/>
+                            <input type="submit" name="search" value="Filter" />
                         </p>
                         
                         <p>
                             <label for="course">Courses:</label><br/>
                             
-                        <table border="1">
-                            @foreach($course as $row)
-                        <tr>
-                            <td><input type="checkbox" name="courselist[]" value="{{$row->id}}"></td>
-                            <td>{{$row->name}}<br/></td>
-                        </tr>
-                        @endforeach
+                        <table class="table table-striped">
+                            <tr>
+                                <th>Course Code</th>
+                                <th>Course Title</th>
+                                <th>Credit Hours</th>
+                                <th>Category</th>
+                            </tr>
+                            <?php while($row = mysqli_fetch_assoc($search_result)):?>
+                                <tr>
+                                    <td><?php echo $row['courseCode'];?><br/></td>
+                                    <td><?php echo $row['courseTitle'];?><br/></td>
+                                    <td><?php echo $row['creditHours'];?><br/></td>
+                                    <td><?php echo $row['category'];?><br/></td>
+                                    <td><input type="checkbox" name="courselist[]" value="<?php $row['courseId'];?>"></td>
+                                </tr>
+                            <?php endwhile;?>
+                            
                         </table>
                         </p>
 

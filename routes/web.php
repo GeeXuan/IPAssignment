@@ -22,4 +22,4 @@ Route::patch('courses/{course}/edit','CourseController@edit')->name('courses.edi
 Route::resource('courses', 'CourseController');
 Route::resource('progstruc', 'ProgrammeStructureController');
 Route::view('/', 'new');
-Route::post('/progstruccreate','ProgrammeController@show');
+Route::post('/progstruccreate','ProgrammeStructureController@show');

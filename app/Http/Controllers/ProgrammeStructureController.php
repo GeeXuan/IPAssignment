@@ -24,9 +24,7 @@ class ProgrammeStructureController extends Controller
      */
     public function create()
     {
-        $course = \App\Course::all();
-        return view('progstruccreate')->with('course', $course);
-
+        
     }
 
     /**
@@ -48,7 +46,21 @@ class ProgrammeStructureController extends Controller
      */
     public function show(Request $request)
     {
-
+        $request->session()->put('progId', $request->input('progId'));
+        $request->session()->put('progName', $request->input('progName'));
+        $request->session()->put('progDesc', $request->input('progDesc'));
+        $request->session()->put('profession', $request->input('profession'));
+        $request->session()->put('facilitiesFee', $request->input('facilitiesFee'));
+        $request->session()->put('progLevel', $request->input('progLevel'));
+        $request->session()->put('faculty', $request->input('faculty'));
+        $request->session()->put('duration', $request->input('duration'));
+        $request->session()->put('camplist', $request->input('camplist'));
+        
+        $courses = \App\Course::all();
+        return view('progstruccreate')->with('courses', $courses)->with('progId', $request->session()->get('progId'))->with('progName', $request->session()->get('progName'))
+                ->with('progDesc', $request->session()->get('progDesc'))->with('profession', $request->session()->get('profession'))->with('facilitiesFee', $request->session()->get('facilitiesFee'))
+                ->with('progLevel', $request->session()->get('progLevel'))->with('faculty', $request->session()->get('faculty'))->with('duration', $request->session()->get('duration'))
+                ->with('camplist', $request->session()->get('camplist'));
     }
 
     /**
