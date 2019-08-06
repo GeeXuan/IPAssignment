@@ -17,3 +17,4 @@ Route::get('/', function () {
 
 Route::resource('programmes', 'ProgrammeController');
 Route::resource('faculties', 'FacultyController');
+Route::resource('campus', 'CampusController');

@@ -7,11 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 class Programme extends Model {
 
     public function courses() {
-        return $this->belongsToMany(Course::class);
+        return $this->belongsToMany(Course::class, 'progstruc', 'courseId', 'progId');
     }
 
     public function campuses() {
-        return $this->belongsToMany(Campus::class);
+        return $this->belongsToMany(Campus::class, 'progcampus', 'progId', 'campusId');
     }
 
 }
