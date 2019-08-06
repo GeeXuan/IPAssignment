@@ -95,31 +95,32 @@
 
             <div id="fh5co-main">
                 <div class="fh5co-narrow-content">
-                    <h2>Add New Campus</h2><br/>
-                    <form method="post" action="{{url('campus')}}">
+                    <h2>Edit Campus</h2><br/>
+                    <form method="post" action="{{action('CampusController@update', $campus)}}">
+                        <input name="_method" type="hidden" value="PATCH">
                         @csrf
                         <p>
                             <label for="name">Campus Name:</label>
                             <br/>
-                            <input type="text" name="name" size="52" maxlength="50" required>  
+                            <input type="text"  size="52" maxlength="50"  name="name" value="{{$campus->name}}" required>  
                         </p>
                         <p>
                             <label for="code">Campus Abbreviation:</label>
                             <br/>
-                            <input type="text" size="12" maxlength="10" name="abbreviation" required>
+                            <input type="text"  size="12" maxlength="10"  name="abbreviation" value="{{$campus->abbreviation}}" required>
                         </p>
                         <p>
                             <label for="code">Campus Address:</label>
                             <br/>
-                            <textarea rows="3" cols="52" name="address" required></textarea>
+                            <textarea rows="3" cols="52" name="address" required>{{$campus->address}}</textarea>
                         </p>
                         <p>
                             <label for="code">Campus Phone:</label>
                             <br/>
-                            <input type="text" size="17" maxlength="15" name="phone" required>
+                            <input type="text" size="17" maxlength="15" name="phone" value="{{$campus->phone}}" required>
                         </p>
                         <p>
-                            <button type="submit">Submit</button>
+                            <button type="submit">Update</button>
                         </p>
                     </form>
                 </div>

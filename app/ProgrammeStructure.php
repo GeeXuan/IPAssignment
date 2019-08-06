@@ -4,9 +4,9 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Programme extends Model {
-
-    protected $primaryKey = 'progId';
+class ProgrammeStructure extends Model
+{
+    protected $primaryKey = 'id';
     public $incrementing = false;
     
     public function courses() {
@@ -16,5 +16,4 @@ class Programme extends Model {
     public function campuses() {
         return $this->belongsToMany(Campus::class, 'progcampus', 'progId', 'campusId');
     }
-
 }

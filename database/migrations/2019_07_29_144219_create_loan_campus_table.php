@@ -15,8 +15,8 @@ class CreateLoanCampusTable extends Migration
     {
         Schema::create('loanCampus', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->bigInteger('loanId');
-            $table->bigInteger('campusId');
+            $table->unsignedBigInteger('loanId');
+            $table->unsignedBigInteger('campusId');
         });
     }
 

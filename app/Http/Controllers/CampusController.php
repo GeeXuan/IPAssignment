@@ -5,16 +5,16 @@ namespace App\Http\Controllers;
 use App\Campus;
 use Illuminate\Http\Request;
 
-class CampusController extends Controller
-{
+class CampusController extends Controller {
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        //
+    public function index() {
+        $campuses = Campus::all();
+        return view('campusindex', compact('campuses'));
     }
 
     /**
@@ -22,9 +22,8 @@ class CampusController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
-        //
+    public function create() {
+        return view('campuscreate');
     }
 
     /**
@@ -33,9 +32,14 @@ class CampusController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
-        //
+    public function store(Request $request) {
+        $campus = new Campus();
+        $campus->name = $request->get('name');
+        $campus->abbreviation = $request->get('abbreviation');
+        $campus->address = $request->get('address');
+        $campus->phone = $request->get('phone');
+        $campus->save();
+        return redirect('campus')->with('success', 'Information has been added');
     }
 
     /**
@@ -44,8 +48,7 @@ class CampusController extends Controller
      * @param  \App\Campus  $campus
      * @return \Illuminate\Http\Response
      */
-    public function show(Campus $campus)
-    {
+    public function show(Campus $campus) {
         //
     }
 
@@ -55,9 +58,8 @@ class CampusController extends Controller
      * @param  \App\Campus  $campus
      * @return \Illuminate\Http\Response
      */
-    public function edit(Campus $campus)
-    {
-        //
+    public function edit(Campus $campus) {
+        return view('campusedit', compact('campus'));
     }
 
     /**
@@ -67,9 +69,13 @@ class CampusController extends Controller
      * @param  \App\Campus  $campus
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Campus $campus)
-    {
-        //
+    public function update(Request $request, Campus $campus) {
+        $campus->name = $request->get('name');
+        $campus->abbreviation = $request->get('abbreviation');
+        $campus->address = $request->get('address');
+        $campus->phone = $request->get('phone');
+        $campus->save();
+        return redirect('campus');
     }
 
     /**
@@ -78,8 +84,9 @@ class CampusController extends Controller
      * @param  \App\Campus  $campus
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Campus $campus)
-    {
-        //
+    public function destroy(Campus $campus) {
+        $campus->delete();
+        return redirect('campus')->with('success', 'Information has been  deleted');
     }
+
 }

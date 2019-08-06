@@ -94,32 +94,77 @@
             </aside>
 
             <div id="fh5co-main">
+
                 <div class="fh5co-narrow-content">
-                    <h2>Add New Campus</h2><br/>
-                    <form method="post" action="{{url('campus')}}">
+                    <h2 class="fh5co-heading animate-box" data-animate-effect="fadeInLeft">Add Programme Structure<span></h2>
+                    
+                    <table class="table table-striped">
+                        <tr>
+                            <th>Programme ID</th>
+                            <th>Programme Name</th>
+                            <th>Programme Description</th>
+                            <th>Profession</th>
+                            <th>Duration of Study</th>
+                            <th>Programme Level</th>
+                            <th>Facilities Fee</th>
+                            <th>Faculty ID</th>
+                            <th>Campus ID</th>
+                        </tr>
+
+                        <tr>
+                            <td>{{$progId}}</td>
+                            <td>{{$progName}}</td>
+                            <td>{{$progDesc}}</td>
+                            <td>{{$profession}}</td>
+                            <td>{{$duration}}</td>
+                            <td>{{$progLevel}}</td>
+                            <td>{{$facilitiesFee}}</td>
+                            <td>{{$faculty}}</td>
+                            <td>
+                                @foreach ($camplist as $camp)
+                                    {{$camp}}
+                                @endforeach
+                            </td>
+                        </tr>
+                    </table>
+                    
+                    <form method="post" action="{{URL::to('mercreate')}}">
                         @csrf
                         <p>
-                            <label for="name">Campus Name:</label>
-                            <br/>
-                            <input type="text" name="name" size="52" maxlength="50" required>  
+                            <label for="progId">Programme Id:</label>
+                            <input type="hidden" name="_token" value="{{csrf_token()}}" />
+                            <input type="text" name="progId" value="{{$progId}}" readonly /> 
                         </p>
+                        
                         <p>
-                            <label for="code">Campus Abbreviation:</label>
-                            <br/>
-                            <input type="text" size="12" maxlength="10" name="abbreviation" required>
+                            <label for="course">Courses:</label><br/>
+                            
+                        <table class="table table-striped">
+                            <tr>
+                                <th>Course Code</th>
+                                <th>Course Title</th>
+                                <th>Credit Hours</th>
+                                <th>Category</th>
+                            </tr>
+
+                            @foreach($courses as $row)
+                            <tr>
+                                <td>{{$row->courseCode}}<br/></td>
+                                <td>{{$row->courseTitle}}<br/></td>
+                                <td>{{$row->creditHours}}<br/></td>
+                                <td>{{$row->category}}<br/></td>
+                                <td>
+                                    <input type="checkbox" name="courselist[]" value="{{$row->courseId}}">
+                                    <input type="hidden" name="_token" value="{{csrf_token()}}" />
+                                </td>
+                            </tr>
+                            @endforeach
+                        </table>
                         </p>
+
+                        
                         <p>
-                            <label for="code">Campus Address:</label>
-                            <br/>
-                            <textarea rows="3" cols="52" name="address" required></textarea>
-                        </p>
-                        <p>
-                            <label for="code">Campus Phone:</label>
-                            <br/>
-                            <input type="text" size="17" maxlength="15" name="phone" required>
-                        </p>
-                        <p>
-                            <button type="submit">Submit</button>
+                            <button type="submit">Next</button>
                         </p>
                     </form>
                 </div>
@@ -147,3 +192,7 @@
 
     </body>
 </html>
+
+
+
+

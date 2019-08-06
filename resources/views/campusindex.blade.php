@@ -95,33 +95,47 @@
 
             <div id="fh5co-main">
                 <div class="fh5co-narrow-content">
-                    <h2>Add New Campus</h2><br/>
-                    <form method="post" action="{{url('campus')}}">
-                        @csrf
-                        <p>
-                            <label for="name">Campus Name:</label>
-                            <br/>
-                            <input type="text" name="name" size="52" maxlength="50" required>  
-                        </p>
-                        <p>
-                            <label for="code">Campus Abbreviation:</label>
-                            <br/>
-                            <input type="text" size="12" maxlength="10" name="abbreviation" required>
-                        </p>
-                        <p>
-                            <label for="code">Campus Address:</label>
-                            <br/>
-                            <textarea rows="3" cols="52" name="address" required></textarea>
-                        </p>
-                        <p>
-                            <label for="code">Campus Phone:</label>
-                            <br/>
-                            <input type="text" size="17" maxlength="15" name="phone" required>
-                        </p>
-                        <p>
-                            <button type="submit">Submit</button>
-                        </p>
-                    </form>
+                    <h2>Campuses</h2><br/>
+                    <br />
+                    @if (\Session::has('success'))
+                    <div class="alert alert-success">
+                        <p>{{ \Session::get('success') }}</p>
+                    </div><br />
+                    @endif
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Abbreviation</th>
+                                <th>Address</th>
+                                <th>Contact</th>
+                                <th colspan="2">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach($campuses as $campus)
+                            <tr>
+                                <td>{{$campus['name']}}</td>
+                                <td>{{$campus['abbreviation']}}</td>
+                                <td>{{$campus['address']}}</td>
+                                <td>{{$campus['phone']}}</td>
+
+                                <td>
+                                    <a href="{{action('CampusController@edit', $campus)}}" 
+                                       class="btn btn-warning">Edit</a>
+                                </td>
+                                <td>
+                                    <form action="{{action('CampusController@destroy', $campus)}}" 
+                                          method="post">
+                                        @csrf
+                                        <input name="_method" type="hidden" value="DELETE">
+                                        <button class="btn btn-danger" type="submit">Delete</button>
+                                    </form>
+                                </td>
+                            </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>

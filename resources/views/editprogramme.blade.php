@@ -94,30 +94,76 @@
             </aside>
 
             <div id="fh5co-main">
+
                 <div class="fh5co-narrow-content">
-                    <h2>Add New Campus</h2><br/>
-                    <form method="post" action="{{url('campus')}}">
+                    <h2 class="fh5co-heading animate-box" data-animate-effect="fadeInLeft">Programme List<span></h2>
+                    <form method="post" action="{{url('programmes',$programme->progId)}}">
+                        @method('patch')
                         @csrf
                         <p>
-                            <label for="name">Campus Name:</label>
-                            <br/>
-                            <input type="text" name="name" size="52" maxlength="50" required>  
+                            <label for="progId">Programme Id:</label>
+                            <input type="text" name="progId" value="{{$programme->progId}}" /> 
                         </p>
+
                         <p>
-                            <label for="code">Campus Abbreviation:</label>
-                            <br/>
-                            <input type="text" size="12" maxlength="10" name="abbreviation" required>
+                            <label for="progName">Programme Name:</label>
+                            <input type="text" name="progName" size="30" value="{{$programme->progName}}" /> 
                         </p>
+
                         <p>
-                            <label for="code">Campus Address:</label>
-                            <br/>
-                            <textarea rows="3" cols="52" name="address" required></textarea>
+                            <label for="progDesc">Programme Description:</label>
+                            <textarea rows="4" cols="50" name="progDesc">{{$programme->progDesc}}</textarea>
                         </p>
+
                         <p>
-                            <label for="code">Campus Phone:</label>
-                            <br/>
-                            <input type="text" size="17" maxlength="15" name="phone" required>
+                            <label for="profession">Profession:</label>
+                            <input type="text" name="profession" value="{{$programme->profession}}"  />
                         </p>
+                        
+                        <p>
+                            <label for="facilitiesFee">Facilities Fee:</label>
+                            <input type="text" name="facilitiesFee" value="{{$programme->facilitiesFee}}" /> 
+                        </p>
+                        
+                        <p>
+                            <label for="progLevel">Programme Level:</label>
+                            <select name="progLevel" id="progLevel">
+                                <option value="Diploma">Diploma</option>
+                                <option value="Degree">Degree</option>
+                                <option value="Foundation">Foundation</option>
+                                <option value="ALevel">ALevel</option>
+                            </select>
+                        </p>
+                        
+                        <p>
+                            <label for="faculty">Faculty:</label>
+                            <tr>
+                                <td>
+                                    <select name="faculty">
+                                        @foreach($faculty as $row)
+                                        <option value="{{$row->id}}">{{$row->name}}</option>
+                                        @endforeach
+                                    </select>
+                                </td>
+                            </tr>
+                        </p>
+
+                        <p>
+                            <label for="duration">Duration of study:</label><br/>
+                            <input type="radio" name="duration" value="2">Two
+                            <br/><input type="radio" name="duration" value="3">Three
+                        </p>
+
+                        <p>
+                            <label for="camplist[]">Campuses offered:</label><br/>
+                            @foreach($campus as $row)
+                        <tr>
+                            <td><input type="checkbox" name="camplist[]" value="{{$row->id}}"></td>
+                            <td>{{$row->name}}<br/></td>
+                        </tr>
+                        @endforeach
+                        </p>
+
                         <p>
                             <button type="submit">Submit</button>
                         </p>
@@ -147,3 +193,7 @@
 
     </body>
 </html>
+
+
+
+

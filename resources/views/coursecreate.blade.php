@@ -94,30 +94,42 @@
             </aside>
 
             <div id="fh5co-main">
+
                 <div class="fh5co-narrow-content">
-                    <h2>Add New Campus</h2><br/>
-                    <form method="post" action="{{url('campus')}}">
+                    <h2 class="fh5co-heading animate-box" data-animate-effect="fadeInLeft">Add New Course<span></h2>
+                    <form method="post" action="{{url('courses')}}">
                         @csrf
                         <p>
-                            <label for="name">Campus Name:</label>
-                            <br/>
-                            <input type="text" name="name" size="52" maxlength="50" required>  
+                            <label for="courseId">Course Id:</label>
+                            <input type="text" name="courseId" /> 
                         </p>
+
                         <p>
-                            <label for="code">Campus Abbreviation:</label>
-                            <br/>
-                            <input type="text" size="12" maxlength="10" name="abbreviation" required>
+                            <label for="courseCode">Course Code:</label>
+                            <input type="text" name="courseCode" /> 
                         </p>
+
                         <p>
-                            <label for="code">Campus Address:</label>
-                            <br/>
-                            <textarea rows="3" cols="52" name="address" required></textarea>
+                            <label for="courseTitle">Course Title:</label>
+                            <input type="text" name="courseTitle" size="30" /> 
                         </p>
+                        
                         <p>
-                            <label for="code">Campus Phone:</label>
-                            <br/>
-                            <input type="text" size="17" maxlength="15" name="phone" required>
+                            <label for="creditHours">Credit Hours:</label>
+                            <input type="text" name="creditHours" /> 
                         </p>
+                        
+                        <p>
+                            <label for="category">Category:</label>
+                            <select name="category">
+                                <option value="IT">IT</option>
+                                <option value="Business">Business</option>
+                                <option value="Science">Science</option>
+                                <option value="Engineering">Engineering</option>
+                                <option value="Communication">Communication</option>
+                            </select>
+                        </p>
+                        
                         <p>
                             <button type="submit">Submit</button>
                         </p>
@@ -147,3 +159,7 @@
 
     </body>
 </html>
+
+
+
+

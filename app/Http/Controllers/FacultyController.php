@@ -14,7 +14,8 @@ class FacultyController extends Controller
      */
     public function index()
     {
-        return view('facultyindex');
+        $faculties = Faculty::all();
+        return view('facultyindex', compact('faculties'));
     }
 
     /**
@@ -38,7 +39,7 @@ class FacultyController extends Controller
         $faculty = new Faculty();
         $faculty->name = $request->get('name');
         $faculty->abbreviation = $request->get('abbreviation');
-        $faculty->description = $request->get('description');
+        $faculty->aboutUs = $request->get('aboutUs');
         $faculty->costPerCreditHour = $request->get('costPerCreditHour');
         $faculty->save();
         return redirect('faculties')->with('success', 'Information has been added');

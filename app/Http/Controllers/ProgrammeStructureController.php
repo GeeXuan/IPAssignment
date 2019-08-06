@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\ProgrammeStructure;
 use App\Programme;
 use Illuminate\Http\Request;
 
-class ProgrammeController extends Controller
+class ProgrammeStructureController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -28,8 +29,7 @@ class ProgrammeController extends Controller
         $courses = \App\Course::all();
         $campus = \App\Campus::all();
         $faculty = \App\Faculty::all();
-        return view('progcreate')->with('courses', $courses)->with('campus', $campus)->with('faculty', $faculty);
-
+        return view('programmes')->with('courses', $courses)->with('campus', $campus)->with('faculty', $faculty);
     }
 
     /**
@@ -49,44 +49,11 @@ class ProgrammeController extends Controller
         $programme->progLevel = $request->session()->get('progLevel');
         $programme->facultyid = $request->session()->get('faculty');
         $programme->durationStudy = $request->session()->get('duration');
-        $courses = \App\Course::find($request->session()->get('courselist'));
+        $courses = \App\Course::find($request->get('courselist'));
         $programme->courses()->attach($courses);
-        $campus = \App\Campus::find($request->session()->get('camplist'));
+        $campus = \App\Campus::find($request->input('camplist'));
         $programme->campuses()->attach($campus);
         $programme->save();
-        
-        $mer = new \App\MER();
-        $mer->merId = $request->get('merId');
-        $mer->progId = $request->session()->get('progId');
-        $mer->save();
-        
-        if ($programme->progLevel == "Diploma") {
-            foreach ($request->get('spm') as $spmsubjectname){
-                $spm = new \App\spmMER();
-                $spm->spmSubjectName = $spmsubjectname;
-                $spm->merId = $request->get('merId');
-                $spm->save();
-            }
-            
-            foreach ($request->get('olevel') as $olevelsubjectname){
-                $olevel = new \App\olevelMER();
-                $olevel->olevelSubjectName = $olevelsubjectname;
-                $olevel->merId = $request->get('merId');
-                $olevel->save();
-            }
-        } else {
-            $cgpa = new \App\cgpaMER();
-            $cgpa->cgpa = $request->get('cgpaRequired');
-            $cgpa->merId = $request->get('merId');
-            $cgpa->save();
-            
-            foreach ($request->get('stpm') as $stpmsubjectname){
-                $stpm = new \App\stpmMER();
-                $stpm->stpmSubjectName = $stpmsubjectname;
-                $stpm->merId = $request->get('merId');
-                $stpm->save();
-            }
-        }
 
         return redirect('programmes')->with('success', 'Information has been added');
     }
@@ -108,11 +75,12 @@ class ProgrammeController extends Controller
         $request->session()->put('faculty', $request->input('faculty'));
         $request->session()->put('duration', $request->input('duration'));
         $request->session()->put('camplist', $request->input('camplist'));
-        return view('progstruccreate')->with('progId', $request->session()->get('progId'))->with('progName', $request->session()->get('progName'))
+        
+        $courses = \App\Course::all();
+        return view('progstruccreate')->with('courses', $courses)->with('progId', $request->session()->get('progId'))->with('progName', $request->session()->get('progName'))
                 ->with('progDesc', $request->session()->get('progDesc'))->with('profession', $request->session()->get('profession'))->with('facilitiesFee', $request->session()->get('facilitiesFee'))
                 ->with('progLevel', $request->session()->get('progLevel'))->with('faculty', $request->session()->get('faculty'))->with('duration', $request->session()->get('duration'))
                 ->with('camplist', $request->session()->get('camplist'));
-
     }
 
     /**
@@ -123,10 +91,7 @@ class ProgrammeController extends Controller
      */
     public function edit($progId)
     {
-        $programme = Programme::find($progId);
-        $campus = \App\Campus::all();
-        $faculty = \App\Faculty::all();
-        return view('editprogramme', compact('programme', 'progId'))->with('campus', $campus)->with('faculty', $faculty);
+
     }
 
     /**
@@ -138,20 +103,7 @@ class ProgrammeController extends Controller
      */
     public function update(Request $request, $progId)
     {
-        $programme = Programme::find($progId);
-        $programme->progId = $request->get('progId');
-        $programme->progName = $request->get('progName');
-        $programme->progDesc = $request->get('progDesc');
-        $programme->profession = $request->get('profession');
-        $programme->facilitiesFee = $request->get('facilitiesFee');
-        $programme->progLevel = $request->get('progLevel');
-        $programme->facultyid = $request->get('faculty');
-        $programme->durationStudy = $request->get('duration');
-        $programme->save();
-        
-        $campus = \App\Campus::find($request->get('camplist'));
-        $programme->campuses()->attach($campus);
-        return redirect('programmes');
+
     }
 
     /**
@@ -162,8 +114,6 @@ class ProgrammeController extends Controller
      */
     public function destroy($progId)
     {
-        $programme = Programme::find($progId);
-        $programme->delete();
-        return redirect('programmes')->with('success', 'Information has been deleted');
+
     }
 }
