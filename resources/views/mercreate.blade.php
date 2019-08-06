@@ -6,6 +6,7 @@
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
 <!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
 <!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -101,34 +102,22 @@
                     <table class="table table-striped">
                         <tr>
                             <th>Programme ID</th>
-                            <th>Programme Name</th>
-                            <th>Programme Description</th>
-                            <th>Profession</th>
-                            <th>Duration of Study</th>
                             <th>Programme Level</th>
-                            <th>Facilities Fee</th>
-                            <th>Faculty ID</th>
-                            <th>Campus ID</th>
+                            <th>Course ID</th>
                         </tr>
 
                         <tr>
                             <td>{{$progId}}</td>
-                            <td>{{$progName}}</td>
-                            <td>{{$progDesc}}</td>
-                            <td>{{$profession}}</td>
-                            <td>{{$duration}}</td>
                             <td>{{$progLevel}}</td>
-                            <td>{{$facilitiesFee}}</td>
-                            <td>{{$faculty}}</td>
                             <td>
-                                @foreach ($camplist as $camp)
-                                {{$camp}}
+                                @foreach ($courselist as $course)
+                                    {{$course}}
                                 @endforeach
                             </td>
                         </tr>
                     </table>
 
-                    <form method="post" action="{{URL::to('')}}">
+                    <form method="post" action="{{URL('programmes')}}">
                         @csrf
                         <p>
                             <label for="progId">Programme Id:</label>
@@ -143,204 +132,199 @@
                         </p>
                         
                         <p>
-                            <label for="cgpaRequired">CGPA (minimum):</label>
-                            <input type="hidden" name="_token" value="{{csrf_token()}}" />
-                            <input type="text" name="cgpaRequired" /> 
-                        </p>
-                        
-                        <p>
-                            <label for="progId">Minimum Entry Requirements:</label>
-                             
+                            <label for="mer">Minimum Entry Requirements:</label>
+                            @if ($progLevel == "Diploma")
+                            <p>
+                                <table border="0">
+                                    <tr>
+                                        <td style="width: 50%">
+                                            <table border="1">
+                                                <caption>SPM</caption>
+                                                <tr>
+                                                    <th>Subjects</th>
+                                                    <th>Pass with credits</th>
+                                                </tr>
+
+                                                <tr>
+                                                    <td>Bahasa Melayu</td>
+                                                    <td><input type="checkbox" name="spm[]" value="BM">Yes</td>
+                                                </tr>
+
+                                                <tr>
+                                                    <td>Bahasa Inggeris</td>
+                                                    <td><input type="checkbox" name="spm[]" value="BI">Yes</td>
+                                                </tr>
+
+                                                <tr>
+                                                    <td>Sejarah</td>
+                                                    <td><input type="checkbox" name="spm[]" value="SJ">Yes</td>
+                                                </tr>
+
+                                                <tr>
+                                                    <td>Mathematics</td>
+                                                    <td><input type="checkbox" name="spm[]" value="MM">Yes</td>
+                                                </tr>
+
+                                                <tr>
+                                                    <td>Additional Mathematics</td>
+                                                    <td><input type="checkbox" name="spm[]" value="AM">Yes</td>
+                                                </tr>
+
+                                                <tr>
+                                                    <td>Biology</td>
+                                                    <td><input type="checkbox" name="spm[]" value="BIO">Yes</td>
+                                                </tr>
+
+                                                <tr>
+                                                    <td>Chemistry</td>
+                                                    <td><input type="checkbox" name="spm[]" value="CHEM">Yes</td>
+                                                </tr>
+
+                                                <tr>
+                                                    <td>Physics</td>
+                                                    <td><input type="checkbox" name="spm[]" value="PHY">Yes</td>
+                                                </tr>
+
+                                                <tr>
+                                                    <td>Accounting</td>
+                                                    <td><input type="checkbox" name="spm[]" value="ACC">Yes</td>
+                                                </tr>
+
+                                                <tr>
+                                                    <td>Economy</td>
+                                                    <td><input type="checkbox" name="spm[]" value="ECO">Yes</td>
+                                                </tr>
+                                            </table>
+                                        </td>
+
+                                        <td>
+                                            <table border="1">
+                                                <caption>O Level</caption>
+                                                <tr>
+                                                    <th>Subjects</th>
+                                                    <th>Pass with grade C</th>
+                                                </tr>
+
+                                                <tr>
+                                                    <td>Bahasa Melayu</td>
+                                                    <td><input type="checkbox" name="olevel[]" value="BM">Yes</td>
+                                                </tr>
+
+                                                <tr>
+                                                    <td>Bahasa Inggeris</td>
+                                                    <td><input type="checkbox" name="olevel[]" value="BI">Yes</td>
+                                                </tr>
+
+                                                <tr>
+                                                    <td>Sejarah</td>
+                                                    <td><input type="checkbox" name="olevel[]" value="SJ">Yes</td>
+                                                </tr>
+
+                                                <tr>
+                                                    <td>Mathematics</td>
+                                                    <td><input type="checkbox" name="olevel[]" value="MM">Yes</td>
+                                                </tr>
+
+                                                <tr>
+                                                    <td>Additional Mathematics</td>
+                                                    <td><input type="checkbox" name="olevel[]" value="AM">Yes</td>
+                                                </tr>
+
+                                                <tr>
+                                                    <td>Biology</td>
+                                                    <td><input type="checkbox" name="olevel[]" value="BIO">Yes</td>
+                                                </tr>
+
+                                                <tr>
+                                                    <td>Chemistry</td>
+                                                    <td><input type="checkbox" name="olevel[]" value="CHEM">Yes</td>
+                                                </tr>
+
+                                                <tr>
+                                                    <td>Physics</td>
+                                                    <td><input type="checkbox" name="olevel[]" value="PHY">Yes</td>
+                                                </tr>
+
+                                                <tr>
+                                                    <td>Accounting</td>
+                                                    <td><input type="checkbox" name="olevel[]" value="ACC">Yes</td>
+                                                </tr>
+
+                                                <tr>
+                                                    <td>Economy</td>
+                                                    <td><input type="checkbox" name="olevel[]" value="ECO">Yes</td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </p>
                             
-                        <table border="0">
-                            <tr>
-                                <td style="width: 60%">
-                                    <table border="1">
-                                        <caption>SPM</caption>
-                                        <tr>
-                                            <th>Subjects</th>
-                                            <th>Pass with credits</th>
-                                        </tr>
+                            @else
+                            <p>
+                                <label for='cgpaRequired'>CGPA (minimum):</label>
+                                <input type='hidden' name='_token' value='{{csrf_token()}}' />
+                                <input type='text' name='cgpaRequired' />
+                            </p>
+                            
+                            <table border="1">
+                                <caption>STPM</caption>
+                                <tr>
+                                    <th>Subjects</th>
+                                    <th>Pass with grade C</th>
+                                </tr>
 
-                                        <tr>
-                                            <td><label for="BM">Bahasa Melayu</label></td>
-                                            <td><input type="checkbox" name="spm[]" value="BM">Yes</td>
-                                        </tr>
+                                <tr>
+                                    <td>Bahasa Melayu</td>
+                                    <td><input type="checkbox" name="stpm[]" value="BM">Yes</td>
+                                </tr>
 
-                                        <tr>
-                                            <td>Bahasa Inggeris</td>
-                                            <td><input type="checkbox" name="spm[]" value="BI">Yes</td>
-                                        </tr>
+                                <tr>
+                                    <td>Bahasa Inggeris</td>
+                                    <td><input type="checkbox" name="stpm[]" value="BI">Yes</td>
+                                </tr>
 
-                                        <tr>
-                                            <td>Sejarah</td>
-                                            <td><input type="checkbox" name="spm[]" value="SJ">Yes</td>
-                                        </tr>
+                                <tr>
+                                    <td>Sejarah</td>
+                                    <td><input type="checkbox" name="stpm[]" value="SJ">Yes</td>
+                                </tr>
 
-                                        <tr>
-                                            <td>Mathematics</td>
-                                            <td><input type="checkbox" name="spm[]" value="MM">Yes</td>
-                                        </tr>
+                                <tr>
+                                    <td>Mathematics</td>
+                                    <td><input type="checkbox" name="stpm[]" value="MM">Yes</td>
+                                </tr>
 
-                                        <tr>
-                                            <td>Additional Mathematics</td>
-                                            <td><input type="checkbox" name="spm[]" value="AM">Yes</td>
-                                        </tr>
+                                <tr>
+                                    <td>Additional Mathematics</td>
+                                    <td><input type="checkbox" name="stpm[]" value="AM">Yes</td>
+                                </tr>
 
-                                        <tr>
-                                            <td>Biology</td>
-                                            <td><input type="checkbox" name="spm[]" value="BIO">Yes</td>
-                                        </tr>
+                                <tr>
+                                    <td>Biology</td>
+                                    <td><input type="checkbox" name="stpm[]" value="BIO">Yes</td>
+                                </tr>
 
-                                        <tr>
-                                            <td>Chemistry</td>
-                                            <td><input type="checkbox" name="spm[]" value="CHEM">Yes</td>
-                                        </tr>
+                                <tr>
+                                    <td>Chemistry</td>
+                                    <td><input type="checkbox" name="stpm[]" value="CHEM">Yes</td>
+                                </tr>
 
-                                        <tr>
-                                            <td>Physics</td>
-                                            <td><input type="checkbox" name="spm[]" value="PHY">Yes</td>
-                                        </tr>
+                                <tr>
+                                    <td>Physics</td>
+                                    <td><input type="checkbox" name="stpm[]" value="PHY">Yes</td>
+                                </tr>
 
-                                        <tr>
-                                            <td>Accounting</td>
-                                            <td><input type="checkbox" name="spm[]" value="ACC">Yes</td>
-                                        </tr>
+                                <tr>
+                                    <td>Accounting</td>
+                                    <td><input type="checkbox" name="stpm[]" value="ACC">Yes</td>
+                                </tr>
 
-                                        <tr>
-                                            <td>Economy</td>
-                                            <td><input type="checkbox" name="spm[]" value="ECO">Yes</td>
-                                        </tr>
-                                    </table>
-                                </td>
-
-                                <td>
-                                    <table border="1">
-                                        <caption>O Level</caption>
-                                        <tr>
-                                            <th>Subjects</th>
-                                            <th>Pass with grade C</th>
-                                        </tr>
-
-                                        <tr>
-                                            <td>Bahasa Melayu</td>
-                                            <td><input type="checkbox" name="olevel[]" value="BM">Yes</td>
-                                        </tr>
-
-                                        <tr>
-                                            <td>Bahasa Inggeris</td>
-                                            <td><input type="checkbox" name="olevel[]" value="BI">Yes</td>
-                                        </tr>
-
-                                        <tr>
-                                            <td>Sejarah</td>
-                                            <td><input type="checkbox" name="olevel[]" value="SJ">Yes</td>
-                                        </tr>
-
-                                        <tr>
-                                            <td>Mathematics</td>
-                                            <td><input type="checkbox" name="olevel[]" value="MM">Yes</td>
-                                        </tr>
-
-                                        <tr>
-                                            <td>Additional Mathematics</td>
-                                            <td><input type="checkbox" name="olevel[]" value="AM">Yes</td>
-                                        </tr>
-
-                                        <tr>
-                                            <td>Biology</td>
-                                            <td><input type="checkbox" name="olevel[]" value="BIO">Yes</td>
-                                        </tr>
-
-                                        <tr>
-                                            <td>Chemistry</td>
-                                            <td><input type="checkbox" name="olevel[]" value="CHEM">Yes</td>
-                                        </tr>
-
-                                        <tr>
-                                            <td>Physics</td>
-                                            <td><input type="checkbox" name="olevel[]" value="PHY">Yes</td>
-                                        </tr>
-
-                                        <tr>
-                                            <td>Accounting</td>
-                                            <td><input type="checkbox" name="olevel[]" value="ACC">Yes</td>
-                                        </tr>
-
-                                        <tr>
-                                            <td>Economy</td>
-                                            <td><input type="checkbox" name="olevel[]" value="ECO">Yes</td>
-                                        </tr>
-                                    </table>
-                                </td>
-                            </tr>
-                        </table><br/>
-                        
-                        <table border="0">
-                            <tr>
-                                <td>
-                                    <table border="1">
-                                        <caption>STPM</caption>
-                                        <tr>
-                                            <th>Subjects</th>
-                                            <th>Pass with credits</th>
-                                        </tr>
-
-                                        <tr>
-                                            <td>Bahasa Melayu</td>
-                                            <td><input type="checkbox" name="stpm[]" value="BM">Yes</td>
-                                        </tr>
-
-                                        <tr>
-                                            <td>Bahasa Inggeris</td>
-                                            <td><input type="checkbox" name="stpm[]" value="BI">Yes</td>
-                                        </tr>
-
-                                        <tr>
-                                            <td>Sejarah</td>
-                                            <td><input type="checkbox" name="stpm[]" value="SJ">Yes</td>
-                                        </tr>
-
-                                        <tr>
-                                            <td>Mathematics</td>
-                                            <td><input type="checkbox" name="stpm[]" value="MM">Yes</td>
-                                        </tr>
-
-                                        <tr>
-                                            <td>Additional Mathematics</td>
-                                            <td><input type="checkbox" name="stpm[]" value="AM">Yes</td>
-                                        </tr>
-
-                                        <tr>
-                                            <td>Biology</td>
-                                            <td><input type="checkbox" name="stpm[]" value="BIO">Yes</td>
-                                        </tr>
-
-                                        <tr>
-                                            <td>Chemistry</td>
-                                            <td><input type="checkbox" name="stpm[]" value="CHEM">Yes</td>
-                                        </tr>
-
-                                        <tr>
-                                            <td>Physics</td>
-                                            <td><input type="checkbox" name="stpm[]" value="PHY">Yes</td>
-                                        </tr>
-
-                                        <tr>
-                                            <td>Accounting</td>
-                                            <td><input type="checkbox" name="stpm[]" value="ACC">Yes</td>
-                                        </tr>
-
-                                        <tr>
-                                            <td>Economy</td>
-                                            <td><input type="checkbox" name="stpm[]" value="ECO">Yes</td>
-                                        </tr>
-                                    </table>
-                                </td>
-                            </tr>
-                        </table>
-                        </p>
-
+                                <tr>
+                                    <td>Economy</td>
+                                    <td><input type="checkbox" name="stpm[]" value="ECO">Yes</td>
+                                </tr>
+                            </table>
+                            @endif
                         <p>
                             <button type="submit">Next</button>
                         </p>

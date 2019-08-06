@@ -97,7 +97,7 @@
 
                 <div class="fh5co-narrow-content">
                     <h2 class="fh5co-heading animate-box" data-animate-effect="fadeInLeft">Add New Programme<span></h2>
-                    <form method="post" action="{{URL::to('/progstruccreate')}}">
+                    <form method="post" action="{{URL::to('progstruccreate')}}">
                         @csrf
                         <p>
                             <label for="progId">Programme Id:</label>
@@ -135,8 +135,6 @@
                             <select name="progLevel" id="progLevel">
                                 <option value="Diploma">Diploma</option>
                                 <option value="Degree">Degree</option>
-                                <option value="Foundation">Foundation</option>
-                                <option value="ALevel">ALevel</option>
                             </select>
                         </p>
                         

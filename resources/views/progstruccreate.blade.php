@@ -6,32 +6,6 @@
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
 <!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
 <!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
-    <?php
-        if(isset($_POST['search'])){
-            $valueToSearch = $_POST['valueToSearch'];
-            $query = "SELECT * FROM courses WHERE category LIKE '%".$valueToSearch."%'";
-            $search_result = filterTable($query);
-            
-        } else {
-            $query = "SELECT * FROM `courses`";
-            $search_result = filterTable($query);
-        }
-        
-        function filterTable($query) {
-            $connect = mysqli_connect("localhost", "root", "secret", "IPAssignment");
-            if (mysqli_connect_errno()){ 
-                echo "Failed to connect to MySQL: " . mysqli_connect_error(); 
-            } 
-
-            $filterResult = mysqli_query($connect, $query);
-            if (!$filterResult) {
-                printf("Error: %s\n", mysqli_error($connect));
-            exit();
-            }
-            return $filterResult;
-        }
-    ?>
-
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -154,18 +128,12 @@
                         </tr>
                     </table>
                     
-                    <form method="post" action="{{URL::to('/mercreate')}}">
+                    <form method="post" action="{{URL::to('mercreate')}}">
                         @csrf
                         <p>
                             <label for="progId">Programme Id:</label>
                             <input type="hidden" name="_token" value="{{csrf_token()}}" />
                             <input type="text" name="progId" value="{{$progId}}" readonly /> 
-                        </p>
-
-                        <p>
-                            <label for="searchCourse">Filter by Category:</label>
-                            <input type="text" name="valueToSearch"/>
-                            <input type="submit" name="search" value="Filter" />
                         </p>
                         
                         <p>
@@ -178,16 +146,19 @@
                                 <th>Credit Hours</th>
                                 <th>Category</th>
                             </tr>
-                            <?php while($row = mysqli_fetch_assoc($search_result)):?>
-                                <tr>
-                                    <td><?php echo $row['courseCode'];?><br/></td>
-                                    <td><?php echo $row['courseTitle'];?><br/></td>
-                                    <td><?php echo $row['creditHours'];?><br/></td>
-                                    <td><?php echo $row['category'];?><br/></td>
-                                    <td><input type="checkbox" name="courselist[]" value="<?php $row['courseId'];?>"></td>
-                                </tr>
-                            <?php endwhile;?>
-                            
+
+                            @foreach($courses as $row)
+                            <tr>
+                                <td>{{$row->courseCode}}<br/></td>
+                                <td>{{$row->courseTitle}}<br/></td>
+                                <td>{{$row->creditHours}}<br/></td>
+                                <td>{{$row->category}}<br/></td>
+                                <td>
+                                    <input type="checkbox" name="courselist[]" value="{{$row->courseId}}">
+                                    <input type="hidden" name="_token" value="{{csrf_token()}}" />
+                                </td>
+                            </tr>
+                            @endforeach
                         </table>
                         </p>
 

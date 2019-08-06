@@ -10,7 +10,7 @@ class Programme extends Model {
     public $incrementing = false;
     
     public function courses() {
-        return $this->belongsToMany(Course::class, 'prog_struc', 'courseId', 'progId');
+        return $this->belongsToMany(Course::class, 'progstruc', 'progId', 'courseId');
     }
 
     public function campuses() {

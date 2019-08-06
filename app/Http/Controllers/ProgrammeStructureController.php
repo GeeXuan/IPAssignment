@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\ProgrammeStructure;
+use App\Programme;
 use Illuminate\Http\Request;
 
 class ProgrammeStructureController extends Controller
@@ -14,7 +15,8 @@ class ProgrammeStructureController extends Controller
      */
     public function index()
     {
-
+        $programmes = Programme::all();
+        return view('programmeindex', compact('programmes'));
     }
 
     /**
@@ -24,7 +26,10 @@ class ProgrammeStructureController extends Controller
      */
     public function create()
     {
-        
+        $courses = \App\Course::all();
+        $campus = \App\Campus::all();
+        $faculty = \App\Faculty::all();
+        return view('programmes')->with('courses', $courses)->with('campus', $campus)->with('faculty', $faculty);
     }
 
     /**
@@ -35,7 +40,22 @@ class ProgrammeStructureController extends Controller
      */
     public function store(Request $request)
     {
+        $programme = new Programme();
+        $programme->progId = $request->session()->get('progId');
+        $programme->progName = $request->session()->get('progName');
+        $programme->progDesc = $request->session()->get('progDesc');
+        $programme->profession = $request->session()->get('profession');
+        $programme->facilitiesFee = $request->session()->get('facilitiesFee');
+        $programme->progLevel = $request->session()->get('progLevel');
+        $programme->facultyid = $request->session()->get('faculty');
+        $programme->durationStudy = $request->session()->get('duration');
+        $courses = \App\Course::find($request->get('courselist'));
+        $programme->courses()->attach($courses);
+        $campus = \App\Campus::find($request->input('camplist'));
+        $programme->campuses()->attach($campus);
+        $programme->save();
 
+        return redirect('programmes')->with('success', 'Information has been added');
     }
 
     /**

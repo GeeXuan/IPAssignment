@@ -25,5 +25,9 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         Schema::defaultStringLength(191);
+//        \App\Programme::creating(function($model){
+//            $tax = .20;
+//            $model->facilitiesFee += $model->facilitiesFee * $tax;
+//        });
     }
 }

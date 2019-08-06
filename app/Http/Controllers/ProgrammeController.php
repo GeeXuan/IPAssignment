@@ -25,9 +25,10 @@ class ProgrammeController extends Controller
      */
     public function create()
     {
+        $courses = \App\Course::all();
         $campus = \App\Campus::all();
         $faculty = \App\Faculty::all();
-        return view('progcreate')->with('campus', $campus)->with('faculty', $faculty);
+        return view('progcreate')->with('courses', $courses)->with('campus', $campus)->with('faculty', $faculty);
 
     }
 
@@ -40,18 +41,53 @@ class ProgrammeController extends Controller
     public function store(Request $request)
     {
         $programme = new Programme();
-        $programme->progId = $request->get('progId');
-        $programme->progName = $request->get('progName');
-        $programme->progDesc = $request->get('progDesc');
-        $programme->profession = $request->get('profession');
-        $programme->facilitiesFee = $request->get('facilitiesFee');
-        $programme->progLevel = $request->get('progLevel');
-        $programme->facultyid = $request->get('faculty');
-        $programme->durationStudy = $request->get('duration');
+        $programme->progId = $request->session()->get('progId');
+        $programme->progName = $request->session()->get('progName');
+        $programme->progDesc = $request->session()->get('progDesc');
+        $programme->profession = $request->session()->get('profession');
+        $programme->facilitiesFee = $request->session()->get('facilitiesFee');
+        $programme->progLevel = $request->session()->get('progLevel');
+        $programme->facultyid = $request->session()->get('faculty');
+        $programme->durationStudy = $request->session()->get('duration');
+        $courses = \App\Course::find($request->session()->get('courselist'));
+        $programme->courses()->attach($courses);
+        $campus = \App\Campus::find($request->session()->get('camplist'));
+        $programme->campuses()->attach($campus);
         $programme->save();
         
-        $campus = \App\Campus::find($request->get('camplist'));
-        $programme->campuses()->attach($campus);
+        $mer = new \App\MER();
+        $mer->merId = $request->get('merId');
+        $mer->progId = $request->session()->get('progId');
+        $mer->save();
+        
+        if ($programme->progLevel == "Diploma") {
+            foreach ($request->get('spm') as $spmsubjectname){
+                $spm = new \App\spmMER();
+                $spm->spmSubjectName = $spmsubjectname;
+                $spm->merId = $request->get('merId');
+                $spm->save();
+            }
+            
+            foreach ($request->get('olevel') as $olevelsubjectname){
+                $olevel = new \App\olevelMER();
+                $olevel->olevelSubjectName = $olevelsubjectname;
+                $olevel->merId = $request->get('merId');
+                $olevel->save();
+            }
+        } else {
+            $cgpa = new \App\cgpaMER();
+            $cgpa->cgpa = $request->get('cgpaRequired');
+            $cgpa->merId = $request->get('merId');
+            $cgpa->save();
+            
+            foreach ($request->get('stpm') as $stpmsubjectname){
+                $stpm = new \App\stpmMER();
+                $stpm->stpmSubjectName = $stpmsubjectname;
+                $stpm->merId = $request->get('merId');
+                $stpm->save();
+            }
+        }
+
         return redirect('programmes')->with('success', 'Information has been added');
     }
 
