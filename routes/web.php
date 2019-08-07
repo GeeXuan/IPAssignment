@@ -26,3 +26,5 @@ Route::view('/', 'new');
 Route::post('/progstruccreate','ProgrammeStructureController@show');
 Route::post('/mercreate','MERController@show');
 Route::resource('campus', 'CampusController');
+Route::post('/faculties/create1','FacultyController@step1');
+Route::post('/faculties/create2','FacultyController@step2');

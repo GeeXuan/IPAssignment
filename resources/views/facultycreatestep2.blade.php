@@ -97,36 +97,20 @@
             <div id="fh5co-main">
                 <div class="fh5co-narrow-content">
                     <h2>Add New Faculty</h2><br/>
-                    <form method="post" action="{{action('FacultyController@create1')}}">
+                    <form method="post" action="{{action('FacultyController@create2', $faculty)}}">
                         @csrf
                         <p>
-                            <label for="name">Faculty Name:</label>
+                            <label for="whystudyhere">Why study here:</label>
                             <br/>
-                            <input type="text" name="name" size="52" maxlength="50" placeholder="Faculty name..." required>  
+                            <textarea rows="3" cols="52"  placeholder="Tell student why they should study here..." name="whystudyhere" required></textarea>
                         </p>
                         <p>
-                            <label for="code">Faculty Abbreviation:</label>
-                            <br/>
-                            <input type="text" size="12" maxlength="10" placeholder="FOCS" name="abbreviation" required>
-                        </p>
-                        <p>
-                            <label for="code">About the faculty:</label>
-                            <br/>
-                            <textarea rows="3" cols="52"  placeholder="Description..." name="aboutUs" required></textarea>
-                        </p>
-                        <p>
-                            <label for="code">Price per credit hour:</label>
-                            <br/>
-                            <input type="number" min="0.00" max="10000.00" step="0.01" name="costPerCreditHour" required/>
-                        </p>
-                        <p>
-                            <button type="submit" name="next1">Next</button>
+                            <button type="submit" name="next2">Next</button>
                         </p>
                     </form>
                 </div>
             </div>
         </div>
-
         <!-- jQuery -->
         <script src="/js/jquery.min.js"></script>
         <!-- jQuery Easing -->

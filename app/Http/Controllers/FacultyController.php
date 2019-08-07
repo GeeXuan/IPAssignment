@@ -5,15 +5,14 @@ namespace App\Http\Controllers;
 use App\Faculty;
 use Illuminate\Http\Request;
 
-class FacultyController extends Controller
-{
+class FacultyController extends Controller {
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
+    public function index() {
         $faculties = Faculty::all();
         return view('facultyindex', compact('faculties'));
     }
@@ -23,8 +22,7 @@ class FacultyController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
+    public function create() {
         return view('facultycreate');
     }
 
@@ -34,13 +32,9 @@ class FacultyController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
-        $faculty = new Faculty();
-        $faculty->name = $request->get('name');
-        $faculty->abbreviation = $request->get('abbreviation');
-        $faculty->aboutUs = $request->get('aboutUs');
-        $faculty->costPerCreditHour = $request->get('costPerCreditHour');
+    public function store(Request $request) {
+        $faculty = Faculty::all()->last();
+        $faculty->whystudyhere = $request->get('whystudyhere');
         $faculty->save();
         return redirect('faculties')->with('success', 'Information has been added');
     }
@@ -51,9 +45,8 @@ class FacultyController extends Controller
      * @param  \App\Faculty  $faculty
      * @return \Illuminate\Http\Response
      */
-    public function show(Faculty $faculty)
-    {
-        //
+    public function show(Faculty $faculty) {
+//
     }
 
     /**
@@ -62,9 +55,8 @@ class FacultyController extends Controller
      * @param  \App\Faculty  $faculty
      * @return \Illuminate\Http\Response
      */
-    public function edit(Faculty $faculty)
-    {
-        //
+    public function edit(Faculty $faculty) {
+//
     }
 
     /**
@@ -74,9 +66,8 @@ class FacultyController extends Controller
      * @param  \App\Faculty  $faculty
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Faculty $faculty)
-    {
-        //
+    public function update(Request $request, Faculty $faculty) {
+//
     }
 
     /**
@@ -85,8 +76,28 @@ class FacultyController extends Controller
      * @param  \App\Faculty  $faculty
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Faculty $faculty)
-    {
-        //
+    public function destroy(Faculty $faculty) {
+//
     }
+
+    public function step1() {
+        $faculty = new Faculty();
+        $faculty->name = $request->get('name');
+        $faculty->abbreviation = $request->get('abbreviation');
+        $faculty->aboutUs = $request->get('aboutUs');
+        $faculty->costPerCreditHour = $request->get('costPerCreditHour');
+        $faculty->save();
+        return view('facultycreatestep2', compact('faculty'));
+    }
+
+    public function step2(Faculty $faculty) {
+        $faculty = new Faculty();
+        $faculty->name = $request->get('name');
+        $faculty->abbreviation = $request->get('abbreviation');
+        $faculty->aboutUs = $request->get('aboutUs');
+        $faculty->costPerCreditHour = $request->get('costPerCreditHour');
+        $faculty->save();
+        return view('facultycreatestep2', compact('faculty'));
+    }
+
 }
