@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Course;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class CourseController extends Controller
 {
@@ -36,14 +37,28 @@ class CourseController extends Controller
      */
     public function store(Request $request)
     {
-        $course = new Course();
-        $course->courseId = $request->get('courseId');
-        $course->courseCode = $request->get('courseCode');
-        $course->courseTitle = $request->get('courseTitle');
-        $course->creditHours = $request->get('creditHours');
-        $course->category = $request->get('category');
-        $course->save();
-        return redirect('courses')->with('success', 'Information has been added');
+        $validator = Validator::make($request->all(), [
+            'courseId' => 'required',
+            'courseCode' => 'required',
+            'courseTitle' => 'required',
+            'creditHours' => 'required',
+            'category' => 'required'
+        ]);
+        
+        if ($validator->fails()) {
+            $response = array('response' => $validator->messages(), 'success' => false);
+            return $response;
+        } else {
+            $course = new Course();
+            $course->courseId = $request->get('courseId');
+            $course->courseCode = $request->get('courseCode');
+            $course->courseTitle = $request->get('courseTitle');
+            $course->creditHours = $request->get('creditHours');
+            $course->category = $request->get('category');
+            $course->save();
+            return redirect('courses')->with('success', 'Information has been added');
+        }
+        
     }
 
     /**
@@ -78,14 +93,28 @@ class CourseController extends Controller
      */
     public function update(Request $request, $courseId)
     {
-        $course = Course::find($courseId);
-        $course->courseId = $request->get('courseId');
-        $course->courseCode = $request->get('courseCode');
-        $course->courseTitle = $request->get('courseTitle');
-        $course->creditHours = $request->get('creditHours');
-        $course->category = $request->get('category');
-        $course->save();
-        return redirect('courses');
+        $validator = Validator::make($request->all(), [
+            'courseId' => 'required',
+            'courseCode' => 'required',
+            'courseTitle' => 'required',
+            'creditHours' => 'required',
+            'category' => 'required'
+        ]);
+        
+        if ($validator->fails()) {
+            $response = array('response' => $validator->messages(), 'success' => false);
+            return $response;
+        } else {
+            $course = Course::find($courseId);
+            $course->courseId = $request->get('courseId');
+            $course->courseCode = $request->get('courseCode');
+            $course->courseTitle = $request->get('courseTitle');
+            $course->creditHours = $request->get('creditHours');
+            $course->category = $request->get('category');
+            $course->save();
+            return redirect('courses');
+        }
+
     }
 
     /**

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Programme;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class ProgrammeController extends Controller
 {
@@ -138,20 +139,35 @@ class ProgrammeController extends Controller
      */
     public function update(Request $request, $progId)
     {
-        $programme = Programme::find($progId);
-        $programme->progId = $request->get('progId');
-        $programme->progName = $request->get('progName');
-        $programme->progDesc = $request->get('progDesc');
-        $programme->profession = $request->get('profession');
-        $programme->facilitiesFee = $request->get('facilitiesFee');
-        $programme->progLevel = $request->get('progLevel');
-        $programme->facultyid = $request->get('faculty');
-        $programme->durationStudy = $request->get('duration');
-        $programme->save();
+        $validator = Validator::make($request->all(), [
+            'progId' => 'required',
+            'progName' => 'required',
+            'progDesc' => 'required',
+            'profession' => 'required',
+            'facilitiesFee' => 'required',
+            'duration' => 'required',
+            'camplist' => 'required',
+        ]);
         
-        $campus = \App\Campus::find($request->get('camplist'));
-        $programme->campuses()->attach($campus);
-        return redirect('programmes');
+        if ($validator->fails()) {
+            $response = array('response' => $validator->messages(), 'success' => false);
+            return $response;
+        } else {
+            $programme = Programme::find($progId);
+            $programme->progId = $request->get('progId');
+            $programme->progName = $request->get('progName');
+            $programme->progDesc = $request->get('progDesc');
+            $programme->profession = $request->get('profession');
+            $programme->facilitiesFee = $request->get('facilitiesFee');
+            $programme->progLevel = $request->get('progLevel');
+            $programme->facultyid = $request->get('faculty');
+            $programme->durationStudy = $request->get('duration');
+            $programme->save();
+
+            $campus = \App\Campus::find($request->get('camplist'));
+            $programme->campuses()->attach($campus);
+            return redirect('programmes');
+        }
     }
 
     /**
