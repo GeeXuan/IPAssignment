@@ -129,6 +129,11 @@
                             <input type="number" min="0.00" max="10000.00" step="0.01" value="0.00" name="costPerCreditHour" required/>
                         </p>
                         <p>
+                            <label for="whystudyhere">Why study here(optional):</label>
+                            <br/>
+                            <textarea rows="3" cols="52"  placeholder="Tell student why they should study here..." name="whystudyhere"></textarea>
+                        </p>
+                        <p>
                             <button type="submit" name="next">Next</button>
                         </p>
                     </form>
