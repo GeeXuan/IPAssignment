@@ -60,6 +60,7 @@
 
         <!-- Modernizr JS -->
         <script src="/js/modernizr-2.6.2.min.js"></script>
+
         <!-- FOR IE9 below -->
         <!--[if lt IE 9]>
         <script src="js/respond.min.js"></script>
@@ -95,45 +96,43 @@
 
             <div id="fh5co-main">
                 <div class="fh5co-narrow-content">
-                    <h2>Campuses</h2><br/>
-                    <br />
-                    @if (\Session::has('success'))
-                    <div class="alert alert-success">
-                        <p>{{ \Session::get('success') }}</p>
-                    </div><br />
-                    @endif
-                    <table class="table table-striped">
-                        <thead>
-                            <tr>
-                                <th>Name</th>
-                                <th>Abbreviation</th>
-                                <th>Price per credit hour</th>
-                                <th colspan="2">Action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach($faculties as $faculty)
-                            <tr>
-                                <td>{{$faculty['name']}}</td>
-                                <td>{{$faculty['abbreviation']}}</td>
-                                <td>{{$faculty['costPerCreditHour']}}</td>
+                    <h2>Add New Faculty</h2><br/>
+                    <form method="post" action="{{url('loan')}}">
+                        @csrf
+                        <p>
+                            <label for="name">Loan Title:</label>
+                            <br/>
+                            <input type="text" name="name" size="52" maxlength="50" placeholder="Loan title..." required>  
+                        </p>
+                        <p>
+                            <label for="description">Description about the loan:</label>
+                            <br/>
+                            <textarea rows="3" cols="52"  placeholder="Description..." name="description" required></textarea>
+                        </p>
+                        <p>
+                            <label>Faculties:</label><br/>
 
+                        <table class="table table-striped">
+                            <tr>
+                                <th>Campus Code</th>
+                                <th>Campus Name</th>
+                            </tr>
+                            @foreach($campuses as $row)
+                            <tr>
+                                <td>{{$row->abbreviation}}<br/></td>
+                                <td>{{$row->name}}<br/></td>
                                 <td>
-                                    <a href="{{action('FacultyController@edit', $faculty)}}" 
-                                       class="btn btn-warning">Edit</a>
-                                </td>
-                                <td>
-                                    <form action="{{action('FacultyController@destroy', $faculty)}}" 
-                                          method="post">
-                                        @csrf
-                                        <input name="_method" type="hidden" value="DELETE">
-                                        <button class="btn btn-danger" type="submit">Delete</button>
-                                    </form>
+                                    <input type="checkbox" name="campuseslist[]" value="{{$row->id}}">
+                                    <input type="hidden" name="_token" value="{{csrf_token()}}" />
                                 </td>
                             </tr>
                             @endforeach
-                        </tbody>
-                    </table>
+                        </table>
+                        </p>
+                        <p>
+                            <button type="submit">Submit</button>
+                        </p>
+                    </form>
                 </div>
             </div>
         </div>
@@ -156,6 +155,5 @@
 
         <!-- MAIN JS -->
         <script src="/js/main.js"></script>
-
     </body>
 </html>

@@ -95,45 +95,55 @@
 
             <div id="fh5co-main">
                 <div class="fh5co-narrow-content">
-                    <h2>Campuses</h2><br/>
-                    <br />
-                    @if (\Session::has('success'))
-                    <div class="alert alert-success">
-                        <p>{{ \Session::get('success') }}</p>
-                    </div><br />
-                    @endif
-                    <table class="table table-striped">
-                        <thead>
-                            <tr>
-                                <th>Name</th>
-                                <th>Abbreviation</th>
-                                <th>Price per credit hour</th>
-                                <th colspan="2">Action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach($faculties as $faculty)
-                            <tr>
-                                <td>{{$faculty['name']}}</td>
-                                <td>{{$faculty['abbreviation']}}</td>
-                                <td>{{$faculty['costPerCreditHour']}}</td>
-
-                                <td>
-                                    <a href="{{action('FacultyController@edit', $faculty)}}" 
-                                       class="btn btn-warning">Edit</a>
-                                </td>
-                                <td>
-                                    <form action="{{action('FacultyController@destroy', $faculty)}}" 
-                                          method="post">
-                                        @csrf
-                                        <input name="_method" type="hidden" value="DELETE">
-                                        <button class="btn btn-danger" type="submit">Delete</button>
-                                    </form>
-                                </td>
-                            </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
+                    <h2>Add New Campus</h2><br/>
+                    <form method="post" action="{{url('accommodation')}}">
+                        @csrf
+                        <p>
+                            <label for="name">Accommodation Name:</label>
+                            <br/>
+                            <input type="text" name="name" size="52" maxlength="50" required>  
+                        </p>
+                        <p>
+                            <label for="description">Accommodation Description:</label>
+                            <br/>
+                            <textarea rows="3" cols="52" name="description" required></textarea>
+                        </p>
+                        <p>
+                            <label for="code">Accommodation Address:</label>
+                            <br/>
+                            <textarea rows="3" cols="52" name="address" required></textarea>
+                        </p>
+                        <p>
+                            <label for="code">Room Type:</label>
+                            <br/>
+                            <input type="text" size="17" maxlength="15" name="roomType" required>
+                        </p>
+                        <p>
+                            <label for="code">Utilities:</label>
+                            <br/>
+                            <label><input type="checkbox" name="utilities[]" value="ac">Air Conditioner</label>
+                            <br>
+                            <label><input type="checkbox" name="utilities[]" value="wh">Water Heater</label>
+                            <br>
+                            <label><input type="checkbox" name="utilities[]" value="ia">Internet Access</label>
+                            <br>
+                            <label><input type="checkbox" name="utilities[]" value="wm">Washing Machine</label>
+                            <br>
+                            <label><input type="checkbox" name="utilities[]" value="st">Stove</label>
+                        </p>
+                        <p>
+                            <label for="code">Campus:</label>
+                            <br/>
+                            <select name="campus">
+                                @foreach ($campuses as $campus)
+                                <option value="{{$campus['id']}}">{{$campus['name']}}</option>
+                                @endforeach
+                            </select>
+                        </p>
+                        <p>
+                            <button type="submit">Submit</button>
+                        </p>
+                    </form>
                 </div>
             </div>
         </div>

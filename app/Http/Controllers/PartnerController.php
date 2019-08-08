@@ -5,15 +5,14 @@ namespace App\Http\Controllers;
 use App\Partner;
 use Illuminate\Http\Request;
 
-class PartnerController extends Controller
-{
+class PartnerController extends Controller {
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
+    public function index() {
         //
     }
 
@@ -22,9 +21,8 @@ class PartnerController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
-        //
+    public function create() {
+        return view('facultyaddPartners')->with('partners', null);
     }
 
     /**
@@ -33,9 +31,25 @@ class PartnerController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
-        //
+    public function store(Request $request) {
+        if (request()->has("add")) {
+            $partner = new Partner();
+            $partner->name = $request->get("name");
+            $partner->type = $request->get("type");
+            $partner->description = $request->get("description");
+            $faculty = $request->session()->get('faculty');
+            $faculty->partner()->save($partner);
+            $partners = Partner::all()->where('facultyid', $faculty->id);
+            return view('facultyaddPartners', compact('faculty'))->with('partners', $partners);
+        } else if (request()->has("delete")) {
+            $faculty = $request->session()->get('faculty');
+            $partner = Partner::find(request()->get("delete"));
+            $partner->delete();
+            $partners = Partner::all()->where('facultyid', $faculty->id);
+            return view('facultyaddPartners', compact('faculty'))->with('partners', $partners);
+        } else if (request()->has("next")) {
+            
+        }
     }
 
     /**
@@ -44,8 +58,7 @@ class PartnerController extends Controller
      * @param  \App\Partner  $partner
      * @return \Illuminate\Http\Response
      */
-    public function show(Partner $partner)
-    {
+    public function show(Partner $partner) {
         //
     }
 
@@ -55,8 +68,7 @@ class PartnerController extends Controller
      * @param  \App\Partner  $partner
      * @return \Illuminate\Http\Response
      */
-    public function edit(Partner $partner)
-    {
+    public function edit(Partner $partner) {
         //
     }
 
@@ -67,8 +79,7 @@ class PartnerController extends Controller
      * @param  \App\Partner  $partner
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Partner $partner)
-    {
+    public function update(Request $request, Partner $partner) {
         //
     }
 
@@ -78,8 +89,8 @@ class PartnerController extends Controller
      * @param  \App\Partner  $partner
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Partner $partner)
-    {
+    public function destroy(Partner $partner) {
         //
     }
+
 }

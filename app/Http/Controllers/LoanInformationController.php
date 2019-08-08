@@ -5,16 +5,16 @@ namespace App\Http\Controllers;
 use App\LoanInformation;
 use Illuminate\Http\Request;
 
-class LoanInformationController extends Controller
-{
+class LoanInformationController extends Controller {
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        //
+    public function index() {
+        $loans = LoanInformation::all();
+        return view('loanindex', compact('loans'));
     }
 
     /**
@@ -22,9 +22,9 @@ class LoanInformationController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
-        //
+    public function create() {
+        $campuses = \App\Campus::all();
+        return view('loaninfocreate')->with("campuses", $campuses);
     }
 
     /**
@@ -33,9 +33,16 @@ class LoanInformationController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
-        //
+    public function store(Request $request) {
+        $loan = new LoanInformation();
+        $loan->name = $request->get("name");
+        $loan->description = $request->get("description");
+        $campuses = \App\Campus::find($request->get('campuseslist'));
+        if ($loan->save()) {
+            $loan->campuses()->attach($campuses);
+        }
+
+        return redirect('loan')->with('success', 'Information has been added');
     }
 
     /**
@@ -44,8 +51,7 @@ class LoanInformationController extends Controller
      * @param  \App\LoanInformation  $loanInformation
      * @return \Illuminate\Http\Response
      */
-    public function show(LoanInformation $loanInformation)
-    {
+    public function show(LoanInformation $loanInformation) {
         //
     }
 
@@ -55,8 +61,7 @@ class LoanInformationController extends Controller
      * @param  \App\LoanInformation  $loanInformation
      * @return \Illuminate\Http\Response
      */
-    public function edit(LoanInformation $loanInformation)
-    {
+    public function edit(LoanInformation $loanInformation) {
         //
     }
 
@@ -67,8 +72,7 @@ class LoanInformationController extends Controller
      * @param  \App\LoanInformation  $loanInformation
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, LoanInformation $loanInformation)
-    {
+    public function update(Request $request, LoanInformation $loanInformation) {
         //
     }
 
@@ -78,8 +82,9 @@ class LoanInformationController extends Controller
      * @param  \App\LoanInformation  $loanInformation
      * @return \Illuminate\Http\Response
      */
-    public function destroy(LoanInformation $loanInformation)
-    {
-        //
+    public function destroy(LoanInformation $loanInformation) {
+        $loanInformation->delete();
+        return redirect('loan')->with('success', 'Information has been  deleted');
     }
+
 }

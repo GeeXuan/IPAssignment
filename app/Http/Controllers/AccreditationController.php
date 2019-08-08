@@ -5,15 +5,14 @@ namespace App\Http\Controllers;
 use App\Accreditation;
 use Illuminate\Http\Request;
 
-class AccreditationController extends Controller
-{
+class AccreditationController extends Controller {
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
+    public function index() {
         //
     }
 
@@ -22,8 +21,7 @@ class AccreditationController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
+    public function create() {
         //
     }
 
@@ -33,8 +31,7 @@ class AccreditationController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
+    public function store(Request $request) {
         //
     }
 
@@ -44,8 +41,7 @@ class AccreditationController extends Controller
      * @param  \App\Accreditation  $accreditation
      * @return \Illuminate\Http\Response
      */
-    public function show(Accreditation $accreditation)
-    {
+    public function show(Accreditation $accreditation) {
         //
     }
 
@@ -55,8 +51,7 @@ class AccreditationController extends Controller
      * @param  \App\Accreditation  $accreditation
      * @return \Illuminate\Http\Response
      */
-    public function edit(Accreditation $accreditation)
-    {
+    public function edit(Accreditation $accreditation) {
         //
     }
 
@@ -67,8 +62,7 @@ class AccreditationController extends Controller
      * @param  \App\Accreditation  $accreditation
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Accreditation $accreditation)
-    {
+    public function update(Request $request, Accreditation $accreditation) {
         //
     }
 
@@ -78,8 +72,8 @@ class AccreditationController extends Controller
      * @param  \App\Accreditation  $accreditation
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Accreditation $accreditation)
-    {
+    public function destroy(Accreditation $accreditation) {
         //
     }
+
 }

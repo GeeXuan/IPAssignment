@@ -93,19 +93,53 @@
                 </div>
 
             </aside>
-
             <div id="fh5co-main">
                 <div class="fh5co-narrow-content">
-                    <h2>Add New Faculty</h2><br/>
-                    <form method="post" action="{{action('FacultyController@create2', $faculty)}}">
+                    <form method="post" action="{{url('partner')}}">
+                        @if ($partners !== null)
+                        <table border='1'>
+                            <tr>
+                                <th>Name</th>
+                                <th>Description</th>
+                                <th>Type</th>
+                                <th>Action</th>
+                            </tr>
+                            @foreach($partners as $row)
+                            <tr>
+                                <td>{{$row['name']}}</td>
+                                <td>{{$row['description']}}</td>
+                                <td>{{$row['type']}}</td>
+                                <td>
+                                    <button class="btn btn-danger" name="delete" value='{{$row['id']}}' formnovalidate>Delete</button>
+                                </td>
+                            </tr>
+                            @endforeach
+                        </table>
+                        @endif
                         @csrf
+                        <br/><br/><br/>
+                        <h2>Add Partner That is Associated with the Faculty</h2>
                         <p>
-                            <label for="whystudyhere">Why study here:</label>
+                            <label for="type">Partner Type:</label>
                             <br/>
-                            <textarea rows="3" cols="52"  placeholder="Tell student why they should study here..." name="whystudyhere" required></textarea>
+                            <label><input type="radio" name="type" value="educational">Educational</label>
+                            <br/>
+                            <label><input type="radio" name="type" value="company">Company</label>
+                            <br/>
                         </p>
                         <p>
-                            <button type="submit" name="next2">Next</button>
+                            <label for="name">Partner Name:</label>
+                            <br/>
+                            <input type="text" name="name" size="52" maxlength="50" placeholder="Partner name..." required>
+                        </p>
+                        <p>
+                            <label for="description">Partner Description:</label>
+                            <br/>
+                            <textarea rows="3" cols="52"  placeholder="Description of the partner..." name="description" required></textarea>
+                        </p>
+                        <p>
+                            <button type="submit" name="add">Add</button>
+                            <button type="submit" name="next" formnovalidate>Next</button>
                         </p>
                     </form>
                 </div>

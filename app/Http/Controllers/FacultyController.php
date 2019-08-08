@@ -33,10 +33,13 @@ class FacultyController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request) {
-        $faculty = Faculty::all()->last();
-        $faculty->whystudyhere = $request->get('whystudyhere');
+        $faculty = new Faculty();
+        $faculty->name = $request->get('name');
+        $faculty->abbreviation = $request->get('abbreviation');
+        $faculty->aboutUs = $request->get('aboutUs');
+        $faculty->costPerCreditHour = $request->get('costPerCreditHour');
         $faculty->save();
-        return redirect('faculties')->with('success', 'Information has been added');
+        return view('facultyaddWhyStudyHere')->with('faculty', $faculty);
     }
 
     /**
@@ -56,7 +59,7 @@ class FacultyController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function edit(Faculty $faculty) {
-//
+        return view('facultyedit', compact('faculty'));
     }
 
     /**
@@ -77,27 +80,15 @@ class FacultyController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function destroy(Faculty $faculty) {
-//
+        $faculty->delete();
+        return redirect('faculty')->with('success', 'Information has been  deleted');
     }
 
-    public function step1() {
-        $faculty = new Faculty();
-        $faculty->name = $request->get('name');
-        $faculty->abbreviation = $request->get('abbreviation');
-        $faculty->aboutUs = $request->get('aboutUs');
-        $faculty->costPerCreditHour = $request->get('costPerCreditHour');
+    public function addWhyStudyHere(Request $request, Faculty $faculty) {
+        $faculty->whystudyhere = $request->get('whystudyhere');
         $faculty->save();
-        return view('facultycreatestep2', compact('faculty'));
-    }
-
-    public function step2(Faculty $faculty) {
-        $faculty = new Faculty();
-        $faculty->name = $request->get('name');
-        $faculty->abbreviation = $request->get('abbreviation');
-        $faculty->aboutUs = $request->get('aboutUs');
-        $faculty->costPerCreditHour = $request->get('costPerCreditHour');
-        $faculty->save();
-        return view('facultycreatestep2', compact('faculty'));
+        $request->session()->put('faculty', $faculty);
+        return redirect()->route('partner.create');
     }
 
 }

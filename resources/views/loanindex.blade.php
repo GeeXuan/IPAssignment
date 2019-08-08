@@ -95,7 +95,7 @@
 
             <div id="fh5co-main">
                 <div class="fh5co-narrow-content">
-                    <h2>Campuses</h2><br/>
+                    <h2>Loans</h2><br/>
                     <br />
                     @if (\Session::has('success'))
                     <div class="alert alert-success">
@@ -106,24 +106,22 @@
                         <thead>
                             <tr>
                                 <th>Name</th>
-                                <th>Abbreviation</th>
-                                <th>Price per credit hour</th>
+                                <th>Description</th>
                                 <th colspan="2">Action</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach($faculties as $faculty)
+                            @foreach($loans as $row)
                             <tr>
-                                <td>{{$faculty['name']}}</td>
-                                <td>{{$faculty['abbreviation']}}</td>
-                                <td>{{$faculty['costPerCreditHour']}}</td>
+                                <td>{{$row['name']}}</td>
+                                <td>{{$row['description']}}</td>
 
                                 <td>
-                                    <a href="{{action('FacultyController@edit', $faculty)}}" 
+                                    <a href="{{action('LoanInformationController@edit', $row)}}" 
                                        class="btn btn-warning">Edit</a>
                                 </td>
                                 <td>
-                                    <form action="{{action('FacultyController@destroy', $faculty)}}" 
+                                    <form action="{{action('LoanInformationController@destroy', $row)}}" 
                                           method="post">
                                         @csrf
                                         <input name="_method" type="hidden" value="DELETE">

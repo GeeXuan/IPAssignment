@@ -16,7 +16,6 @@ class CreateLoanInformationTable extends Migration
             $table->bigIncrements('id');
             $table->string('name');
             $table->text('description');
-            $table->string('requirement');
             $table->timestamps();
         });
     }

@@ -97,7 +97,7 @@
             <div id="fh5co-main">
                 <div class="fh5co-narrow-content">
                     <h2>Add New Faculty</h2><br/>
-                    <form method="post" action="{{action('FacultyController@create1')}}">
+                    <form method="post" action="{{url('faculties')}}">
                         @csrf
                         <p>
                             <label for="name">Faculty Name:</label>
@@ -105,24 +105,25 @@
                             <input type="text" name="name" size="52" maxlength="50" placeholder="Faculty name..." required>  
                         </p>
                         <p>
-                            <label for="code">Faculty Abbreviation:</label>
+                            <label for="abbreviation">Faculty Abbreviation:</label>
                             <br/>
                             <input type="text" size="12" maxlength="10" placeholder="FOCS" name="abbreviation" required>
                         </p>
                         <p>
-                            <label for="code">About the faculty:</label>
+                            <label for="aboutUs">About the faculty:</label>
                             <br/>
                             <textarea rows="3" cols="52"  placeholder="Description..." name="aboutUs" required></textarea>
                         </p>
                         <p>
-                            <label for="code">Price per credit hour:</label>
+                            <label for="costPerCreditHour">Price per credit hour:</label>
                             <br/>
                             <input type="number" min="0.00" max="10000.00" step="0.01" name="costPerCreditHour" required/>
                         </p>
                         <p>
-                            <button type="submit" name="next1">Next</button>
+                            <button type="submit" name="next">Next</button>
                         </p>
                     </form>
+
                 </div>
             </div>
         </div>

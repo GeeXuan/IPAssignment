@@ -1,15 +1,15 @@
 <?php
 
 /*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
+  |--------------------------------------------------------------------------
+  | Web Routes
+  |--------------------------------------------------------------------------
+  |
+  | Here is where you can register web routes for your application. These
+  | routes are loaded by the RouteServiceProvider within a group which
+  | contains the "web" middleware group. Now create something great!
+  |
+ */
 
 Route::get('/', function () {
     return view('welcome');
@@ -17,14 +17,21 @@ Route::get('/', function () {
 
 Route::resource('programmes', 'ProgrammeController');
 Route::resource('faculties', 'FacultyController');
-Route::patch('programmes/{programme}/edit','ProgrammeController@edit')->name('programmes.edit');
-Route::patch('courses/{course}/edit','CourseController@edit')->name('courses.edit');
+Route::patch('programmes/{programme}/edit', 'ProgrammeController@edit')->name('programmes.edit');
+Route::patch('courses/{course}/edit', 'CourseController@edit')->name('courses.edit');
 Route::resource('courses', 'CourseController');
 Route::resource('m_e_r_s', 'MERController');
 Route::resource('progstruc', 'ProgrammeStructureController');
 Route::view('/', 'new');
-Route::post('/progstruccreate','ProgrammeStructureController@show');
-Route::post('/mercreate','MERController@show');
+Route::post('/progstruccreate', 'ProgrammeStructureController@show');
+Route::post('/mercreate', 'MERController@show');
 Route::resource('campus', 'CampusController');
-Route::post('/faculties/create1','FacultyController@step1');
-Route::post('/faculties/create2','FacultyController@step2');
+Route::resource('partner', 'PartnerController');
+Route::resource('accreditation', 'AccreditationController');
+Route::resource('accommodation', 'AccommodationController');
+Route::patch('/faculties/{faculty}/addWhyStudyHere', 'FacultyController@addWhyStudyHere')->name('faculties.addWhyStudyHere');
+Route::post('/faculties/{faculty}/addPartners', 'FacultyController@addPartners')->name('faculties.addPartners');
+Route::post('/faculties/{faculty}/addAccreditations', 'FacultyController@addAccreditations')->name('faculties.addAccreditations');
+Route::post('/faculties/{faculty}/addHighlights', 'FacultyController@addHighlights')->name('faculties.addHighlights');
+Route::post('/faculties/{faculty}/addTestimonials', 'FacultyController@addTestimonials')->name('faculties.addTestimonials');
+Route::resource('loan', 'LoanInformationController');

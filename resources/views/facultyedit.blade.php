@@ -58,8 +58,29 @@
         <!-- Theme style  -->
         <link rel="stylesheet" href="/css/style.css">
 
+        <style>
+            .floating-menu {
+                font-family: sans-serif;
+                background: #da1212;
+                padding: 5px;;
+                width: 130px;
+                z-index: 100;
+                margin-left: 350px;
+                margin-top: 250px;
+                position: fixed;
+            }
+            .floating-menu a, 
+            .floating-menu h3 {
+                font-size: 0.9em;
+                display: block;
+                margin: 0 0.5em;
+                color: white;
+            }
+        </style>
+
         <!-- Modernizr JS -->
         <script src="/js/modernizr-2.6.2.min.js"></script>
+
         <!-- FOR IE9 below -->
         <!--[if lt IE 9]>
         <script src="js/respond.min.js"></script>
@@ -92,48 +113,45 @@
                 </div>
 
             </aside>
+            <nav class="floating-menu">
+                <h3>Edit Faculty</h3>
+                <a href="/css/">Main Details</a>
+                <a href="/css/">Why Study Here</a>
+                <a href="/html/">Partners</a>
+                <a href="/coldfusion/">Accreditations</a>
+                <a href="/database/">Highlights</a>
+                <a href="/database/">Testimonials</a>
+            </nav>
 
             <div id="fh5co-main">
-                <div class="fh5co-narrow-content">
-                    <h2>Campuses</h2><br/>
-                    <br />
-                    @if (\Session::has('success'))
-                    <div class="alert alert-success">
-                        <p>{{ \Session::get('success') }}</p>
-                    </div><br />
-                    @endif
-                    <table class="table table-striped">
-                        <thead>
-                            <tr>
-                                <th>Name</th>
-                                <th>Abbreviation</th>
-                                <th>Price per credit hour</th>
-                                <th colspan="2">Action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach($faculties as $faculty)
-                            <tr>
-                                <td>{{$faculty['name']}}</td>
-                                <td>{{$faculty['abbreviation']}}</td>
-                                <td>{{$faculty['costPerCreditHour']}}</td>
-
-                                <td>
-                                    <a href="{{action('FacultyController@edit', $faculty)}}" 
-                                       class="btn btn-warning">Edit</a>
-                                </td>
-                                <td>
-                                    <form action="{{action('FacultyController@destroy', $faculty)}}" 
-                                          method="post">
-                                        @csrf
-                                        <input name="_method" type="hidden" value="DELETE">
-                                        <button class="btn btn-danger" type="submit">Delete</button>
-                                    </form>
-                                </td>
-                            </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
+                <div class="fh5co-narrow-content" style="margin-left: 300px">
+                    <h2>Add New Faculty</h2><br/>
+                    <form method="post" action="{{url('faculties')}}">
+                        @csrf
+                        <p>
+                            <label for="name">Faculty Name:</label>
+                            <br/>
+                            <input type="text" name="name" size="52" maxlength="50" placeholder="Faculty name..." required>  
+                        </p>
+                        <p>
+                            <label for="abbreviation">Faculty Abbreviation:</label>
+                            <br/>
+                            <input type="text" size="12" maxlength="10" placeholder="FOCS" name="abbreviation" required>
+                        </p>
+                        <p>
+                            <label for="aboutUs">About the faculty:</label>
+                            <br/>
+                            <textarea rows="3" cols="52"  placeholder="Description..." name="aboutUs" required></textarea>
+                        </p>
+                        <p>
+                            <label for="costPerCreditHour">Price per credit hour:</label>
+                            <br/>
+                            <input type="number" min="0.00" max="10000.00" step="0.01" name="costPerCreditHour" required/>
+                        </p>
+                        <p>
+                            <button type="submit" name="next">Next</button>
+                        </p>
+                    </form>
                 </div>
             </div>
         </div>
@@ -156,6 +174,5 @@
 
         <!-- MAIN JS -->
         <script src="/js/main.js"></script>
-
     </body>
 </html>

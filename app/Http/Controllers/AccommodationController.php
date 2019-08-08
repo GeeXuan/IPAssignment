@@ -3,18 +3,19 @@
 namespace App\Http\Controllers;
 
 use App\Accommodation;
+use App\Campus;
 use Illuminate\Http\Request;
 
-class AccommodationController extends Controller
-{
+class AccommodationController extends Controller {
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        //
+    public function index() {
+        $accommodations = \App\Accommodation::all();
+        return view('accommodationindex')->with("accommodations", $accommodations);
     }
 
     /**
@@ -22,9 +23,9 @@ class AccommodationController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
-        //
+    public function create() {
+        $campuses = \App\Campus::all();
+        return view('accommodationcreate')->with("campuses", $campuses);
     }
 
     /**
@@ -33,9 +34,20 @@ class AccommodationController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
-        //
+    public function store(Request $request) {
+        $accommodation = new Accommodation();
+        $accommodation->name = $request->get('name');
+        $accommodation->description = $request->get('description');
+        $accommodation->address = $request->get('address');
+        $accommodation->roomType = $request->get('roomType');
+        if (request()->has('utilities')) {
+            $utilities = implode("/", $request->get('utilities'));
+            $accommodation->utilities = $utilities;
+        } else {
+            $accommodation->utilities = null;
+        }
+        $accommodation->campusid = $request->get('campus');
+        $accommodation->save();
     }
 
     /**
@@ -44,8 +56,7 @@ class AccommodationController extends Controller
      * @param  \App\Accommodation  $accommodation
      * @return \Illuminate\Http\Response
      */
-    public function show(Accommodation $accommodation)
-    {
+    public function show(Accommodation $accommodation) {
         //
     }
 
@@ -55,9 +66,10 @@ class AccommodationController extends Controller
      * @param  \App\Accommodation  $accommodation
      * @return \Illuminate\Http\Response
      */
-    public function edit(Accommodation $accommodation)
-    {
-        //
+    public function edit(Accommodation $accommodation) {
+        $utilities = explode("/", $accommodation->utilities);
+        $campus = Campus::find($accommodation->campusId);
+        return view('accommodationedit', compact('accommodation'))->with("utilities", $utilities)->with("campus", $campus);
     }
 
     /**
@@ -67,9 +79,20 @@ class AccommodationController extends Controller
      * @param  \App\Accommodation  $accommodation
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Accommodation $accommodation)
-    {
-        //
+    public function update(Request $request, Accommodation $accommodation) {
+        $accommodation->name = $request->get('name');
+        $accommodation->description = $request->get('description');
+        $accommodation->address = $request->get('address');
+        $accommodation->roomType = $request->get('roomType');
+        if (request()->has('utilities')) {
+            $utilities = implode("/", $request->get('utilities'));
+            $accommodation->utilities = $utilities;
+        } else {
+            $accommodation->utilities = null;
+        }
+        $accommodation->campusid = $request->get('campusid');
+        $accommodation->save();
+        return redirect('accommodation')->with('success', 'Information has been updated');
     }
 
     /**
@@ -78,8 +101,9 @@ class AccommodationController extends Controller
      * @param  \App\Accommodation  $accommodation
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Accommodation $accommodation)
-    {
-        //
+    public function destroy(Accommodation $accommodation) {
+        $accommodation->delete();
+        return redirect('accommodation')->with('success', 'Information has been deleted');
     }
+
 }

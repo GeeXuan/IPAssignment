@@ -3,21 +3,24 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-include_once 'IFaculty.php';
 
-class Faculty extends Model implements IFaculty {
 
-    public $name, $aboutUs, $abbreviation, $costPerCreditHour;
+class Faculty extends Model {
 
-    public function getContent() {
-        
+    public function partner() {
+        return $this->hasMany('App\Partner', 'facultyid');
     }
-    
-    public function save(array $options = array()) {
-        $this->__set("name", $this->name);
-        $this->__set("aboutUs", $this->aboutUs);
-        $this->__set("abbreviation", $this->abbreviation);
-        $this->__set("costPerCreditHour", $this->costPerCreditHour);
-        parent::save($options);
+
+    public function accreditation() {
+        return $this->hasMany('App\Accreditation', 'facultyid');
     }
+
+    public function highlight() {
+        return $this->hasMany('App\Highlight', 'facultyid');
+    }
+
+    public function testimonial() {
+        return $this->hasMany('App\Testimonial', 'facultyid');
+    }
+
 }
