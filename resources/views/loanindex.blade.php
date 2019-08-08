@@ -111,17 +111,17 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach($loans as $row)
+                            @foreach($loanInformations as $loanInformation)
                             <tr>
-                                <td>{{$row['name']}}</td>
-                                <td>{{$row['description']}}</td>
+                                <td>{{$loanInformation['name']}}</td>
+                                <td>{{$loanInformation['description']}}</td>
 
                                 <td>
-                                    <a href="{{action('LoanInformationController@edit', $row)}}" 
+                                    <a href="{{action('LoanInformationController@edit', $loanInformation)}}" 
                                        class="btn btn-warning">Edit</a>
                                 </td>
                                 <td>
-                                    <form action="{{action('LoanInformationController@destroy', $row)}}" 
+                                    <form action="{{action('LoanInformationController@destroy', $loanInformation)}}" 
                                           method="post">
                                         @csrf
                                         <input name="_method" type="hidden" value="DELETE">

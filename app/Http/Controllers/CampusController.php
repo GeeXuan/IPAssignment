@@ -33,6 +33,12 @@ class CampusController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request) {
+        $request->validate([
+            'name' => 'required|max:255',
+            'abbreviation' => 'required',
+            'address' => 'required',
+            'phone' => 'required|numeric',
+        ]);
         $campus = new Campus();
         $campus->name = $request->get('name');
         $campus->abbreviation = $request->get('abbreviation');
@@ -70,6 +76,12 @@ class CampusController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Campus $campus) {
+        $request->validate([
+            'name' => 'required|max:255',
+            'abbreviation' => 'required',
+            'address' => 'required',
+            'phone' => 'required|numeric',
+        ]);
         $campus->name = $request->get('name');
         $campus->abbreviation = $request->get('abbreviation');
         $campus->address = $request->get('address');
@@ -86,7 +98,7 @@ class CampusController extends Controller {
      */
     public function destroy(Campus $campus) {
         $campus->delete();
-        return redirect('campus')->with('success', 'Information has been  deleted');
+        return redirect('campus')->with('success', 'Information has been deleted');
     }
 
 }

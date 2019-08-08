@@ -35,6 +35,12 @@ class AccommodationController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request) {
+        $request->validate([
+            'name' => 'required|max:255',
+            'description' => 'required',
+            'address' => 'required',
+            'roomType' => 'required',
+        ]);
         $accommodation = new Accommodation();
         $accommodation->name = $request->get('name');
         $accommodation->description = $request->get('description');
@@ -80,6 +86,12 @@ class AccommodationController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Accommodation $accommodation) {
+        $request->validate([
+            'name' => 'required|max:255',
+            'description' => 'required',
+            'address' => 'required',
+            'roomType' => 'required',
+        ]);
         $accommodation->name = $request->get('name');
         $accommodation->description = $request->get('description');
         $accommodation->address = $request->get('address');

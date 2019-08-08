@@ -97,6 +97,15 @@
             <div id="fh5co-main">
                 <div class="fh5co-narrow-content">
                     <h2>Add New Faculty</h2><br/>
+                    @if ($errors->any())
+                    <div class="alert alert-danger">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                    @endif
                     <form method="post" action="{{url('loan')}}">
                         @csrf
                         <p>
@@ -116,6 +125,7 @@
                             <tr>
                                 <th>Campus Code</th>
                                 <th>Campus Name</th>
+                                <th>Selection</th>
                             </tr>
                             @foreach($campuses as $row)
                             <tr>

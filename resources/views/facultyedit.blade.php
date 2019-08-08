@@ -126,6 +126,15 @@
             <div id="fh5co-main">
                 <div class="fh5co-narrow-content" style="margin-left: 300px">
                     <h2>Add New Faculty</h2><br/>
+                    @if ($errors->any())
+                    <div class="alert alert-danger">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                    @endif
                     <form method="post" action="{{url('faculties')}}">
                         @csrf
                         <p>

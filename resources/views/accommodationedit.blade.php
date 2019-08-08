@@ -101,6 +101,15 @@
                     </div><br />
                     @endif
                     <h2>Edit Accommodation</h2><br/>
+                    @if ($errors->any())
+                    <div class="alert alert-danger">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                    @endif
                     <form method="post" action="{{action('AccommodationController@update', $accommodation)}}">
                         <input name="_method" type="hidden" value="PATCH">
                         <input name="campusid" type="hidden" value="{{$campus->id}}">

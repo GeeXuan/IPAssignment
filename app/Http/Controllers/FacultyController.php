@@ -33,13 +33,23 @@ class FacultyController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request) {
+        $request->validate([
+            'name' => 'required|max:255',
+            'abbreviation' => 'required',
+            'aboutUs' => 'required',
+            'costPerCreditHour' => 'required|numeric',
+        ]);
         $faculty = new Faculty();
         $faculty->name = $request->get('name');
         $faculty->abbreviation = $request->get('abbreviation');
         $faculty->aboutUs = $request->get('aboutUs');
         $faculty->costPerCreditHour = $request->get('costPerCreditHour');
+        if ($request->has('whystudyhere')) {
+            $faculty->whystudyhere = $request->get('whystudyhere');
+        }
         $faculty->save();
-        return view('facultyaddWhyStudyHere')->with('faculty', $faculty);
+        $request->session()->put('faculty', '$faculty');
+        return view('facultyaddExtra')->with('faculty', $faculty);
     }
 
     /**
@@ -49,7 +59,7 @@ class FacultyController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function show(Faculty $faculty) {
-//
+        
     }
 
     /**
@@ -70,7 +80,12 @@ class FacultyController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Faculty $faculty) {
-//
+        $request->validate([
+            'name' => 'required|max:255',
+            'abbreviation' => 'required',
+            'aboutUs' => 'required',
+            'costPerCreditHour' => 'required|numeric',
+        ]);
     }
 
     /**
@@ -81,14 +96,7 @@ class FacultyController extends Controller {
      */
     public function destroy(Faculty $faculty) {
         $faculty->delete();
-        return redirect('faculty')->with('success', 'Information has been  deleted');
-    }
-
-    public function addWhyStudyHere(Request $request, Faculty $faculty) {
-        $faculty->whystudyhere = $request->get('whystudyhere');
-        $faculty->save();
-        $request->session()->put('faculty', $faculty);
-        return redirect()->route('partner.create');
+        return redirect('faculty')->with('success', 'Information has been deleted');
     }
 
 }

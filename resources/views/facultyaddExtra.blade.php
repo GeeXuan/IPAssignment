@@ -58,6 +58,21 @@
         <!-- Theme style  -->
         <link rel="stylesheet" href="/css/style.css">
 
+        <style>
+            #links button{
+                background:none!important;
+                border:none; 
+                padding:0!important;
+
+                /*optional*/
+                font-family:arial,sans-serif; /*input has OS specific font-family*/
+                color:#069;
+                cursor:pointer;
+            }
+           #links button:hover{
+                text-decoration:underline;
+            }
+        </style>
         <!-- Modernizr JS -->
         <script src="/js/modernizr-2.6.2.min.js"></script>
 
@@ -97,17 +112,12 @@
             <div id="fh5co-main">
                 <div class="fh5co-narrow-content">
                     <h2>Add New Faculty</h2><br/>
-                    <form method="post" action="{{action('FacultyController@addWhyStudyHere')}}">
-                        <input name="_method" type="hidden" value="PATCH">
-                        @csrf
-                        <p>
-                            <label for="whystudyhere">Why study here:</label>
-                            <br/>
-                            <textarea rows="3" cols="52"  placeholder="Tell student why they should study here..." name="whystudyhere" required></textarea>
-                        </p>
-                        <p>
-                            <button type="submit" name="next2">Next</button>
-                        </p>
+                    <form method="post" action="">
+                        <div class='links'>
+                            <a href="{{url('faculties/addTry')}}">Why stud</a>
+                            <a href="{{action('PartnerController@create', $faculty)}}">qwe</a>
+                            <a href="{{action('FacultyController@addWhyStudyHere', $faculty)}}">qwe</a>
+                        </div>
                     </form>
                 </div>
             </div>

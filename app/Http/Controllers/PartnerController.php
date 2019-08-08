@@ -22,7 +22,7 @@ class PartnerController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function create() {
-        return view('facultyaddPartners')->with('partners', null);
+        return view('facultyaddPartners');
     }
 
     /**

@@ -97,6 +97,15 @@
             <div id="fh5co-main">
                 <div class="fh5co-narrow-content">
                     <h2>Add New Faculty</h2><br/>
+                    @if ($errors->any())
+                    <div class="alert alert-danger">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                    @endif
                     <form method="post" action="{{url('faculties')}}">
                         @csrf
                         <p>
@@ -117,7 +126,7 @@
                         <p>
                             <label for="costPerCreditHour">Price per credit hour:</label>
                             <br/>
-                            <input type="number" min="0.00" max="10000.00" step="0.01" name="costPerCreditHour" required/>
+                            <input type="number" min="0.00" max="10000.00" step="0.01" value="0.00" name="costPerCreditHour" required/>
                         </p>
                         <p>
                             <button type="submit" name="next">Next</button>

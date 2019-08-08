@@ -96,22 +96,64 @@
 
             <div id="fh5co-main">
                 <div class="fh5co-narrow-content">
+                    @if (\Session::has('success'))
+                    <div class="alert alert-success">
+                        <p>{{ \Session::get('success') }}</p>
+                    </div><br />
+                    @endif
                     <h2>Add New Faculty</h2><br/>
-                    <form method="post" action="{{action('FacultyController@addWhyStudyHere')}}">
+                    @if ($errors->any())
+                    <div class="alert alert-danger">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                    @endif
+                    <form method="post" action="{{action('LoanInformationController@update', $loan)}}">
                         <input name="_method" type="hidden" value="PATCH">
                         @csrf
                         <p>
-                            <label for="whystudyhere">Why study here:</label>
+                            <label for="name">Loan Title:</label>
                             <br/>
-                            <textarea rows="3" cols="52"  placeholder="Tell student why they should study here..." name="whystudyhere" required></textarea>
+                            <input type="text" name="name" size="52" maxlength="50" placeholder="Loan title..." value="{{$loan['name']}}" required>  
                         </p>
                         <p>
-                            <button type="submit" name="next2">Next</button>
+                            <label for="description">Description about the loan:</label>
+                            <br/>
+                            <textarea rows="3" cols="52"  placeholder="Description..." name="description"  required> {{$loan['description']}}</textarea>
+                        </p>
+                        <p>
+                            <label>Campus:</label><br/>
+                        <table class="table table-striped">
+                            <tr>
+                                <th>Campus Code</th>
+                                <th>Campus Name</th>
+                                <th>Selection</th>
+                            </tr>
+                            @foreach($campuses as $row)
+                            <tr>
+                                <td>{{$row->abbreviation}}<br/></td>
+                                <td>{{$row->name}}<br/></td>
+                                <td>
+                                    <input type="checkbox" name="campuseslist[]" value="{{$row->id}}"
+                                           @if(in_array($row->id, $campusesid))
+                                           checked
+                                           @endif>
+                                           <input type="hidden" name="_token" value="{{csrf_token()}}" />
+                                </td>
+                            </tr>
+                            @endforeach
+                        </table>
+                        <p>
+                            <button type="submit">Submit</button>
                         </p>
                     </form>
                 </div>
             </div>
         </div>
+
         <!-- jQuery -->
         <script src="/js/jquery.min.js"></script>
         <!-- jQuery Easing -->

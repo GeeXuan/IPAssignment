@@ -13,8 +13,8 @@ class LoanInformationController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function index() {
-        $loans = LoanInformation::all();
-        return view('loanindex', compact('loans'));
+        $loanInformations = LoanInformation::all();
+        return view('loanindex', compact('loanInformations'));
     }
 
     /**
@@ -34,6 +34,11 @@ class LoanInformationController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request) {
+        $request->validate([
+            'name' => 'required|max:255',
+            'description' => 'required',
+            'campuseslist' => 'required',
+        ]);
         $loan = new LoanInformation();
         $loan->name = $request->get("name");
         $loan->description = $request->get("description");
@@ -51,7 +56,7 @@ class LoanInformationController extends Controller {
      * @param  \App\LoanInformation  $loanInformation
      * @return \Illuminate\Http\Response
      */
-    public function show(LoanInformation $loanInformation) {
+    public function show(LoanInformation $loan) {
         //
     }
 
@@ -61,8 +66,14 @@ class LoanInformationController extends Controller {
      * @param  \App\LoanInformation  $loanInformation
      * @return \Illuminate\Http\Response
      */
-    public function edit(LoanInformation $loanInformation) {
-        //
+    public function edit(LoanInformation $loan) {
+        $campus = $loan->campuses()->get();
+        $campusesid = array();
+        $campuses = \App\Campus::all();
+        foreach ($campus as $c) {
+            array_push($campusesid, $c->id);
+        }
+        return view('loanedit', compact('loan'))->with('campusesid', $campusesid)->with('campuses', $campuses);
     }
 
     /**
@@ -72,8 +83,19 @@ class LoanInformationController extends Controller {
      * @param  \App\LoanInformation  $loanInformation
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, LoanInformation $loanInformation) {
-        //
+    public function update(Request $request, LoanInformation $loan) {
+        $request->validate([
+            'name' => 'required|max:255',
+            'description' => 'required',
+            'campuseslist' => 'required',
+        ]);
+        $loan->name = $request->get("name");
+        $loan->description = $request->get("description");
+        $campuses = \App\Campus::find($request->get('campuseslist'));
+        if ($loan->save()) {
+            $loan->campuses()->sync($campuses);
+        }
+        return redirect('loan')->with('success', 'Information has been updated');
     }
 
     /**
@@ -82,9 +104,9 @@ class LoanInformationController extends Controller {
      * @param  \App\LoanInformation  $loanInformation
      * @return \Illuminate\Http\Response
      */
-    public function destroy(LoanInformation $loanInformation) {
-        $loanInformation->delete();
-        return redirect('loan')->with('success', 'Information has been  deleted');
+    public function destroy(LoanInformation $loan) {
+        $loan->delete();
+        return redirect('loan')->with('success', 'Information has been deleted');
     }
 
 }

@@ -96,6 +96,15 @@
             <div id="fh5co-main">
                 <div class="fh5co-narrow-content">
                     <h2>Edit Campus</h2><br/>
+                    @if ($errors->any())
+                    <div class="alert alert-danger">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                    @endif
                     <form method="post" action="{{action('CampusController@update', $campus)}}">
                         <input name="_method" type="hidden" value="PATCH">
                         @csrf

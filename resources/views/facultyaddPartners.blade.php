@@ -119,6 +119,15 @@
                         @csrf
                         <br/><br/><br/>
                         <h2>Add Partner That is Associated with the Faculty</h2>
+                        @if ($errors->any())
+                        <div class="alert alert-danger">
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                        @endif
                         <p>
                             <label for="type">Partner Type:</label>
                             <br/>
