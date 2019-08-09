@@ -30,3 +30,5 @@ Route::resource('partner', 'PartnerController');
 Route::resource('accreditation', 'AccreditationController');
 Route::resource('accommodation', 'AccommodationController');
 Route::resource('loan', 'LoanInformationController');
+Route::get('programmes/listprogrammes/display', 'ProgrammeController@listProgramme');
+Route::get('programmes/listprogdetails/view', 'ProgrammeController@listprogdetail');

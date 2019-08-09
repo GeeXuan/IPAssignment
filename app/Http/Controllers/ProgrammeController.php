@@ -6,15 +6,14 @@ use App\Programme;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
-class ProgrammeController extends Controller
-{
+class ProgrammeController extends Controller {
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
+    public function index() {
         $programmes = Programme::all();
         return view('programmeindex', compact('programmes'));
     }
@@ -24,13 +23,11 @@ class ProgrammeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
+    public function create() {
         $courses = \App\Course::all();
         $campus = \App\Campus::all();
         $faculty = \App\Faculty::all();
         return view('progcreate')->with('courses', $courses)->with('campus', $campus)->with('faculty', $faculty);
-
     }
 
     /**
@@ -39,8 +36,7 @@ class ProgrammeController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
+    public function store(Request $request) {
         $programme = new Programme();
         $programme->progId = $request->session()->get('progId');
         $programme->progName = $request->session()->get('progName');
@@ -55,21 +51,21 @@ class ProgrammeController extends Controller
         $campus = \App\Campus::find($request->session()->get('camplist'));
         $programme->campuses()->attach($campus);
         $programme->save();
-        
+
         $mer = new \App\MER();
         $mer->merId = $request->get('merId');
         $mer->progId = $request->session()->get('progId');
         $mer->save();
-        
+
         if ($programme->progLevel == "Diploma") {
-            foreach ($request->get('spm') as $spmsubjectname){
+            foreach ($request->get('spm') as $spmsubjectname) {
                 $spm = new \App\spmMER();
                 $spm->spmSubjectName = $spmsubjectname;
                 $spm->merId = $request->get('merId');
                 $spm->save();
             }
-            
-            foreach ($request->get('olevel') as $olevelsubjectname){
+
+            foreach ($request->get('olevel') as $olevelsubjectname) {
                 $olevel = new \App\olevelMER();
                 $olevel->olevelSubjectName = $olevelsubjectname;
                 $olevel->merId = $request->get('merId');
@@ -80,8 +76,8 @@ class ProgrammeController extends Controller
             $cgpa->cgpa = $request->get('cgpaRequired');
             $cgpa->merId = $request->get('merId');
             $cgpa->save();
-            
-            foreach ($request->get('stpm') as $stpmsubjectname){
+
+            foreach ($request->get('stpm') as $stpmsubjectname) {
                 $stpm = new \App\stpmMER();
                 $stpm->stpmSubjectName = $stpmsubjectname;
                 $stpm->merId = $request->get('merId');
@@ -98,8 +94,7 @@ class ProgrammeController extends Controller
      * @param  \App\Programme  $programme
      * @return \Illuminate\Http\Response
      */
-    public function show(Request $request)
-    {
+    public function show(Request $request) {
         $request->session()->put('progId', $request->input('progId'));
         $request->session()->put('progName', $request->input('progName'));
         $request->session()->put('progDesc', $request->input('progDesc'));
@@ -110,10 +105,9 @@ class ProgrammeController extends Controller
         $request->session()->put('duration', $request->input('duration'));
         $request->session()->put('camplist', $request->input('camplist'));
         return view('progstruccreate')->with('progId', $request->session()->get('progId'))->with('progName', $request->session()->get('progName'))
-                ->with('progDesc', $request->session()->get('progDesc'))->with('profession', $request->session()->get('profession'))->with('facilitiesFee', $request->session()->get('facilitiesFee'))
-                ->with('progLevel', $request->session()->get('progLevel'))->with('faculty', $request->session()->get('faculty'))->with('duration', $request->session()->get('duration'))
-                ->with('camplist', $request->session()->get('camplist'));
-
+                        ->with('progDesc', $request->session()->get('progDesc'))->with('profession', $request->session()->get('profession'))->with('facilitiesFee', $request->session()->get('facilitiesFee'))
+                        ->with('progLevel', $request->session()->get('progLevel'))->with('faculty', $request->session()->get('faculty'))->with('duration', $request->session()->get('duration'))
+                        ->with('camplist', $request->session()->get('camplist'));
     }
 
     /**
@@ -122,8 +116,7 @@ class ProgrammeController extends Controller
      * @param  \App\Programme  $programme
      * @return \Illuminate\Http\Response
      */
-    public function edit($progId)
-    {
+    public function edit($progId) {
         $programme = Programme::find($progId);
         $campus = \App\Campus::all();
         $faculty = \App\Faculty::all();
@@ -137,18 +130,17 @@ class ProgrammeController extends Controller
      * @param  \App\Programme  $programme
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $progId)
-    {
+    public function update(Request $request, $progId) {
         $validator = Validator::make($request->all(), [
-            'progId' => 'required',
-            'progName' => 'required',
-            'progDesc' => 'required',
-            'profession' => 'required',
-            'facilitiesFee' => 'required',
-            'duration' => 'required',
-            'camplist' => 'required',
+                    'progId' => 'required',
+                    'progName' => 'required',
+                    'progDesc' => 'required',
+                    'profession' => 'required',
+                    'facilitiesFee' => 'required',
+                    'duration' => 'required',
+                    'camplist' => 'required',
         ]);
-        
+
         if ($validator->fails()) {
             $response = array('response' => $validator->messages(), 'success' => false);
             return $response;
@@ -176,10 +168,20 @@ class ProgrammeController extends Controller
      * @param  \App\Programme  $programme
      * @return \Illuminate\Http\Response
      */
-    public function destroy($progId)
-    {
+    public function destroy($progId) {
         $programme = Programme::find($progId);
         $programme->delete();
         return redirect('programmes')->with('success', 'Information has been deleted');
     }
+
+    public function listProgramme() {
+        $programme = Programme::all();
+        return view('listprogramme', compact('programme'));
+    }
+    public function listprogdetail(){
+        $programme = Programme::find(Input::get('programmeid'));
+        return view('listprogdetails',compact('programme'));
+        
+    }
+
 }
