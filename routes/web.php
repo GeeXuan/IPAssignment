@@ -42,7 +42,5 @@ Route::post('createProgrammeXML', [
 Route::post('createCourseXML', [
     'uses' => 'CourseController@createXML'
   ]);
-Route::post('createCourseXSLT', [
-    'uses' => 'CourseController@createXSLT'
-  ]);
+
 
