@@ -148,7 +148,12 @@
                                 </tr>
                                 @endforeach
                             </tbody>
-                        </table>
+                        </table><br/>
+                        <form action="{{action('ProgrammeController@createXML')}}" method="post">
+                            @csrf
+                            <input name="_method" type="hidden">
+                            <button class="btn btn-danger" type="submit">Create XML</button>
+                        </form>
                     </div>
                 </div>
             </div>

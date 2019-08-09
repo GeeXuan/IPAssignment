@@ -36,3 +36,13 @@ Route::get('partner/{faculty}/create', 'PartnerController@create');
 Route::get('accreditation/{faculty}/create', 'AccreditationController@create');
 //Route::get('partner/{faculty}/store', 'PartnerController@store');
 //Route::get('accreditation/{faculty}/store', 'AccreditationController@store');
+Route::post('createProgrammeXML', [
+    'uses' => 'ProgrammeController@createXML'
+  ]);
+Route::post('createCourseXML', [
+    'uses' => 'CourseController@createXML'
+  ]);
+Route::post('createCourseXSLT', [
+    'uses' => 'CourseController@createXSLT'
+  ]);
+

@@ -140,7 +140,17 @@
                                 </tr>
                                 @endforeach
                             </tbody>
-                        </table>
+                        </table><br/>
+                        <form action="{{action('CourseController@createXML')}}" method="post">
+                            @csrf
+                            <input name="_method" type="hidden">
+                            <button class="btn btn-danger" type="submit">Create XML</button>
+                        </form>
+                        <form action="{{action('CourseController@createXSLT')}}" method="post">
+                            @csrf
+                            <input name="_method" type="hidden">
+                            <button class="btn btn-danger" type="submit">Create XSLT</button>
+                        </form>
                     </div>
                 </div>
             </div>

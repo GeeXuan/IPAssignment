@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Response;
 use App\Course;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -128,5 +129,41 @@ class CourseController extends Controller
         $course = Course::find($courseId);
         $course->delete();
         return redirect('courses')->with('success', 'Information has been deleted');
+    }
+    
+    public function createXML(Request $request) {
+        $rootNode = new \SimpleXMLElement("<?xml version='1.0' encoding='UTF-8' standalone='yes'?><courses></courses>");
+
+        $courses = Course::all();
+        foreach ($courses as $course) {
+            $itemNode = $rootNode->addChild('course');
+            $itemNode->addChild('courseCode', $course->courseCode);
+            $itemNode->addChild('courseTitle', $course->courseTitle);
+            $itemNode->addChild('creditHours', $course->creditHours);
+            $itemNode->addChild('category', $course->category);
+        }
+        
+        return response($rootNode->asXML())
+        ->withHeaders([
+            'Content-Type' => 'text/xml'
+        ]);
+    }
+    
+    public function createXSLT(Request $request) {
+        $rootNode = new \SimpleXMLElement("<?xml version='1.0' encoding='UTF-8' standalone='yes'?><courses></courses>");
+
+        $courses = Course::all();
+        foreach ($courses as $course) {
+            $itemNode = $rootNode->addChild('course');
+            $itemNode->addChild('courseCode', $course->courseCode);
+            $itemNode->addChild('courseTitle', $course->courseTitle);
+            $itemNode->addChild('creditHours', $course->creditHours);
+            $itemNode->addChild('category', $course->category);
+        }
+        
+        return response($rootNode->asXML())
+        ->withHeaders([
+            'Content-Type' => 'text/xml'
+        ]);
     }
 }

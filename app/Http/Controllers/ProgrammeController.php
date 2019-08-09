@@ -187,5 +187,26 @@ class ProgrammeController extends Controller {
         return view('listprogdetails',compact('programme'));
         
     }
+    
+    public function createXML(Request $request) {
+        $rootNode = new \SimpleXMLElement("<?xml version='1.0' encoding='UTF-8' standalone='yes'?><programmes></programmes>");
 
+        $programmes = Programme::all();
+        foreach ($programmes as $programme) {
+            $itemNode = $rootNode->addChild('programme');
+            $itemNode->addChild('progId', $programme->progId);
+            $itemNode->addChild('progName', $programme->progName);
+            $itemNode->addChild('progDesc', $programme->progDesc);
+            $itemNode->addChild('profession', $programme->profession);
+            $itemNode->addChild('facilitiesFee', $programme->facilitiesFee);
+            $itemNode->addChild('progLevel', $programme->progLevel);
+            $itemNode->addChild('duration', $programme->durationStudy);
+        }
+        
+        return response($rootNode->asXML())
+        ->withHeaders([
+            'Content-Type' => 'text/xml'
+        ]);
+
+    }
 }
