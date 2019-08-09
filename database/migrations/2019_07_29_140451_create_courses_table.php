@@ -19,6 +19,7 @@ class CreateCoursesTable extends Migration
             $table->string('courseTitle');
             $table->text('courseDesc');
             $table->Integer('creditHours');
+            $table->string('category');
             $table->timestamps();
         });
     }

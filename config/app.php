@@ -153,6 +153,7 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         App\Providers\ProgrammeModelServiceProvider::class,
+        App\Providers\CourseModelServiceProvider::class,
     ],
     /*
       |--------------------------------------------------------------------------

@@ -113,6 +113,7 @@
                                     <th>Duration of Study</th>
                                     <th>Programme Level</th>
                                     <th>Facilities Fee</th>
+                                    <th>Total Credit Hours</th>
                                     <th>Faculty ID</th>
                                     <th colspan="2">Action</th>
                                 </tr>
@@ -128,6 +129,7 @@
                                     <td>{{$programme['durationStudy']}}</td>
                                     <td>{{$programme['progLevel']}}</td>
                                     <td>{{$programme['facilitiesFee']}}</td>
+                                    <td>{{$programme['totalCreditHours']}}</td>
                                     <td>{{$programme['facultyid']}}</td>
 
 

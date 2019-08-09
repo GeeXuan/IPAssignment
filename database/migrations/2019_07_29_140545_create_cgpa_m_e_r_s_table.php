@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateStpmMERSTable extends Migration
+class CreateCgpaMERSTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,9 @@ class CreateStpmMERSTable extends Migration
      */
     public function up()
     {
-        Schema::create('stpm_m_e_r_s', function (Blueprint $table) {
+        Schema::create('cgpa_m_e_r_s', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('stpmSubjectName');
+            $table->string('cgpa');
             $table->unsignedBigInteger('merId');
             $table->foreign('merId')->references('merId')->on('m_e_r_s')->onDelete('cascade');
             $table->timestamps();
@@ -29,6 +29,6 @@ class CreateStpmMERSTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('stpm_m_e_r_s');
+        Schema::dropIfExists('cgpa_m_e_r_s');
     }
 }

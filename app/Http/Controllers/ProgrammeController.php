@@ -50,6 +50,10 @@ class ProgrammeController extends Controller {
         $programme->courses()->attach($courses);
         $campus = \App\Campus::find($request->session()->get('camplist'));
         $programme->campuses()->attach($campus);
+        
+        $total = 0;
+        $selectedCourses = $request->session()->get('courselist');
+        
         $programme->save();
 
         $mer = new \App\MER();

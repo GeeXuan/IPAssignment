@@ -21,6 +21,7 @@ class CreateProgrammesTable extends Migration
             $table->integer('durationStudy');
             $table->string('progLevel');
             $table->decimal('facilitiesFee');
+            $table->integer('totalCreditHours');
             $table->unsignedBigInteger('facultyid');
             $table->foreign('facultyid')->references('id')->on('faculties')->onDelete('cascade');
             $table->timestamps();
