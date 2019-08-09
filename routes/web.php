@@ -41,5 +41,11 @@ Route::get('faculties/xml/generateXML', 'FacultyController@generateXML');
 Route::get('campus/api/findbyID', 'CampusController@findbyID');
 Route::post('campus/api/findcampus', 'CampusController@findcampus');
 Route::get('campus/api/restapi', 'CampusController@restapi');
+Route::post('createProgrammeXML', [
+    'uses' => 'ProgrammeController@createXML'
+]);
+Route::post('createCourseXML', [
+    'uses' => 'CourseController@createXML'
+]);
 
 

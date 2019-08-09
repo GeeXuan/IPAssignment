@@ -144,7 +144,17 @@
                                 </tr>
                                 @endforeach
                             </tbody>
-                        </table>
+                        </table><br/>
+                        <form action="{{URL::to('courses/create')}}" method="GET">
+                            @csrf
+                            <input name="_method" type="hidden">
+                            <button class="btn btn-danger" type="submit">Add New Course</button>
+                        </form>
+                        <form action="{{action('CourseController@createXML')}}" method="post">
+                            @csrf
+                            <input name="_method" type="hidden">
+                            <button class="btn btn-danger" type="submit">Create XML</button>
+                        </form>
                     </div>
                 </div>
             </div>

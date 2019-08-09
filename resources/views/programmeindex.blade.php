@@ -152,7 +152,17 @@
                                 </tr>
                                 @endforeach
                             </tbody>
-                        </table>
+                        </table><br/>
+                        <form action="{{URL::to('programmes/create')}}" method="GET">
+                            @csrf
+                            <input name="_method" type="hidden">
+                            <button class="btn btn-danger" type="submit">Add New Programme</button>
+                        </form>
+                        <form action="{{action('ProgrammeController@createXML')}}" method="post">
+                            @csrf
+                            <input name="_method" type="hidden">
+                            <button class="btn btn-danger" type="submit">Create XML</button>
+                        </form>
                     </div>
                 </div>
             </div>
