@@ -102,7 +102,7 @@
                         @csrf
                         <p>
                             <label for="progId">Programme Id:</label>
-                            <input type="text" name="progId" value="{{$programme->progId}}" /> 
+                            <input type="text" name="progId" value="{{$programme->progId}}" readonly/> 
                         </p>
 
                         <p>

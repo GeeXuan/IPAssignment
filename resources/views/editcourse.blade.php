@@ -102,7 +102,7 @@
                         @csrf
                         <p>
                             <label for="courseId">Course Id:</label>
-                            <input type="text" name="courseId" value="{{$course->courseId}}" /> 
+                            <input type="text" name="courseId" value="{{$course->courseId}}" readonly/> 
                         </p>
 
                         <p>
