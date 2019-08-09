@@ -75,7 +75,8 @@ class FacultyController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function edit(Faculty $faculty) {
-        return view('facultyedit', compact('faculty'));
+        \Debugbar::info($faculty);
+        return view('facultyedit', ["faculty" => $faculty]);
     }
 
     /**
@@ -113,6 +114,28 @@ class FacultyController extends Controller {
     public function destroy(Faculty $faculty) {
         $faculty->delete();
         return redirect('faculties')->with('success', 'Information has been deleted');
+    }
+
+    public function generateXML() {
+        $reader = new \App\FacultyDatabaseReader();
+        \Debugbar::info($reader);
+        $writer = new \App\FacultyXMLWriter();
+        \Debugbar::info($writer);
+        $writer->write($reader->read());
+        $file = public_path() . "\\xml\\faculty.xml";
+
+        $headers = array(
+            'Content-Type: application/xsl',
+        );
+        return \Response::download($file, 'faculty.xml', $headers);
+//        $file = \File::get("C:/xampp/htdocs/IPAssignment/xml/faculty.xml");
+//        $response = \Response::make($file, 200);
+//        $response->header('Content-Type', 'application/xsl');
+//        return $response;
+//        $proc = new \XSLTProcessor();
+//        $proc->importStylesheet(\DOMDocument::load("C:\xampp\htdocs\IPAssignment\xml\\facultyxslt.xsl")); //load XSL script
+//        return $proc->transformToXML(\DOMDocument::load("C:\xampp\htdocs\IPAssignment\xml\\faculty.xml")); //load XML file and echo
+//        return view('faculties')->with('success', 'Generated');
     }
 
 }

@@ -58,8 +58,28 @@
         <!-- Theme style  -->
         <link rel="stylesheet" href="/css/style.css">
 
+        <style>
+            .floating-menu {
+                font-family: sans-serif;
+                background: #da1212;
+                padding: 5px;;
+                width: 130px;
+                z-index: 100;
+                margin-left: 350px;
+                margin-top: 250px;
+                position: fixed;
+            }
+            .floating-menu a, 
+            .floating-menu h3 {
+                font-size: 0.9em;
+                display: block;
+                margin: 0 0.5em;
+                color: white;
+            }
+        </style>
         <!-- Modernizr JS -->
         <script src="/js/modernizr-2.6.2.min.js"></script>
+
         <!-- FOR IE9 below -->
         <!--[if lt IE 9]>
         <script src="js/respond.min.js"></script>
@@ -74,8 +94,8 @@
                 <h1 id="fh5co-logo"><a href="index.html"><img src="/images/logo.png" alt="Free HTML5 Bootstrap Website Template"></a></h1>
                 <nav id="fh5co-main-menu" role="navigation">
                     <ul>
-                        <li class="fh5co-active"><a href="{{url('campus')}}">Campus</a></li>
-                        <li><a href="{{url('faculties')}}">Faculty</a></li>
+                        <li><a href="{{url('campus')}}">Campus</a></li>
+                        <li class="fh5co-active"><a href="{{url('faculties')}}">Faculty</a></li>
                         <li><a href="{{url('programmes')}}">Programme</a></li>
                         <li><a href="{{url('courses')}}">Course</a></li>
                         <li><a href="{{url('accommodation')}}">Accommodation</a></li>
@@ -96,56 +116,64 @@
                 </div>
 
             </aside>
-
+            <nav class="floating-menu">
+                <h3>Edit Faculty</h3>
+                <a href="{{action('FacultyController@edit', $faculty)}}">Main Details</a>
+                <a href="{{action('PartnerController@editPartner', $faculty)}}">Partners</a>
+                <a href="{{action('AccreditationController@editAccreditation', $faculty)}}">Accreditations</a>
+            </nav>
             <div id="fh5co-main">
-                <div class="fh5co-narrow-content">
-                    <h2>Campuses</h2>
-                    <a href="{{action('CampusController@create')}}" class="btn btn-success">Create</a>
-                    <br />
-                    <br />
-                    @if (\Session::has('success'))
-                    <div class="alert alert-success">
-                        <p>{{ \Session::get('success') }}</p>
-                    </div><br />
-                    @endif
-                    <table class="table table-striped">
-                        <thead>
+                <div class="fh5co-narrow-content" style="margin-left: 300px">
+                    <form method="post" action="{{action('AccreditationController@update', $faculty)}}">
+                        <input name="_method" type="hidden" value="PATCH">
+                        @if (isset($accreditations) && ($accreditations->count() > 0))
+                        <h2>Added Accreditations</h2>
+                        <table border='1'>
                             <tr>
                                 <th>Name</th>
-                                <th>Abbreviation</th>
-                                <th>Address</th>
-                                <th>Contact</th>
-                                <th colspan="2">Action</th>
+                                <th>Description</th>
+                                <th>Action</th>
                             </tr>
-                        </thead>
-                        <tbody>
-                            @foreach($campuses as $campus)
+                            @foreach($accreditations as $row)
                             <tr>
-                                <td>{{$campus['name']}}</td>
-                                <td>{{$campus['abbreviation']}}</td>
-                                <td>{{$campus['address']}}</td>
-                                <td>{{$campus['phone']}}</td>
-
+                                <td>{{$row['name']}}</td>
+                                <td>{{$row['description']}}</td>
                                 <td>
-                                    <a href="{{action('CampusController@edit', $campus)}}" 
-                                       class="btn btn-warning">Edit</a>
-                                </td>
-                                <td>
-                                    <form action="{{action('CampusController@destroy', $campus)}}" 
-                                          method="post">
-                                        @csrf
-                                        <input name="_method" type="hidden" value="DELETE">
-                                        <button class="btn btn-danger" type="submit">Delete</button>
-                                    </form>
+                                    <button class="btn btn-danger" name="delete" value='{{$row['id']}}' formnovalidate>Delete</button>
                                 </td>
                             </tr>
                             @endforeach
-                        </tbody>
-                    </table>
+                        </table>
+                        @endif
+                        @csrf
+                        <br/><br/><br/>
+                        <h2>Add Accreditation That is Associated with the Faculty</h2>
+                        @if ($errors->any())
+                        <div class="alert alert-danger">
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                        @endif
+                        <p>
+                            <label for="name">Accreditation Name:</label>
+                            <br/>
+                            <input type="text" name="name" size="52" maxlength="50" placeholder="Accreditation name..." required>
+                        </p>
+                        <p>
+                            <label for="description">Accreditation Description:</label>
+                            <br/>
+                            <textarea rows="3" cols="52"  placeholder="Description of the accreditation..." name="description" required></textarea>
+                        </p>
+                        <p>
+                            <button type="submit" name="add" class="btn btn-primary">Add</button>
+                        </p>
+                    </form>
                 </div>
             </div>
         </div>
-
         <!-- jQuery -->
         <script src="/js/jquery.min.js"></script>
         <!-- jQuery Easing -->
@@ -164,6 +192,5 @@
 
         <!-- MAIN JS -->
         <script src="/js/main.js"></script>
-
     </body>
 </html>

@@ -95,10 +95,14 @@
                 <h1 id="fh5co-logo"><a href="index.html"><img src="/images/logo.png" alt="Free HTML5 Bootstrap Website Template"></a></h1>
                 <nav id="fh5co-main-menu" role="navigation">
                     <ul>
-                        <li class="fh5co-active"><a href="index.html">Home</a></li>
-                        <li><a href="portfolio.html">Portfolio</a></li>
-                        <li><a href="about.html">About</a></li>
-                        <li><a href="contact.html">Contact</a></li>
+                        <li><a href="{{url('campus')}}">Campus</a></li>
+                        <li class="fh5co-active"><a href="{{url('faculties')}}">Faculty</a></li>
+                        <li><a href="{{url('programmes')}}">Programme</a></li>
+                        <li><a href="{{url('courses')}}">Course</a></li>
+                        <li><a href="{{url('accommodation')}}">Accommodation</a></li>
+                        <li><a href="{{url('loan')}}">Loan Information</a></li>
+                        <li><a href="{{url('/')}}">Customer View</a></li>
+                        <li><a href="">Log Out</a></li>
                     </ul>
                 </nav>
 
@@ -115,12 +119,9 @@
             </aside>
             <nav class="floating-menu">
                 <h3>Edit Faculty</h3>
-                <a href="/css/">Main Details</a>
-                <a href="/css/">Why Study Here</a>
-                <a href="/html/">Partners</a>
-                <a href="/coldfusion/">Accreditations</a>
-                <a href="/database/">Highlights</a>
-                <a href="/database/">Testimonials</a>
+                <a href="{{action('FacultyController@edit', $faculty)}}">Main Details</a>
+                <a href="{{action('PartnerController@editPartner', $faculty)}}">Partners</a>
+                <a href="{{action('AccreditationController@editAccreditation', $faculty)}}">Accreditations</a>
             </nav>
 
             <div id="fh5co-main">
@@ -165,7 +166,7 @@
                         </p>
                         <p>
                             <button type="submit" name="cancel"  class="btn btn-danger">Cancel</button>&nbsp&nbsp
-                            <button type="submit" name="next" class="btn btn-success">Next</button>
+                            <button type="submit" name="update" class="btn btn-success">Update</button>
                         </p>
                     </form>
                 </div>

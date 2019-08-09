@@ -75,10 +75,14 @@
                 <h1 id="fh5co-logo"><a href="index.html"><img src="/images/logo.png" alt="Free HTML5 Bootstrap Website Template"></a></h1>
                 <nav id="fh5co-main-menu" role="navigation">
                     <ul>
-                        <li class="fh5co-active"><a href="index.html">Home</a></li>
-                        <li><a href="portfolio.html">Portfolio</a></li>
-                        <li><a href="about.html">About</a></li>
-                        <li><a href="contact.html">Contact</a></li>
+                        <li><a href="{{url('campus')}}">Campus</a></li>
+                        <li class="fh5co-active"><a href="{{url('faculties')}}">Faculty</a></li>
+                        <li><a href="{{url('programmes')}}">Programme</a></li>
+                        <li><a href="{{url('courses')}}">Course</a></li>
+                        <li><a href="{{url('accommodation')}}">Accommodation</a></li>
+                        <li><a href="{{url('loan')}}">Loan Information</a></li>
+                        <li><a href="{{url('/')}}">Customer View</a></li>
+                        <li><a href="">Log Out</a></li>
                     </ul>
                 </nav>
 
@@ -97,6 +101,7 @@
                 <div class="fh5co-narrow-content">
                     <form method="post" action="{{url('partner')}}">
                         @if (isset($partners))
+                        <h2>Added Partners</h2>
                         <table border='1'>
                             <tr>
                                 <th>Name</th>
@@ -132,9 +137,9 @@
                         <p>
                             <label for="type">Partner Type:</label>
                             <br/>
-                            <label><input type="radio" name="type" value="educational" checked required>Educational</label>
+                            <label><input type="radio" name="type" value="Educational" checked required>Educational</label>
                             <br/>
-                            <label><input type="radio" name="type" value="company" required>Company</label>
+                            <label><input type="radio" name="type" value="Company" required>Company</label>
                             <br/>
                         </p>
                         <p>

@@ -22,7 +22,6 @@ Route::patch('courses/{course}/edit', 'CourseController@edit')->name('courses.ed
 Route::resource('courses', 'CourseController');
 Route::resource('m_e_r_s', 'MERController');
 Route::resource('progstruc', 'ProgrammeStructureController');
-Route::view('/', 'new');
 Route::post('/progstruccreate', 'ProgrammeStructureController@show');
 Route::post('/mercreate', 'MERController@show');
 Route::resource('campus', 'CampusController');
@@ -34,5 +33,13 @@ Route::get('programmes/listprogrammes/display', 'ProgrammeController@listProgram
 Route::get('programmes/listprogdetails/view', 'ProgrammeController@listprogdetail');
 Route::get('partner/{faculty}/create', 'PartnerController@create');
 Route::get('accreditation/{faculty}/create', 'AccreditationController@create');
-//Route::get('partner/{faculty}/store', 'PartnerController@store');
-//Route::get('accreditation/{faculty}/store', 'AccreditationController@store');
+Route::patch('partner/{faculty}/update', 'PartnerController@update');
+Route::get('partner/{faculty}/editPartner', 'PartnerController@editPartner');
+Route::get('accreditation/{faculty}/editAccreditation', 'AccreditationController@editAccreditation');
+Route::patch('accreditation/{faculty}/update', 'AccreditationController@update');
+Route::get('faculties/xml/generateXML', 'FacultyController@generateXML');
+Route::get('campus/api/findbyID', 'CampusController@findbyID');
+Route::post('campus/api/findcampus', 'CampusController@findcampus');
+Route::get('campus/api/restapi', 'CampusController@restapi');
+
+
