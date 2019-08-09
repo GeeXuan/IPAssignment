@@ -15,7 +15,7 @@ class CreateProgStrucTable extends Migration
     {
         Schema::create('progStruc', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('progId', 5);
+            $table->string('progId');
             $table->unsignedBigInteger('courseId');
         });
     }

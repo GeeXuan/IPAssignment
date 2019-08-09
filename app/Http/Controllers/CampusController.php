@@ -33,19 +33,23 @@ class CampusController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request) {
-        $request->validate([
-            'name' => 'required|max:255',
-            'abbreviation' => 'required',
-            'address' => 'required',
-            'phone' => 'required|numeric',
-        ]);
-        $campus = new Campus();
-        $campus->name = $request->get('name');
-        $campus->abbreviation = $request->get('abbreviation');
-        $campus->address = $request->get('address');
-        $campus->phone = $request->get('phone');
-        $campus->save();
-        return redirect('campus')->with('success', 'Information has been added');
+        if ($request->has('submit')) {
+            $request->validate([
+                'name' => 'required|max:255',
+                'abbreviation' => 'required',
+                'address' => 'required',
+                'phone' => 'required|numeric',
+            ]);
+            $campus = new Campus();
+            $campus->name = $request->get('name');
+            $campus->abbreviation = $request->get('abbreviation');
+            $campus->address = $request->get('address');
+            $campus->phone = $request->get('phone');
+            $campus->save();
+            return redirect('campus')->with('success', 'Information has been added');
+        } else {
+            return redirect('campus');
+        }
     }
 
     /**
@@ -76,18 +80,22 @@ class CampusController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Campus $campus) {
-        $request->validate([
-            'name' => 'required|max:255',
-            'abbreviation' => 'required',
-            'address' => 'required',
-            'phone' => 'required|numeric',
-        ]);
-        $campus->name = $request->get('name');
-        $campus->abbreviation = $request->get('abbreviation');
-        $campus->address = $request->get('address');
-        $campus->phone = $request->get('phone');
-        $campus->save();
-        return redirect('campus');
+        if ($request->has('update')) {
+            $request->validate([
+                'name' => 'required|max:255',
+                'abbreviation' => 'required',
+                'address' => 'required',
+                'phone' => 'required|numeric',
+            ]);
+            $campus->name = $request->get('name');
+            $campus->abbreviation = $request->get('abbreviation');
+            $campus->address = $request->get('address');
+            $campus->phone = $request->get('phone');
+            $campus->save();
+            return redirect('campus')->with('success', 'Information has been updated');
+        } else {
+            return redirect('campus');
+        }
     }
 
     /**

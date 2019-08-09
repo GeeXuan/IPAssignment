@@ -6,15 +6,14 @@ use App\ProgrammeStructure;
 use App\Programme;
 use Illuminate\Http\Request;
 
-class ProgrammeStructureController extends Controller
-{
+class ProgrammeStructureController extends Controller {
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
+    public function index() {
         $programmes = Programme::all();
         return view('programmeindex', compact('programmes'));
     }
@@ -24,8 +23,7 @@ class ProgrammeStructureController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
+    public function create() {
         $courses = \App\Course::all();
         $campus = \App\Campus::all();
         $faculty = \App\Faculty::all();
@@ -38,8 +36,7 @@ class ProgrammeStructureController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
+    public function store(Request $request) {
         $programme = new Programme();
         $programme->progId = $request->session()->get('progId');
         $programme->progName = $request->session()->get('progName');
@@ -50,9 +47,9 @@ class ProgrammeStructureController extends Controller
         $programme->facultyid = $request->session()->get('faculty');
         $programme->durationStudy = $request->session()->get('duration');
         $courses = \App\Course::find($request->get('courselist'));
-        $programme->courses()->attach($courses);
+        $programme->courses()->sync($courses);
         $campus = \App\Campus::find($request->input('camplist'));
-        $programme->campuses()->attach($campus);
+        $programme->campuses()->sync($campus);
         $programme->save();
 
         return redirect('programmes')->with('success', 'Information has been added');
@@ -64,8 +61,7 @@ class ProgrammeStructureController extends Controller
      * @param  \App\Programme  $programme
      * @return \Illuminate\Http\Response
      */
-    public function show(Request $request)
-    {
+    public function show(Request $request) {
         $request->session()->put('progId', $request->input('progId'));
         $request->session()->put('progName', $request->input('progName'));
         $request->session()->put('progDesc', $request->input('progDesc'));
@@ -75,12 +71,12 @@ class ProgrammeStructureController extends Controller
         $request->session()->put('faculty', $request->input('faculty'));
         $request->session()->put('duration', $request->input('duration'));
         $request->session()->put('camplist', $request->input('camplist'));
-        
+
         $courses = \App\Course::all();
         return view('progstruccreate')->with('courses', $courses)->with('progId', $request->session()->get('progId'))->with('progName', $request->session()->get('progName'))
-                ->with('progDesc', $request->session()->get('progDesc'))->with('profession', $request->session()->get('profession'))->with('facilitiesFee', $request->session()->get('facilitiesFee'))
-                ->with('progLevel', $request->session()->get('progLevel'))->with('faculty', $request->session()->get('faculty'))->with('duration', $request->session()->get('duration'))
-                ->with('camplist', $request->session()->get('camplist'));
+                        ->with('progDesc', $request->session()->get('progDesc'))->with('profession', $request->session()->get('profession'))->with('facilitiesFee', $request->session()->get('facilitiesFee'))
+                        ->with('progLevel', $request->session()->get('progLevel'))->with('faculty', $request->session()->get('faculty'))->with('duration', $request->session()->get('duration'))
+                        ->with('camplist', $request->session()->get('camplist'));
     }
 
     /**
@@ -89,9 +85,8 @@ class ProgrammeStructureController extends Controller
      * @param  \App\Programme  $programme
      * @return \Illuminate\Http\Response
      */
-    public function edit($progId)
-    {
-
+    public function edit($progId) {
+        
     }
 
     /**
@@ -101,9 +96,8 @@ class ProgrammeStructureController extends Controller
      * @param  \App\Programme  $programme
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $progId)
-    {
-
+    public function update(Request $request, $progId) {
+        
     }
 
     /**
@@ -112,8 +106,8 @@ class ProgrammeStructureController extends Controller
      * @param  \App\Programme  $programme
      * @return \Illuminate\Http\Response
      */
-    public function destroy($progId)
-    {
-
+    public function destroy($progId) {
+        
     }
+
 }

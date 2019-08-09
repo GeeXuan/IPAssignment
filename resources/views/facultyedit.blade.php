@@ -135,30 +135,37 @@
                         </ul>
                     </div>
                     @endif
-                    <form method="post" action="{{url('faculties')}}">
+                    <form method="post" action="{{action('FacultyController@update', $faculty)}}">
+                        <input name="_method" type="hidden" value="PATCH">
                         @csrf
                         <p>
                             <label for="name">Faculty Name:</label>
                             <br/>
-                            <input type="text" name="name" size="52" maxlength="50" placeholder="Faculty name..." required>  
+                            <input type="text" name="name" size="52" maxlength="50" placeholder="Faculty name..." value="{{$faculty['name']}}" required>  
                         </p>
                         <p>
                             <label for="abbreviation">Faculty Abbreviation:</label>
                             <br/>
-                            <input type="text" size="12" maxlength="10" placeholder="FOCS" name="abbreviation" required>
+                            <input type="text" size="12" maxlength="10" placeholder="FOCS" name="abbreviation" value="{{$faculty['abbreviation']}}" required>
                         </p>
                         <p>
                             <label for="aboutUs">About the faculty:</label>
                             <br/>
-                            <textarea rows="3" cols="52"  placeholder="Description..." name="aboutUs" required></textarea>
+                            <textarea rows="3" cols="52"  placeholder="Description..." name="aboutUs" required>{{$faculty['aboutUs']}}</textarea>
                         </p>
                         <p>
                             <label for="costPerCreditHour">Price per credit hour:</label>
                             <br/>
-                            <input type="number" min="0.00" max="10000.00" step="0.01" name="costPerCreditHour" required/>
+                            <input type="number" min="0.00" max="10000.00" step="0.01" name="costPerCreditHour" value="{{$faculty['costPerCreditHour']}}" required/>
                         </p>
                         <p>
-                            <button type="submit" name="next">Next</button>
+                            <label for="whystudyhere">Why study here(optional):</label>
+                            <br/>
+                            <textarea rows="3" cols="52"  placeholder="Tell student why they should study here..." name="whystudyhere">{{$faculty['whystudyhere']}}</textarea>
+                        </p>
+                        <p>
+                            <button type="submit" name="cancel"  class="btn btn-danger">Cancel</button>&nbsp&nbsp
+                            <button type="submit" name="next" class="btn btn-success">Next</button>
                         </p>
                     </form>
                 </div>

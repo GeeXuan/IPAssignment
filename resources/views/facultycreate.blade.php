@@ -96,7 +96,7 @@
 
             <div id="fh5co-main">
                 <div class="fh5co-narrow-content">
-                    <h2>Add New Faculty</h2><br/>
+                    <h2>Step 1: Add New Faculty</h2><br/>
                     @if ($errors->any())
                     <div class="alert alert-danger">
                         <ul>
@@ -134,7 +134,8 @@
                             <textarea rows="3" cols="52"  placeholder="Tell student why they should study here..." name="whystudyhere"></textarea>
                         </p>
                         <p>
-                            <button type="submit" name="next">Next</button>
+                            <button type="submit" name="cancel" class="btn btn-danger">Cancel</button>&nbsp&nbsp
+                            <button type="submit" name="next" class="btn btn-success">Next</button>
                         </p>
                     </form>
 

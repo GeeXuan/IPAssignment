@@ -95,7 +95,9 @@
 
             <div id="fh5co-main">
                 <div class="fh5co-narrow-content">
-                    <h2>Accommodation</h2><br/>
+                    <h2>Accommodation</h2>
+                    <a href="{{action('AccommodationController@create')}}" class="btn btn-success">Create</a>
+                    <br />
                     <br />
                     @if (\Session::has('success'))
                     <div class="alert alert-success">

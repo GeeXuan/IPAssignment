@@ -93,20 +93,53 @@
                 </div>
 
             </aside>
-
             <div id="fh5co-main">
                 <div class="fh5co-narrow-content">
-                    <h2>Add New Faculty</h2><br/>
-                    <form method="post" action="{{action('FacultyController@addWhyStudyHere')}}">
-                        <input name="_method" type="hidden" value="PATCH">
+                    <form method="post" action="{{url('accreditation')}}">
+                        @if (isset($accreditations))
+                        <table border='1'>
+                            <tr>
+                                <th>Name</th>
+                                <th>Description</th>
+                                <th>Action</th>
+                            </tr>
+                            @foreach($accreditations as $row)
+                            <tr>
+                                <td>{{$row['name']}}</td>
+                                <td>{{$row['description']}}</td>
+                                <td>
+                                    <button class="btn btn-danger" name="delete" value='{{$row['id']}}' formnovalidate>Delete</button>
+                                </td>
+                            </tr>
+                            @endforeach
+                        </table>
+                        @endif
                         @csrf
+                        <br/><br/><br/>
+                        <h2>Last Step: Add Accreditation That is Associated with the Faculty</h2>
+                        <h3>(You can skip this step by pressing done)</h3>
+                        @if ($errors->any())
+                        <div class="alert alert-danger">
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                        @endif
                         <p>
-                            <label for="whystudyhere">Why study here:</label>
+                            <label for="name">Accreditation Name:</label>
                             <br/>
-                            <textarea rows="3" cols="52"  placeholder="Tell student why they should study here..." name="whystudyhere" required></textarea>
+                            <input type="text" name="name" size="52" maxlength="50" placeholder="Accreditation name..." required>
                         </p>
                         <p>
-                            <button type="submit" name="next2">Next</button>
+                            <label for="description">Accreditation Description:</label>
+                            <br/>
+                            <textarea rows="3" cols="52"  placeholder="Description of the accreditation..." name="description" required></textarea>
+                        </p>
+                        <p>
+                            <button type="submit" name="add" class="btn btn-primary">Add</button>&nbsp&nbsp
+                            <button type="submit" name="done" class="btn btn-success" formnovalidate>Done</button>
                         </p>
                     </form>
                 </div>

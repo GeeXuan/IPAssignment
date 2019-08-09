@@ -15,7 +15,7 @@ class CreateProgCampusTable extends Migration
     {
         Schema::create('progCampus', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('progId', 5);
+            $table->string('progId');
             $table->unsignedBigInteger('campusId');
         });
     }

@@ -96,7 +96,7 @@
             <div id="fh5co-main">
                 <div class="fh5co-narrow-content">
                     <form method="post" action="{{url('partner')}}">
-                        @if ($partners !== null)
+                        @if (isset($partners))
                         <table border='1'>
                             <tr>
                                 <th>Name</th>
@@ -118,7 +118,8 @@
                         @endif
                         @csrf
                         <br/><br/><br/>
-                        <h2>Add Partner That is Associated with the Faculty</h2>
+                        <h2>Step 2: Add Partner That is Associated with the Faculty</h2>
+                        <h3>(You can skip this step by pressing next)</h3>
                         @if ($errors->any())
                         <div class="alert alert-danger">
                             <ul>
@@ -131,9 +132,9 @@
                         <p>
                             <label for="type">Partner Type:</label>
                             <br/>
-                            <label><input type="radio" name="type" value="educational">Educational</label>
+                            <label><input type="radio" name="type" value="educational" checked required>Educational</label>
                             <br/>
-                            <label><input type="radio" name="type" value="company">Company</label>
+                            <label><input type="radio" name="type" value="company" required>Company</label>
                             <br/>
                         </p>
                         <p>
@@ -147,8 +148,8 @@
                             <textarea rows="3" cols="52"  placeholder="Description of the partner..." name="description" required></textarea>
                         </p>
                         <p>
-                            <button type="submit" name="add">Add</button>
-                            <button type="submit" name="next" formnovalidate>Next</button>
+                            <button type="submit" name="add" class="btn btn-primary">Add</button>&nbsp&nbsp
+                            <button type="submit" name="next" class="btn btn-success" formnovalidate>Next</button>
                         </p>
                     </form>
                 </div>

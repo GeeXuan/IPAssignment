@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Partner;
+use App\Faculty;
 use Illuminate\Http\Request;
 
 class PartnerController extends Controller {
@@ -21,8 +22,8 @@ class PartnerController extends Controller {
      *
      * @return \Illuminate\Http\Response
      */
-    public function create() {
-        return view('facultyaddPartners');
+    public function create(Faculty $faculty) {
+        return view('facultyaddPartners')->with('faculty', $faculty);
     }
 
     /**
@@ -33,6 +34,11 @@ class PartnerController extends Controller {
      */
     public function store(Request $request) {
         if (request()->has("add")) {
+            $request->validate([
+                'name' => 'required|max:255',
+                'description' => 'required',
+                'type' => 'required',
+            ]);
             $partner = new Partner();
             $partner->name = $request->get("name");
             $partner->type = $request->get("type");
@@ -48,7 +54,10 @@ class PartnerController extends Controller {
             $partners = Partner::all()->where('facultyid', $faculty->id);
             return view('facultyaddPartners', compact('faculty'))->with('partners', $partners);
         } else if (request()->has("next")) {
-            
+            $faculty = $request->session()->get('faculty');
+            return redirect()->action(
+                            'AccreditationController@create', ['faculty' => $faculty]
+            );
         }
     }
 

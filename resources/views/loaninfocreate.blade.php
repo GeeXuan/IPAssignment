@@ -138,9 +138,9 @@
                             </tr>
                             @endforeach
                         </table>
-                        </p>
                         <p>
-                            <button type="submit">Submit</button>
+                            <button type="submit" name="cancel" class="btn btn-danger">Cancel</button>&nbsp&nbsp
+                            <button type="submit" name="submit" class="btn btn-success" >Submit</button>
                         </p>
                     </form>
                 </div>

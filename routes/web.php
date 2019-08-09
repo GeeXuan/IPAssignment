@@ -32,3 +32,7 @@ Route::resource('accommodation', 'AccommodationController');
 Route::resource('loan', 'LoanInformationController');
 Route::get('programmes/listprogrammes/display', 'ProgrammeController@listProgramme');
 Route::get('programmes/listprogdetails/view', 'ProgrammeController@listprogdetail');
+Route::get('partner/{faculty}/create', 'PartnerController@create');
+Route::get('accreditation/{faculty}/create', 'AccreditationController@create');
+//Route::get('partner/{faculty}/store', 'PartnerController@store');
+//Route::get('accreditation/{faculty}/store', 'AccreditationController@store');

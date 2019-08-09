@@ -33,23 +33,29 @@ class FacultyController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request) {
-        $request->validate([
-            'name' => 'required|max:255',
-            'abbreviation' => 'required',
-            'aboutUs' => 'required',
-            'costPerCreditHour' => 'required|numeric',
-        ]);
-        $faculty = new Faculty();
-        $faculty->name = $request->get('name');
-        $faculty->abbreviation = $request->get('abbreviation');
-        $faculty->aboutUs = $request->get('aboutUs');
-        $faculty->costPerCreditHour = $request->get('costPerCreditHour');
-        if ($request->has('whystudyhere')) {
-            $faculty->whystudyhere = $request->get('whystudyhere');
+        if ($request->has('next')) {
+            $request->validate([
+                'name' => 'required|max:255',
+                'abbreviation' => 'required',
+                'aboutUs' => 'required',
+                'costPerCreditHour' => 'required|numeric',
+            ]);
+            $faculty = new Faculty();
+            $faculty->name = $request->get('name');
+            $faculty->abbreviation = $request->get('abbreviation');
+            $faculty->aboutUs = $request->get('aboutUs');
+            $faculty->costPerCreditHour = $request->get('costPerCreditHour');
+            if ($request->has('whystudyhere')) {
+                $faculty->whystudyhere = $request->get('whystudyhere');
+            }
+            $faculty->save();
+            $request->session()->put('faculty', $faculty);
+            return redirect()->action(
+                            'PartnerController@create', ['faculty' => $faculty]
+            );
+        } else {
+            return redirect('faculties');
         }
-        $faculty->save();
-        $request->session()->put('faculty', '$faculty');
-        return view('facultyaddExtra')->with('faculty', $faculty);
     }
 
     /**
@@ -86,6 +92,16 @@ class FacultyController extends Controller {
             'aboutUs' => 'required',
             'costPerCreditHour' => 'required|numeric',
         ]);
+        $faculty->name = $request->get('name');
+        $faculty->abbreviation = $request->get('abbreviation');
+        $faculty->aboutUs = $request->get('aboutUs');
+        $faculty->costPerCreditHour = $request->get('costPerCreditHour');
+        if ($request->has('whystudyhere')) {
+            $faculty->whystudyhere = $request->get('whystudyhere');
+        }
+        $faculty->save();
+        $request->session()->put('faculty', $faculty);
+        return redirect('faculties')->with('success', 'Information has been updated');
     }
 
     /**
@@ -96,7 +112,7 @@ class FacultyController extends Controller {
      */
     public function destroy(Faculty $faculty) {
         $faculty->delete();
-        return redirect('faculty')->with('success', 'Information has been deleted');
+        return redirect('faculties')->with('success', 'Information has been deleted');
     }
 
 }

@@ -15,7 +15,7 @@ class CreateMERSTable extends Migration
     {
         Schema::create('m_e_r_s', function (Blueprint $table) {
             $table->bigIncrements('merId');
-            $table->string('progId', 5);
+            $table->string('progId');
             $table->foreign('progId')->references('progId')->on('programmes')->onDelete('cascade');
             $table->timestamps();
         });

@@ -35,25 +35,30 @@ class AccommodationController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request) {
-        $request->validate([
-            'name' => 'required|max:255',
-            'description' => 'required',
-            'address' => 'required',
-            'roomType' => 'required',
-        ]);
-        $accommodation = new Accommodation();
-        $accommodation->name = $request->get('name');
-        $accommodation->description = $request->get('description');
-        $accommodation->address = $request->get('address');
-        $accommodation->roomType = $request->get('roomType');
-        if (request()->has('utilities')) {
-            $utilities = implode("/", $request->get('utilities'));
-            $accommodation->utilities = $utilities;
+        if ($request->has('submit')) {
+            $request->validate([
+                'name' => 'required|max:255',
+                'description' => 'required',
+                'address' => 'required',
+                'roomType' => 'required',
+            ]);
+            $accommodation = new Accommodation();
+            $accommodation->name = $request->get('name');
+            $accommodation->description = $request->get('description');
+            $accommodation->address = $request->get('address');
+            $accommodation->roomType = $request->get('roomType');
+            if (request()->has('utilities')) {
+                $utilities = implode("/", $request->get('utilities'));
+                $accommodation->utilities = $utilities;
+            } else {
+                $accommodation->utilities = null;
+            }
+            $accommodation->campusid = $request->get('campus');
+            $accommodation->save();
+            return redirect('accommodation')->with('success', 'Information has been added');
         } else {
-            $accommodation->utilities = null;
+            return redirect('accommodation');
         }
-        $accommodation->campusid = $request->get('campus');
-        $accommodation->save();
     }
 
     /**
@@ -86,25 +91,29 @@ class AccommodationController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Accommodation $accommodation) {
-        $request->validate([
-            'name' => 'required|max:255',
-            'description' => 'required',
-            'address' => 'required',
-            'roomType' => 'required',
-        ]);
-        $accommodation->name = $request->get('name');
-        $accommodation->description = $request->get('description');
-        $accommodation->address = $request->get('address');
-        $accommodation->roomType = $request->get('roomType');
-        if (request()->has('utilities')) {
-            $utilities = implode("/", $request->get('utilities'));
-            $accommodation->utilities = $utilities;
+        if ($request->has('update')) {
+            $request->validate([
+                'name' => 'required|max:255',
+                'description' => 'required',
+                'address' => 'required',
+                'roomType' => 'required',
+            ]);
+            $accommodation->name = $request->get('name');
+            $accommodation->description = $request->get('description');
+            $accommodation->address = $request->get('address');
+            $accommodation->roomType = $request->get('roomType');
+            if (request()->has('utilities')) {
+                $utilities = implode("/", $request->get('utilities'));
+                $accommodation->utilities = $utilities;
+            } else {
+                $accommodation->utilities = null;
+            }
+            $accommodation->campusid = $request->get('campusid');
+            $accommodation->save();
+            return redirect('accommodation')->with('success', 'Information has been updated');
         } else {
-            $accommodation->utilities = null;
+            return redirect('accommodation');
         }
-        $accommodation->campusid = $request->get('campusid');
-        $accommodation->save();
-        return redirect('accommodation')->with('success', 'Information has been updated');
     }
 
     /**

@@ -15,12 +15,4 @@ class Faculty extends Model {
         return $this->hasMany('App\Accreditation', 'facultyid');
     }
 
-    public function highlight() {
-        return $this->hasMany('App\Highlight', 'facultyid');
-    }
-
-    public function testimonial() {
-        return $this->hasMany('App\Testimonial', 'facultyid');
-    }
-
 }

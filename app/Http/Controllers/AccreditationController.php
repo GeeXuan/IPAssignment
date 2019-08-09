@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Accreditation;
+use App\Faculty;
 use Illuminate\Http\Request;
 
 class AccreditationController extends Controller {
@@ -21,8 +22,8 @@ class AccreditationController extends Controller {
      *
      * @return \Illuminate\Http\Response
      */
-    public function create() {
-        //
+    public function create(Faculty $faculty) {
+        return view('facultyaddAccreditation')->with('faculty', $faculty);
     }
 
     /**
@@ -32,7 +33,28 @@ class AccreditationController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request) {
-        //
+        if (request()->has("add")) {
+            $request->validate([
+                'name' => 'required|max:255',
+                'description' => 'required',
+            ]);
+            $accreditation = new Accreditation();
+            $accreditation->name = $request->get("name");
+            $accreditation->description = $request->get("description");
+            $faculty = $request->session()->get('faculty');
+            $faculty->accreditation()->save($accreditation);
+            $accreditations = Accreditation::all()->where('facultyid', $faculty->id);
+            return view('facultyaddAccreditation', compact('faculty'))->with('accreditations', $accreditations);
+        } else if (request()->has("delete")) {
+            $faculty = $request->session()->get('faculty');
+            $accreditation = Accreditation::find(request()->get("delete"));
+            $accreditation->delete();
+            $accreditations = Accreditation::all()->where('facultyid', $faculty->id);
+            return view('facultyaddAccreditation', compact('faculty'))->with('accreditations', $accreditations);
+        } else if (request()->has("done")) {
+            $faculty = $request->session()->get('faculty');
+            return redirect()->action('FacultyController@index');
+        }
     }
 
     /**
@@ -63,7 +85,10 @@ class AccreditationController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Accreditation $accreditation) {
-        //
+        $request->validate([
+            'name' => 'required|max:255',
+            'description' => 'required',
+        ]);
     }
 
     /**

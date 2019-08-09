@@ -129,7 +129,8 @@
                             <input type="text" size="17" maxlength="15" name="phone" value="{{$campus->phone}}" required>
                         </p>
                         <p>
-                            <button type="submit">Update</button>
+                            <button type="submit" name="cancel" class="btn btn-danger">Cancel</button>&nbsp&nbsp
+                            <button type="submit" name="update" class="btn btn-success">Update</button>
                         </p>
                     </form>
                 </div>

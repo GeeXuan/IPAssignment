@@ -34,20 +34,23 @@ class LoanInformationController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request) {
-        $request->validate([
-            'name' => 'required|max:255',
-            'description' => 'required',
-            'campuseslist' => 'required',
-        ]);
-        $loan = new LoanInformation();
-        $loan->name = $request->get("name");
-        $loan->description = $request->get("description");
-        $campuses = \App\Campus::find($request->get('campuseslist'));
-        if ($loan->save()) {
-            $loan->campuses()->attach($campuses);
+        if ($request->has('submit')) {
+            $request->validate([
+                'name' => 'required|max:255',
+                'description' => 'required',
+                'campuseslist' => 'required',
+            ]);
+            $loan = new LoanInformation();
+            $loan->name = $request->get("name");
+            $loan->description = $request->get("description");
+            $campuses = \App\Campus::find($request->get('campuseslist'));
+            if ($loan->save()) {
+                $loan->campuses()->attach($campuses);
+            }
+            return redirect('loan')->with('success', 'Information has been added');
+        } else {
+            return redirect('loan');
         }
-
-        return redirect('loan')->with('success', 'Information has been added');
     }
 
     /**
@@ -84,18 +87,22 @@ class LoanInformationController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, LoanInformation $loan) {
-        $request->validate([
-            'name' => 'required|max:255',
-            'description' => 'required',
-            'campuseslist' => 'required',
-        ]);
-        $loan->name = $request->get("name");
-        $loan->description = $request->get("description");
-        $campuses = \App\Campus::find($request->get('campuseslist'));
-        if ($loan->save()) {
-            $loan->campuses()->sync($campuses);
+        if ($request->has('submit')) {
+            $request->validate([
+                'name' => 'required|max:255',
+                'description' => 'required',
+                'campuseslist' => 'required',
+            ]);
+            $loan->name = $request->get("name");
+            $loan->description = $request->get("description");
+            $campuses = \App\Campus::find($request->get('campuseslist'));
+            if ($loan->save()) {
+                $loan->campuses()->sync($campuses);
+            }
+            return redirect('loan')->with('success', 'Information has been updated');
+        } else {
+            return redirect('loan');
         }
-        return redirect('loan')->with('success', 'Information has been updated');
     }
 
     /**
