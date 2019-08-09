@@ -74,10 +74,14 @@
                 <h1 id="fh5co-logo"><a href="index.html"><img src="/images/logo.png" alt="Free HTML5 Bootstrap Website Template"></a></h1>
                 <nav id="fh5co-main-menu" role="navigation">
                     <ul>
-                        <li class="fh5co-active"><a href="index.html">Home</a></li>
-                        <li><a href="portfolio.html">Portfolio</a></li>
-                        <li><a href="about.html">About</a></li>
-                        <li><a href="contact.html">Contact</a></li>
+                        <li><a href="{{url('campus')}}">Campus</a></li>
+                        <li class="fh5co-active"><a href="{{url('faculties')}}">Faculty</a></li>
+                        <li><a href="{{url('programmes')}}">Programme</a></li>
+                        <li><a href="{{url('courses')}}">Course</a></li>
+                        <li><a href="{{url('accommodation')}}">Accommodation</a></li>
+                        <li><a href="{{url('loan')}}">Loan Information</a></li>
+                        <li><a href="{{url('/')}}">Customer View</a></li>
+                        <li><a href="">Log Out</a></li>
                     </ul>
                 </nav>
 
@@ -98,6 +102,7 @@
                     <h2>Faculties</h2>
                     <a href="{{action('FacultyController@create')}}" class="btn btn-success">Create</a>
                     <br />
+                    <a href="{{action('FacultyController@generateXML')}}" class="btn btn-success">Generate XML</a>
                     <br />
                     @if (\Session::has('success'))
                     <div class="alert alert-success">

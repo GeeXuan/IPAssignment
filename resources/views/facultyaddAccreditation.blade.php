@@ -75,10 +75,14 @@
                 <h1 id="fh5co-logo"><a href="index.html"><img src="/images/logo.png" alt="Free HTML5 Bootstrap Website Template"></a></h1>
                 <nav id="fh5co-main-menu" role="navigation">
                     <ul>
-                        <li class="fh5co-active"><a href="index.html">Home</a></li>
-                        <li><a href="portfolio.html">Portfolio</a></li>
-                        <li><a href="about.html">About</a></li>
-                        <li><a href="contact.html">Contact</a></li>
+                        <li><a href="{{url('campus')}}">Campus</a></li>
+                        <li class="fh5co-active"><a href="{{url('faculties')}}">Faculty</a></li>
+                        <li><a href="{{url('programmes')}}">Programme</a></li>
+                        <li><a href="{{url('courses')}}">Course</a></li>
+                        <li><a href="{{url('accommodation')}}">Accommodation</a></li>
+                        <li><a href="{{url('loan')}}">Loan Information</a></li>
+                        <li><a href="{{url('/')}}">Customer View</a></li>
+                        <li><a href="">Log Out</a></li>
                     </ul>
                 </nav>
 
@@ -97,6 +101,7 @@
                 <div class="fh5co-narrow-content">
                     <form method="post" action="{{url('accreditation')}}">
                         @if (isset($accreditations))
+                        <h2>Added Accreditations</h2>
                         <table border='1'>
                             <tr>
                                 <th>Name</th>

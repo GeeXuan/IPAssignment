@@ -43,13 +43,13 @@ class AccreditationController extends Controller {
             $accreditation->description = $request->get("description");
             $faculty = $request->session()->get('faculty');
             $faculty->accreditation()->save($accreditation);
-            $accreditations = Accreditation::all()->where('facultyid', $faculty->id);
+            $accreditations = $faculty->accreditation()->get();
             return view('facultyaddAccreditation', compact('faculty'))->with('accreditations', $accreditations);
         } else if (request()->has("delete")) {
             $faculty = $request->session()->get('faculty');
             $accreditation = Accreditation::find(request()->get("delete"));
             $accreditation->delete();
-            $accreditations = Accreditation::all()->where('facultyid', $faculty->id);
+            $accreditations = $faculty->accreditation()->get();
             return view('facultyaddAccreditation', compact('faculty'))->with('accreditations', $accreditations);
         } else if (request()->has("done")) {
             $faculty = $request->session()->get('faculty');
@@ -85,10 +85,25 @@ class AccreditationController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Accreditation $accreditation) {
-        $request->validate([
-            'name' => 'required|max:255',
-            'description' => 'required',
-        ]);
+        if (request()->has("add")) {
+            $request->validate([
+                'name' => 'required|max:255',
+                'description' => 'required',
+            ]);
+            $accreditation = new Accreditation();
+            $accreditation->name = $request->get("name");
+            $accreditation->description = $request->get("description");
+            $faculty = $request->session()->get('faculty');
+            $faculty->accreditation()->save($accreditation);
+            $accreditations = $faculty->accreditation()->get();
+            return view('facultyeditAccreditation', compact('faculty'))->with('accreditations', $accreditations);
+        } else if (request()->has("delete")) {
+            $faculty = $request->session()->get('faculty');
+            $accreditation = Accreditation::find(request()->get("delete"));
+            $accreditation->delete();
+            $accreditations = $faculty->accreditation()->get();
+            return view('facultyeditAccreditation', compact('faculty'))->with('accreditations', $accreditations);
+        }
     }
 
     /**
@@ -99,6 +114,11 @@ class AccreditationController extends Controller {
      */
     public function destroy(Accreditation $accreditation) {
         //
+    }
+
+    public function editAccreditation(Faculty $faculty) {
+        $accreditations = $faculty->accreditation;
+        return view('facultyeditAccreditation')->with('faculty', $faculty)->with('accreditations', $accreditations);
     }
 
 }

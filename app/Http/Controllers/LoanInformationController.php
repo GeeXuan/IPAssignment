@@ -87,7 +87,7 @@ class LoanInformationController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, LoanInformation $loan) {
-        if ($request->has('submit')) {
+        if ($request->has('update')) {
             $request->validate([
                 'name' => 'required|max:255',
                 'description' => 'required',

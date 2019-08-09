@@ -45,13 +45,13 @@ class PartnerController extends Controller {
             $partner->description = $request->get("description");
             $faculty = $request->session()->get('faculty');
             $faculty->partner()->save($partner);
-            $partners = Partner::all()->where('facultyid', $faculty->id);
+            $partners = $faculty->partner()->get();
             return view('facultyaddPartners', compact('faculty'))->with('partners', $partners);
         } else if (request()->has("delete")) {
             $faculty = $request->session()->get('faculty');
             $partner = Partner::find(request()->get("delete"));
             $partner->delete();
-            $partners = Partner::all()->where('facultyid', $faculty->id);
+            $partners = $faculty->partner()->get();
             return view('facultyaddPartners', compact('faculty'))->with('partners', $partners);
         } else if (request()->has("next")) {
             $faculty = $request->session()->get('faculty');
@@ -78,7 +78,7 @@ class PartnerController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function edit(Partner $partner) {
-        //
+        
     }
 
     /**
@@ -88,8 +88,26 @@ class PartnerController extends Controller {
      * @param  \App\Partner  $partner
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Partner $partner) {
-        //
+    public function update(Request $request, Faculty $faculty) {
+        if (request()->has("add")) {
+            $request->validate([
+                'name' => 'required|max:255',
+                'description' => 'required',
+                'type' => 'required',
+            ]);
+            $partner = new Partner();
+            $partner->name = $request->get("name");
+            $partner->type = $request->get("type");
+            $partner->description = $request->get("description");
+            $faculty->partner()->save($partner);
+            $partners = Partner::all()->where('facultyid', $faculty->id);
+            return view('facultyeditPartners', compact('faculty'))->with('partners', $partners);
+        } else if (request()->has("delete")) {
+            $partner = Partner::find(request()->get("delete"));
+            $partner->delete();
+            $partners = Partner::all()->where('facultyid', $faculty->id);
+            return view('facultyeditPartners', compact('faculty'))->with('partners', $partners);
+        } 
     }
 
     /**
@@ -100,6 +118,13 @@ class PartnerController extends Controller {
      */
     public function destroy(Partner $partner) {
         //
+    }
+
+    public function editPartner(Faculty $faculty) {
+        \Debugbar::info($faculty);
+        $partners = $faculty->partner;
+        \Debugbar::info($partners);
+        return view('facultyeditPartners')->with('faculty', $faculty)->with('partners', $partners);
     }
 
 }

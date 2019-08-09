@@ -100,48 +100,13 @@
             <div id="fh5co-main">
                 <div class="fh5co-narrow-content">
                     <h2>Campuses</h2>
-                    <a href="{{action('CampusController@create')}}" class="btn btn-success">Create</a>
-                    <br />
-                    <br />
-                    @if (\Session::has('success'))
-                    <div class="alert alert-success">
-                        <p>{{ \Session::get('success') }}</p>
-                    </div><br />
-                    @endif
-                    <table class="table table-striped">
-                        <thead>
-                            <tr>
-                                <th>Name</th>
-                                <th>Abbreviation</th>
-                                <th>Address</th>
-                                <th>Contact</th>
-                                <th colspan="2">Action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach($campuses as $campus)
-                            <tr>
-                                <td>{{$campus['name']}}</td>
-                                <td>{{$campus['abbreviation']}}</td>
-                                <td>{{$campus['address']}}</td>
-                                <td>{{$campus['phone']}}</td>
-
-                                <td>
-                                    <a href="{{action('CampusController@edit', $campus)}}" 
-                                       class="btn btn-warning">Edit</a>
-                                </td>
-                                <td>
-                                    <form action="{{action('CampusController@destroy', $campus)}}" 
-                                          method="post">
-                                        @csrf
-                                        <input name="_method" type="hidden" value="DELETE">
-                                        <button class="btn btn-danger" type="submit">Delete</button>
-                                    </form>
-                                </td>
-                            </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
+                    <form method="post" action="{{action('CampusController@findcampus')}}">
+                        @csrf
+                        Campus ID:<br/>
+                        <input type="text" name="id" placeholder="Campus ID" required/>
+                        <br/>
+                        <button type="submit" name="submit">Submit</button>
+                    </form>
                 </div>
             </div>
         </div>
