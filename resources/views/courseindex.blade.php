@@ -150,7 +150,7 @@
                             <input name="_method" type="hidden">
                             <button class="btn btn-danger" type="submit">Add New Course</button>
                         </form>
-                        <form action="{{action('CourseController@createXML')}}" method="post">
+                        <form action="{{action('CourseController@generateXML')}}" method="GET">
                             @csrf
                             <input name="_method" type="hidden">
                             <button class="btn btn-danger" type="submit">Create XML</button>

@@ -4,7 +4,10 @@ namespace App\Providers;
 
 
 use Illuminate\Support\ServiceProvider;
-
+ /**
+ *
+ * @author Michelle
+ */
 class ProgrammeModelServiceProvider extends ServiceProvider
 {
     /**

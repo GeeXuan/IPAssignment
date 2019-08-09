@@ -131,21 +131,17 @@ class CourseController extends Controller
         return redirect('courses')->with('success', 'Information has been deleted');
     }
     
-    public function createXML(Request $request) {
-        $rootNode = new \SimpleXMLElement("<?xml version='1.0' encoding='UTF-8' standalone='yes'?><courses></courses>");
+    public function generateXML(Request $request) {
+        $reader = new \App\CoursesDatabaseReader();
+        \Debugbar::info($reader);
+        $writer = new \App\CoursesXMLWriter();
+        \Debugbar::info($writer);
+        $writer->write($reader->read());
+        $file = public_path() . "\\xml\\courses.xml";
 
-        $courses = Course::all();
-        foreach ($courses as $course) {
-            $itemNode = $rootNode->addChild('course');
-            $itemNode->addChild('courseCode', $course->courseCode);
-            $itemNode->addChild('courseTitle', $course->courseTitle);
-            $itemNode->addChild('creditHours', $course->creditHours);
-            $itemNode->addChild('category', $course->category);
-        }
-        
-        return response($rootNode->asXML())
-        ->withHeaders([
-            'Content-Type' => 'text/xml'
-        ]);
+        $headers = array(
+            'Content-Type: application/xsl',
+        );
+        return \Response::download($file, 'courses.xml', $headers);
     }
 }

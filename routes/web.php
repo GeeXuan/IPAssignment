@@ -44,8 +44,5 @@ Route::get('campus/api/restapi', 'CampusController@restapi');
 Route::post('createProgrammeXML', [
     'uses' => 'ProgrammeController@createXML'
 ]);
-Route::post('createCourseXML', [
-    'uses' => 'CourseController@createXML'
-]);
-
+Route::get('courses/xml/generateXML', 'CourseController@generateXML');
 

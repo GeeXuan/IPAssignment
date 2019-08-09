@@ -3,7 +3,10 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
-
+ /**
+ *
+ * @author Michelle
+ */
 class CourseModelServiceProvider extends ServiceProvider {
 
     /**

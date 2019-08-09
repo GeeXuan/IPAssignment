@@ -1,7 +1,10 @@
 <?php namespace App\Observer;
  
 use App\Course;
- 
+ /**
+ *
+ * @author Michelle
+ */
 class CourseObserver
 {
     public function updated(Course $course) {
