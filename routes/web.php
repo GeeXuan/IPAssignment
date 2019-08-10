@@ -29,8 +29,11 @@ Route::resource('partner', 'PartnerController');
 Route::resource('accreditation', 'AccreditationController');
 Route::resource('accommodation', 'AccommodationController');
 Route::resource('loan', 'LoanInformationController');
+
 Route::get('programmes/listprogrammes/display', 'ProgrammeController@listProgramme');
 Route::get('programmes/listprogdetails/view', 'ProgrammeController@listprogdetail');
+Route::get('programmes/listfilter', 'ProgrammeController@search');
+
 Route::get('partner/{faculty}/create', 'PartnerController@create');
 Route::get('accreditation/{faculty}/create', 'AccreditationController@create');
 Route::patch('partner/{faculty}/update', 'PartnerController@update');

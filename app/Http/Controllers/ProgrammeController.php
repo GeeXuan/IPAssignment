@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Programme;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Input;
 
 class ProgrammeController extends Controller {
 
@@ -183,9 +184,15 @@ class ProgrammeController extends Controller {
         return view('listprogramme', compact('programme'));
     }
     public function listprogdetail(){
-        $programme = Programme::find(Input::get('programmeid'));
+        $programme = Programme::find(Input::get('programmeID'));
         return view('listprogdetails',compact('programme'));
         
+    }
+    public function search(Request $request){
+        $search = $request->get('search');
+        $courses = $programmes->courses()->get();
+        $programme = $programme->where('progName','like','%'.$search."%")->paginate(5);
+        return view('listfilter',compact('programme'));
     }
     
     public function createXML(Request $request) {
