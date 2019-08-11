@@ -54,6 +54,8 @@ Route::get('partner/{faculty}/editPartner', 'PartnerController@editPartner');
 Route::get('accreditation/{faculty}/editAccreditation', 'AccreditationController@editAccreditation');
 Route::patch('accreditation/{faculty}/update', 'AccreditationController@update');
 Route::get('faculties/xml/generateXML', 'FacultyController@generateXML');
+Route::get('faculties/xml/previewXML', 'FacultyController@previewXML');
+Route::get('faculties/xml/previewXSLT', 'FacultyController@previewXSLT');
 Route::get('campus/api/findbyID', 'CampusController@findbyID');
 Route::post('campus/api/findcampus', 'CampusController@findcampus');
 Route::get('campus/api/restapi', 'CampusController@restapi');
