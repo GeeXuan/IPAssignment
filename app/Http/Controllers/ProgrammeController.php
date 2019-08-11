@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Programme;
+use App\Campus;
 use App\Post;
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Model;
@@ -20,6 +21,37 @@ class ProgrammeController extends Controller {
     public function index() {
         $programmes = Programme::all();
         return view('programmeindex', compact('programmes'));
+    }
+
+     public function listProgramme() {
+        $programme = Programme::all();
+        return view('listprogramme', compact('programme'));
+    }
+
+    public function listprogdetail() {
+        $programme = Programme::find(Input::get('programmeID'));
+        return view('listprogdetails', compact('programme'));
+    }
+    
+    public function createCampusXML(Request $request) {
+        $rootNode = new\SimpleXMLElement("<?xml version='1.0' encoding='UTF-8' standalone='yes'?><campus></campus>");
+
+        $campuses = campus::all();
+        foreach ($campuses as $campuses) {
+            $itemNode = $rootNode->addChild('Campus');
+            $itemNode->addChild('id', $campuses->id);
+            $itemNode->addChild('name', $campuses->name);
+            $itemNode->addChild('abbreviation', $campuses->abbreviation);
+            $itemNode->addChild('address', $campuses->address);
+            $itemNode->addChild('phone', $campuses->phone);
+            $itemNode->addChild('create_at', $campuses->create_at);
+            $itemNode->addChild('updated_at', $campuses->updated_at);
+        }
+
+        return response($rootNode->asXML())
+                        ->withHeaders([
+                            'Content-Type' => 'text/xml'
+        ]);
     }
 
     /**
@@ -182,21 +214,7 @@ class ProgrammeController extends Controller {
         return redirect('programmes')->with('success', 'Information has been deleted');
     }
 
-    public function listProgramme() {
-        $programme = Programme::all();
-        return view('listprogramme', compact('programme'));
-    }
-
-    public function listprogdetail() {
-        $programme = Programme::find(Input::get('programmeID'));
-        return view('listprogdetails', compact('programme'));
-    }
-
-    public function search() {
-        $programme = Programme::find(Input::get('programmelvl'));
-         return view('listfilter', compact('programme'));
-    }
-
+   
     public function createXML(Request $request) {
         $rootNode = new \SimpleXMLElement("<?xml version='1.0' encoding='UTF-8' standalone='yes'?><programmes></programmes>");
 

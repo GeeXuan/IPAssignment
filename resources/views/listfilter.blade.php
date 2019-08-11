@@ -57,7 +57,6 @@
         <link rel="stylesheet" href="/css/owl.theme.default.min.css">
         <!-- Theme style  -->
         <link rel="stylesheet" href="/css/style.css">
-         <link rel="stylesheet" href="{{asset('css/app.css')}}">
 
         <!-- Modernizr JS -->
         <script src="/js/modernizr-2.6.2.min.js"></script>
@@ -97,47 +96,48 @@
             <div id="fh5co-main">
 
                 <div class="fh5co-narrow-content">
-                    <h2 class="fh5co-heading animate-box" data-animate-effect="fadeInLeft">Course Details<span></h2>
-                    <form method="POST" role="search">
-                    {{csrf_field()}}
-            <div class="container">
-                <center>
-                    <br/><br/><input type="text" placeholder="Enter Level" name="level" class="form-control"><span class="input-group-btn">
-                        <button class="btn btn-default">
-                            Search</button><span class="glyphicon glyphicon-search"></span>
-                    </span>
-                </center>
-                
-                @if(isset($details))
-                <br/><h1>Programme Details:</h1>
-                <table class="table table-striped">
-                    <thead>
-                        <tr>
-                            <th>Programme ID</th>
-                                <th>Programme Name</th>
-                                <th>Programme Description</th>
-                                <th>Profession</th>
-                                <th>Duration of Study</th>
-                                <th>Programme Level</th>
-                        </tr>
-                    </thead>
-                    @foreach($details as $programme)
-                    <tbody>
-                        <tr>
-                            <td>{{$programme->progId}}</td>
-                            <td>{{$programme->progName}}</td>
-                            <td>{{$programme->progDesc}}</td>
-                            <td>{{$programme->profession}}</td>
-                            <td>{{$programme->durationStudy}}</td>
-                            <td>{{$programme->progLevel}}</td>
-                        </tr>
-                        @endforeach                        
-                    </tbody>
-                    <br />
-                </table>
-            </div>
-            @endif
-        </form><br/>
+                    <h2 class="fh5co-heading animate-box" data-animate-effect="fadeInLeft">Search Result<span></h2>
+                    <form method="get" role="search" action="{{url('programmes/listfilter/filtering')}}">
+                        {{csrf_field()}}
+                        <div class="container">
+
+                            <br/><br/>
+                            <input type="text" placeholder="Enter Programme Name ('Eg.Information')" name="level" value="" class="form-control"><span class="input-group-btn">
+                                <span class="glyphicon glyphicon-search"><button class="btn btn-default">Search</button></span></span>
+                            @if(isset($details))
+                            <br/><h1>Programme Details:</h1>
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                     
+                                        <th>Programme Name</th>
+                                        <th>Programme Description</th>
+                                        <th>Profession</th>
+                                        <th>Duration of Study</th>
+                                        <th>Programme Level</th>
+                                    </tr>
+                                </thead>
+                                @foreach($details as $programme)
+                                <tbody>
+                                    <tr>
+                                       
+                                        <td>{{$programme->progName}}</td>
+                                        <td>{{$programme->progDesc}}</td>
+                                        <td>{{$programme->profession}}</td>
+                                        <td>{{$programme->durationStudy}}</td>
+                                        <td>{{$programme->progLevel}}</td>
+                                    </tr>
+                                    @endforeach                        
+                                </tbody>
+                                <br />
+                            </table>
+                        </div>
+                        @endif
+                    </form>
+                    <center>
+                    <button class="btn btn-default"><a href="http://localhost:8000/programmes/listprogrammes/display">Back</a></button>
+                    </center>
+                    <br/>
 
 
                     <!-- jQuery -->

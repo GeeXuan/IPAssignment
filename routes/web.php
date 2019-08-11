@@ -11,6 +11,8 @@
   |
  */
 
+use Illuminate\Support\Facades\Input;
+
 Route::get('/', function () {
     return view('welcome');
 });
@@ -29,23 +31,23 @@ Route::resource('partner', 'PartnerController');
 Route::resource('accreditation', 'AccreditationController');
 Route::resource('accommodation', 'AccommodationController');
 Route::resource('loan', 'LoanInformationController');
-
+Route::post('createCoursesXML', [
+    'uses' => 'ProgrammeController@createCampusXML'
+]);
 Route::get('programmes/listprogrammes/display', 'ProgrammeController@listProgramme');
 Route::get('programmes/listprogdetails/view', 'ProgrammeController@listprogdetail');
-
 Route::get('programmes/listfilter/filtering', function() {
-    $proglLevel = \App\Programme::find(Input::get('level'));
-    if ($progLevel != "") {
-        $programme = DB::table('programme')->where('progLevel', 'LIKE', '%' . $progLevel . '%')
+    $progLevel = Input::get('level');
+    if ($progLevel != " ") {
+        $programme = DB::table('programmes')->where('progLevel', 'LIKE', '%' . $progLevel . '%')
                 ->orWhere('progName', 'LIKE', '%' . $progLevel . '%')
                 ->get();
         if (count($programme) > 0) {
             return view('listfilter')->withDetails($programme)->withQuery($progLevel);
         }
+        
     }
 });
-
-
 
 Route::get('partner/{faculty}/create', 'PartnerController@create');
 Route::get('accreditation/{faculty}/create', 'AccreditationController@create');

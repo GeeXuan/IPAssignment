@@ -96,16 +96,8 @@
             <div id="fh5co-main">
 
                 <div class="fh5co-narrow-content">
-                    <h2 class="fh5co-heading animate-box" data-animate-effect="fadeInLeft">Course Details<span></h2>
-                    <nav class="navbar navbar-default">
-                        <div class="container-fluid">
-                            
-                            <ul class="nav navbar-nav">
-                                <li class="active"><a href="http://localhost:8000/programmes/listprogrammes/display">Home</a></li>
-                                <li ><a href="http://localhost:8000/programmes/listfilter/filtering" value="Diploma" name="level">Search</a></li>
-                            </ul>
-                        </div>
-                    </nav>
+                    <h2 class="fh5co-heading animate-box" data-animate-effect="fadeInLeft">Programme Details<span></h2>
+                    
                     <table class="table table-striped" method="get" action="{{url('programmeID',$programme)}}">
                         <thead>
                             <tr>
@@ -139,6 +131,8 @@
 
                         </tbody>
                     </table><br/>
+                    <button class="btn btn-default"><a href="http://localhost:8000/programmes/listprogrammes/display">Back</a></button>
+
 
 
                     <!-- jQuery -->

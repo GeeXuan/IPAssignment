@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<campus>
+    <link type="text/css" id="dark-mode" rel="stylesheet" href=""/>
+    <style type="text/css" id="dark-mode-custom-style"/>
+    <Campus>
+        <id>1</id>
+        <name>Kuala Lumpur</name>
+        <abbreviation>KL</abbreviation>
+        <address>
+            Jalan Genting Kelang, Setapak, 53300 Kuala Lumpur,nP.O. Box 10979, 50932 Kuala Lumpur, Malaysia.
+        </address>
+        <phone>03-41450123</phone>
+        <create_at/>
+        <updated_at/>
+    </Campus>
+    <Campus>
+        <id>2</id>
+        <name>Penang</name>
+        <abbreviation>PG</abbreviation>
+        <address>
+            77, Lorong Lembah Permai Tiga, 11200 Tanjong Bungah, Pulau Pinang, Malaysia.
+        </address>
+        <phone>04-8995230</phone>
+        <create_at/>
+        <updated_at/>
+    </Campus>
+    <Campus>
+        <id>3</id>
+        <name>Perak</name>
+        <abbreviation>PK</abbreviation>
+        <address>
+            Jalan Kolej, Taman Bandar Baru, 31900 Kampar, Perak, Malaysia.
+        </address>
+        <phone>05-4660388</phone>
+        <create_at/>
+        <updated_at/>
+    </Campus>
+    <Campus>
+        <id>4</id>
+        <name>Johor</name>
+        <abbreviation>JB</abbreviation>
+        <address>
+            Jalan Segamat / Labis 85000 Segamat, Johor, Malaysia.
+        </address>
+        <phone>07-9270801</phone>
+        <create_at/>
+        <updated_at/>
+    </Campus>
+    <Campus>
+        <id>5</id>
+        <name>Pahang</name>
+        <abbreviation>PH</abbreviation>
+        <address>
+            Jalan IM 9/2, Indera Mahkota 9, 25200 Kuantan, Pahang Darul Makmur, Malaysia.
+        </address>
+        <phone>09-5738171</phone>
+        <create_at/>
+        <updated_at/>
+    </Campus>
+    <Campus>
+        <id>6</id>
+        <name>Sabah</name>
+        <abbreviation>SB</abbreviation>
+        <address>
+            Lot 1, Ground Floor, Pusat Dagangan Donggongon, 89500 Jalan Sapau, Donggongon, Penampang, Sabah.
+        </address>
+        <phone>088-718481</phone>
+        <create_at/>
+        <updated_at/>
+    </Campus>
+</campus>
