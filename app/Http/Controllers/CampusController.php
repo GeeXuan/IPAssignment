@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 
 use App\Campus;
 use Illuminate\Http\Request;
+use App\Adapter\campusAdapter;
+
 
 class CampusController extends Controller {
 

@@ -57,7 +57,7 @@
         <link rel="stylesheet" href="/css/owl.theme.default.min.css">
         <!-- Theme style  -->
         <link rel="stylesheet" href="/css/style.css">
-     
+
 
         <!-- Modernizr JS -->
         <script src="/js/modernizr-2.6.2.min.js"></script>
@@ -97,16 +97,13 @@
             <div id="fh5co-main">
 
                 <div class="fh5co-narrow-content">
-                    <h2 class="fh5co-heading animate-box" data-animate-effect="fadeInLeft">Add Programme Structure<span></h2>
+                    <h2 class="fh5co-heading animate-box" data-animate-effect="fadeInLeft">Programme Listing<span></h2>
 
-                    <form method="get" role="search">
+                    <form method="get" role="search" action="{{url('programmes/listfilter/filtering')}}">
                         {{csrf_field()}}
-                        <br/><br/><input type="text" placeholder="Enter Level" name="level" class="form-control"><span class="input-group-btn">
-                            <button class="btn btn-default" type="submit" name="level">
-                                Search</button><span class="glyphicon glyphicon-search"></span>
+                        <br/><br/><input type="text" placeholder="Enter Level" name="level" value="a" class="form-control"><span class="input-group-btn">
+                            <button class="btn btn-default">Search</button><span class="glyphicon glyphicon-search"></span>
                         </span>
-
-
                         <table class="table table-striped">
                             <tr>
                                 <th>Programme Name</th>
@@ -117,28 +114,33 @@
                                 @endforeach
                         </table>
                     </form>
+                    <form action="{{action('ProgrammeController@createCampusXML')}}" method="post">
+                            @csrf
+                            <input name="_method" type="hidden">
+                            <button class="btn btn-danger" type="submit">Create Course XML</button>
+                        </form>
 
-                        <!-- jQuery -->
-                        <script src="/js/jquery.min.js"></script>
-                        <!-- jQuery Easing -->
-                        <script src="/js/jquery.easing.1.3.js"></script>
-                        <!-- Bootstrap -->
-                        <script src="/js/bootstrap.min.js"></script>
-                        <!-- Carousel -->
-                        <script src="/js/owl.carousel.min.js"></script>
-                        <!-- Stellar -->
-                        <script src="/js/jquery.stellar.min.js"></script>
-                        <!-- Waypoints -->
-                        <script src="/js/jquery.waypoints.min.js"></script>
-                        <!-- Counters -->
-                        <script src="/js/jquery.countTo.js"></script>
+                    <!-- jQuery -->
+                    <script src="/js/jquery.min.js"></script>
+                    <!-- jQuery Easing -->
+                    <script src="/js/jquery.easing.1.3.js"></script>
+                    <!-- Bootstrap -->
+                    <script src="/js/bootstrap.min.js"></script>
+                    <!-- Carousel -->
+                    <script src="/js/owl.carousel.min.js"></script>
+                    <!-- Stellar -->
+                    <script src="/js/jquery.stellar.min.js"></script>
+                    <!-- Waypoints -->
+                    <script src="/js/jquery.waypoints.min.js"></script>
+                    <!-- Counters -->
+                    <script src="/js/jquery.countTo.js"></script>
 
 
-                        <!-- MAIN JS -->
-                        <script src="/js/main.js"></script>
+                    <!-- MAIN JS -->
+                    <script src="/js/main.js"></script>
 
-                        </body>
-                        </html>
+                    </body>
+                    </html>
 
 
 
