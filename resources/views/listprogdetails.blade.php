@@ -96,8 +96,15 @@
             <div id="fh5co-main">
 
                 <div class="fh5co-narrow-content">
-                    <h2 class="fh5co-heading animate-box" data-animate-effect="fadeInLeft">Add Programme Structure<span></h2>
-
+                    <h2 class="fh5co-heading animate-box" data-animate-effect="fadeInLeft">Course Details<span></h2>
+                    <nav class="navbar navbar-default">
+                        <div class="container-fluid">
+                            
+                            <ul class="nav navbar-nav">
+                                <li class="active"><a href="http://localhost:8000/programmes/listprogrammes/display">Home</a></li>
+                            </ul>
+                        </div>
+                    </nav>
                     <table class="table table-striped" method="get" action="{{url('programmeID',$programme)}}">
                         <thead>
                             <tr>
@@ -108,8 +115,8 @@
                                 <th>Duration of Study</th>
                                 <th>Programme Level</th>
                                 <th>Facilities Fee</th>
-                                <th>Total Credit Hours</th>
-                                <th>Faculty ID</th>                       
+                                <th>Faculty ID</th>
+
                             </tr>
                         </thead>
                         <tbody>
@@ -123,7 +130,6 @@
                                 <td>{{$programme['durationStudy']}}</td>
                                 <td>{{$programme['progLevel']}}</td>
                                 <td>{{$programme['facilitiesFee']}}</td>
-                                <td>{{$programme['totalCreditHours']}}</td>
                                 <td>{{$programme['facultyid']}}</td>
 
 

@@ -3,9 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Programme;
+use App\Post;
 use Illuminate\Http\Request;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\DB;
 
 class ProgrammeController extends Controller {
 
@@ -51,10 +54,10 @@ class ProgrammeController extends Controller {
         $programme->courses()->attach($courses);
         $campus = \App\Campus::find($request->session()->get('camplist'));
         $programme->campuses()->attach($campus);
-        
+
         $total = 0;
         $selectedCourses = $request->session()->get('courselist');
-        
+
         $programme->save();
 
         $mer = new \App\MER();
@@ -183,18 +186,17 @@ class ProgrammeController extends Controller {
         $programme = Programme::all();
         return view('listprogramme', compact('programme'));
     }
-    public function listprogdetail(){
+
+    public function listprogdetail() {
         $programme = Programme::find(Input::get('programmeID'));
-        return view('listprogdetails',compact('programme'));
-        
+        return view('listprogdetails', compact('programme'));
     }
-    public function search(Request $request){
-        $search = $request->get('search');
-        $courses = $programmes->courses()->get();
-        $programme = $programme->where('progName','like','%'.$search."%")->paginate(5);
-        return view('listfilter',compact('programme'));
+
+    public function search() {
+        $programme = Programme::find(Input::get('programmelvl'));
+         return view('listfilter', compact('programme'));
     }
-    
+
     public function createXML(Request $request) {
         $rootNode = new \SimpleXMLElement("<?xml version='1.0' encoding='UTF-8' standalone='yes'?><programmes></programmes>");
 
@@ -209,11 +211,11 @@ class ProgrammeController extends Controller {
             $itemNode->addChild('progLevel', $programme->progLevel);
             $itemNode->addChild('duration', $programme->durationStudy);
         }
-        
-        return response($rootNode->asXML())
-        ->withHeaders([
-            'Content-Type' => 'text/xml'
-        ]);
 
+        return response($rootNode->asXML())
+                        ->withHeaders([
+                            'Content-Type' => 'text/xml'
+        ]);
     }
+
 }

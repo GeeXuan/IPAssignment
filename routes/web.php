@@ -32,7 +32,20 @@ Route::resource('loan', 'LoanInformationController');
 
 Route::get('programmes/listprogrammes/display', 'ProgrammeController@listProgramme');
 Route::get('programmes/listprogdetails/view', 'ProgrammeController@listprogdetail');
-Route::get('programmes/listfilter', 'ProgrammeController@search');
+Route::get('programmes/listfilter', 'ProgrammeController@listprog');
+Route::get('programmes/listfilter', function() {
+    $progLevel = post::get('level');
+    if ($progLevel != "") {
+        $programme = DB::table('programme')->where('level', 'LIKE', '%' . $progLevel . '%')
+                ->orWhere('progName', 'LIKE', '%' . $progLevel . '%')
+                ->get();
+        if (count($programme) > 0) {
+            return view('listfilter')->withDetails($programme)->withQuery($progLevel);
+        }
+    }
+});
+
+
 
 Route::get('partner/{faculty}/create', 'PartnerController@create');
 Route::get('accreditation/{faculty}/create', 'AccreditationController@create');

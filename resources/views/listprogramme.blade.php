@@ -97,14 +97,7 @@
 
                 <div class="fh5co-narrow-content">
                     <h2 class="fh5co-heading animate-box" data-animate-effect="fadeInLeft">Add Programme Structure<span></h2>
-                    
-                    <form action="ProgrammeController@search" method="get"> 
-                        <div class="input-group">
-                        <input type="search" name="search" class="form-control">
-                        <span class="input-group-prepend"><button type="submit" class="btn btn-primary">search</button></span>     
-                        </div>
-                    </form>
-                    
+
                     <table class="table table-striped">
                         <tr>
                             <th>Programme Name</th>
