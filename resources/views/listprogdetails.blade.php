@@ -102,6 +102,7 @@
                             
                             <ul class="nav navbar-nav">
                                 <li class="active"><a href="http://localhost:8000/programmes/listprogrammes/display">Home</a></li>
+                                <li ><a href="http://localhost:8000/programmes/listfilter/filtering" value="Diploma" name="level">Search</a></li>
                             </ul>
                         </div>
                     </nav>

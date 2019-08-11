@@ -32,11 +32,11 @@ Route::resource('loan', 'LoanInformationController');
 
 Route::get('programmes/listprogrammes/display', 'ProgrammeController@listProgramme');
 Route::get('programmes/listprogdetails/view', 'ProgrammeController@listprogdetail');
-Route::get('programmes/listfilter', 'ProgrammeController@listprog');
-Route::get('programmes/listfilter', function() {
-    $progLevel = post::get('level');
+
+Route::get('programmes/listfilter/filtering', function() {
+    $proglLevel = \App\Programme::find(Input::get('level'));
     if ($progLevel != "") {
-        $programme = DB::table('programme')->where('level', 'LIKE', '%' . $progLevel . '%')
+        $programme = DB::table('programme')->where('progLevel', 'LIKE', '%' . $progLevel . '%')
                 ->orWhere('progName', 'LIKE', '%' . $progLevel . '%')
                 ->get();
         if (count($programme) > 0) {

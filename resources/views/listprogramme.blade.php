@@ -57,6 +57,7 @@
         <link rel="stylesheet" href="/css/owl.theme.default.min.css">
         <!-- Theme style  -->
         <link rel="stylesheet" href="/css/style.css">
+     
 
         <!-- Modernizr JS -->
         <script src="/js/modernizr-2.6.2.min.js"></script>
@@ -98,38 +99,46 @@
                 <div class="fh5co-narrow-content">
                     <h2 class="fh5co-heading animate-box" data-animate-effect="fadeInLeft">Add Programme Structure<span></h2>
 
-                    <table class="table table-striped">
-                        <tr>
-                            <th>Programme Name</th>
-                        </tr>
-                        @foreach($programme as $prog)
-                        <tr>
-                            <td><a href="/programmes/listprogdetails/view?programmeID={{$prog['progId']}}">{{$prog['progName']}}</a></td>
-                            @endforeach
-                    </table>
+                    <form method="get" role="search">
+                        {{csrf_field()}}
+                        <br/><br/><input type="text" placeholder="Enter Level" name="level" class="form-control"><span class="input-group-btn">
+                            <button class="btn btn-default" type="submit" name="level">
+                                Search</button><span class="glyphicon glyphicon-search"></span>
+                        </span>
 
 
-                    <!-- jQuery -->
-                    <script src="/js/jquery.min.js"></script>
-                    <!-- jQuery Easing -->
-                    <script src="/js/jquery.easing.1.3.js"></script>
-                    <!-- Bootstrap -->
-                    <script src="/js/bootstrap.min.js"></script>
-                    <!-- Carousel -->
-                    <script src="/js/owl.carousel.min.js"></script>
-                    <!-- Stellar -->
-                    <script src="/js/jquery.stellar.min.js"></script>
-                    <!-- Waypoints -->
-                    <script src="/js/jquery.waypoints.min.js"></script>
-                    <!-- Counters -->
-                    <script src="/js/jquery.countTo.js"></script>
+                        <table class="table table-striped">
+                            <tr>
+                                <th>Programme Name</th>
+                            </tr>
+                            @foreach($programme as $prog)
+                            <tr>
+                                <td><a href="/programmes/listprogdetails/view?programmeID={{$prog['progId']}}">{{$prog['progName']}}</a></td>
+                                @endforeach
+                        </table>
+                    </form>
+
+                        <!-- jQuery -->
+                        <script src="/js/jquery.min.js"></script>
+                        <!-- jQuery Easing -->
+                        <script src="/js/jquery.easing.1.3.js"></script>
+                        <!-- Bootstrap -->
+                        <script src="/js/bootstrap.min.js"></script>
+                        <!-- Carousel -->
+                        <script src="/js/owl.carousel.min.js"></script>
+                        <!-- Stellar -->
+                        <script src="/js/jquery.stellar.min.js"></script>
+                        <!-- Waypoints -->
+                        <script src="/js/jquery.waypoints.min.js"></script>
+                        <!-- Counters -->
+                        <script src="/js/jquery.countTo.js"></script>
 
 
-                    <!-- MAIN JS -->
-                    <script src="/js/main.js"></script>
+                        <!-- MAIN JS -->
+                        <script src="/js/main.js"></script>
 
-                    </body>
-                    </html>
+                        </body>
+                        </html>
 
 
 
