@@ -17,3 +17,10 @@ Route::get('/', function () {
 
 Route::resource('programmes', 'ProgrammeController');
 Route::resource('faculties', 'FacultyController');
+Route::resource('login', 'Auth\LoginController');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+
+Route::resource('view', 'userController'); 
