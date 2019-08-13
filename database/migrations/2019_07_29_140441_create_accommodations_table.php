@@ -19,7 +19,7 @@ class CreateAccommodationsTable extends Migration
             $table->text('description');
             $table->string('address');
             $table->string('roomType');
-            $table->string('utilities');
+            $table->string('utilities')->nullable();
             $table->unsignedBigInteger('campusId');
             $table->foreign('campusId')->references('id')->on('campuses')->onDelete('cascade');
             $table->timestamps();

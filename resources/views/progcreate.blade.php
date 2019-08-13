@@ -65,25 +65,6 @@
         <script src="js/respond.min.js"></script>
         <![endif]-->
 
-        <script type="text/javascript">
-            $('input:radio[name="levelOfStudy"]').click(function () {
-                var selectedValue = $(this).val();
-                $("input[value=" + selectedValue + "]").each(function () {
-                    if (selectedValue === 1) {
-                        $("#progLevel option[value='Diploma']").prop('disabled', false);
-                        $("#progLevel option[value='Degree']").prop('disabled', false);
-                        $("#progLevel option[value='Foundation']").prop('disabled', true);
-                        $("#progLevel option[value='ALevel']").prop('disabled', true);
-                    } else {
-                        $("#progLevel option[value='Foundation']").prop('disabled', false);
-                        $("#progLevel option[value='ALevel']").prop('disabled', false);
-                        $("#progLevel option[value='Diploma']").prop('disabled', true);
-                        $("#progLevel option[value='Degree']").prop('disabled', true);
-                    }
-                }
-           )});
-        </script>
-
     </head>
     <body>
         <div id="fh5co-page">
@@ -93,10 +74,14 @@
                 <h1 id="fh5co-logo"><a href="index.html"><img src="/images/logo.png" alt="Free HTML5 Bootstrap Website Template"></a></h1>
                 <nav id="fh5co-main-menu" role="navigation">
                     <ul>
-                        <li class="fh5co-active"><a href="index.html">Home</a></li>
-                        <li><a href="portfolio.html">Portfolio</a></li>
-                        <li><a href="about.html">About</a></li>
-                        <li><a href="contact.html">Contact</a></li>
+                        <li><a href="{{url('campus')}}">Campus</a></li>
+                        <li><a href="{{url('faculties')}}">Faculty</a></li>
+                        <li class="fh5co-active"><a href="{{url('programmes')}}">Programme</a></li>
+                        <li><a href="{{url('courses')}}">Course</a></li>
+                        <li><a href="{{url('accommodation')}}">Accommodation</a></li>
+                        <li><a href="{{url('loan')}}">Loan Information</a></li>
+                        <li><a href="{{url('/')}}">Customer View</a></li>
+                        <li><a href="">Log Out</a></li>
                     </ul>
                 </nav>
 
@@ -116,74 +101,71 @@
 
                 <div class="fh5co-narrow-content">
                     <h2 class="fh5co-heading animate-box" data-animate-effect="fadeInLeft">Add New Programme<span></h2>
-                    <form method="post" action="{{url('programmes')}}">
+                    <form method="post" action="{{URL::to('progstruccreate')}}">
                         @csrf
                         <p>
                             <label for="progId">Programme Id:</label>
+                            <input type="hidden" name="_token" value="{{csrf_token()}}" />
                             <input type="text" name="progId" /> 
                         </p>
 
                         <p>
                             <label for="progName">Programme Name:</label>
-                            <input type="text" name="progName" /> 
+                            <input type="hidden" name="_token" value="{{csrf_token()}}" />
+                            <input type="text" name="progName" size="30" /> 
                         </p>
 
                         <p>
                             <label for="progDesc">Programme Description:</label>
+                            <input type="hidden" name="_token" value="{{csrf_token()}}" />
                             <textarea rows="4" cols="50" name="progDesc"></textarea>
                         </p>
 
                         <p>
                             <label for="profession">Profession:</label>
+                            <input type="hidden" name="_token" value="{{csrf_token()}}" />
                             <input type="text" name="profession" />
                         </p>
-
+                        
                         <p>
                             <label for="facilitiesFee">Facilities Fee:</label>
+                            <input type="hidden" name="_token" value="{{csrf_token()}}" />
                             <input type="text" name="facilitiesFee" /> 
                         </p>
-
-                        <p>
-                            <label for="levelOfStudy">Level of study:</label><br/>
-                            @foreach($levelOfStudy as $row)
-                        <tr>
-                            <td><input type="radio" name="levelOfStudy" id="levelOfStudy" value="{{$row->id}}"></td>
-                            <td>{{$row->name}}<br/></td>
-                        </tr>
-                        @endforeach
-                        </p>
-
+                        
                         <p>
                             <label for="progLevel">Programme Level:</label>
+                            <input type="hidden" name="_token" value="{{csrf_token()}}" />
                             <select name="progLevel" id="progLevel">
                                 <option value="Diploma">Diploma</option>
                                 <option value="Degree">Degree</option>
-                                <option value="Foundation">Foundation</option>
-                                <option value="ALevel">A Level</option>
                             </select>
                         </p>
-
+                        
                         <p>
                             <label for="faculty">Faculty:</label>
-                            @foreach($faculty as $row)
-                        <tr>
-                            <td>
-                                <select name="faculty">
-                                    <option value="{{$row->id}}">{{$row->name}}</option>
-                                </select>
-                            </td>
-                        </tr>
-                        @endforeach
+                            <input type="hidden" name="_token" value="{{csrf_token()}}" />
+                            <tr>
+                                <td>
+                                    <select name="faculty">
+                                        @foreach($faculty as $row)
+                                        <option value="{{$row->id}}">{{$row->name}}</option>
+                                        @endforeach
+                                    </select>
+                                </td>
+                            </tr>
                         </p>
 
                         <p>
                             <label for="duration">Duration of study:</label><br/>
+                            <input type="hidden" name="_token" value="{{csrf_token()}}" />
                             <input type="radio" name="duration" value="2">Two
                             <br/><input type="radio" name="duration" value="3">Three
                         </p>
 
                         <p>
                             <label for="camplist[]">Campuses offered:</label><br/>
+                            <input type="hidden" name="_token" value="{{csrf_token()}}" />
                             @foreach($campus as $row)
                         <tr>
                             <td><input type="checkbox" name="camplist[]" value="{{$row->id}}"></td>
@@ -191,8 +173,6 @@
                         </tr>
                         @endforeach
                         </p>
-
-
 
                         <p>
                             <button type="submit">Next</button>

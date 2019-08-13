@@ -14,7 +14,7 @@ class CreateSpmMERSTable extends Migration
     public function up()
     {
         Schema::create('spm_m_e_r_s', function (Blueprint $table) {
-            $table->bigIncrements('spmMERId');
+            $table->bigIncrements('id');
             $table->string('spmSubjectName');
             $table->unsignedBigInteger('merId');
             $table->foreign('merId')->references('merId')->on('m_e_r_s')->onDelete('cascade');

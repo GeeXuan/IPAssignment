@@ -18,7 +18,7 @@ class CreateFacultiesTable extends Migration
             $table->string('name');
             $table->text('aboutUs');
             $table->string('abbreviation');
-            $table->text('whystudyhere');
+            $table->text('whystudyhere')->nullable();
             $table->decimal('costPerCreditHour');
             $table->timestamps();
         });

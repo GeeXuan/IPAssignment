@@ -6,5 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Partner extends Model
 {
-    //
+    public function faculty(){
+        return $this->belongsTo('App\Faculty', 'facultyid');
+    }
 }

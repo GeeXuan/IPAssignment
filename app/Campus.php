@@ -9,10 +9,10 @@ use App\Programme;
 class Campus extends Model
 {
     public function loan_information(){
-        return $this->belongsToMany(LoanInformation::class);
+        return $this->belongsToMany(LoanInformation::class, 'loancampus', 'campusId', 'loanId');
     }
 
     public function programmes(){
-        return $this->belongsToMany(Programme::class);
+        return $this->belongsToMany(Programme::class, 'progcampus', 'campusId', 'progId');
     }
 }
