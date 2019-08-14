@@ -116,15 +116,15 @@
         <script>
             function myFunction() {
                 debugger;
-                var options = {};
-                options.url = "/campus/api/restapi?id=" + document.getElementById("campusid").value;
-                options.type = "GET";
-                options.dataType = "json";
-                options.success = function (data) {
+                var requests = {};
+                requests.url = "/campus/api/restapi?id=" + document.getElementById("campusid").value;
+                requests.type = "GET";
+                requests.dataType = "json";
+                requests.success = function (data) {
                     document.getElementById("campusobj").innerHTML = "Campus name: " + data.name + "<br/>Campus address: " + data.address + "<br/>Campus phone: "
                             + data.phone;
                 }
-                $.ajax(options);
+                $.ajax(requests);
             }
         </script>
 
