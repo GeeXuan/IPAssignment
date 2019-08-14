@@ -1,4 +1,5 @@
 <?php
+
 //Saw Gee Xuan
 
 namespace App\Http\Controllers;
@@ -6,7 +7,6 @@ namespace App\Http\Controllers;
 use App\Campus;
 use Illuminate\Http\Request;
 use App\Adapter\campusAdapter;
-
 
 class CampusController extends Controller {
 
@@ -113,16 +113,14 @@ class CampusController extends Controller {
     }
 
     public function restapi() {
-        header("Content-Type:application/json");
-
         if (!empty($_GET['id'])) {
             $id = $_GET['id'];
 
             if (\App\Campus::find($id) == null) {
-                response(400, "failed", null, null, null, null);
+                return response()->json("No campus found", 404);
             } else {
                 $campus = \App\Campus::find($id);
-                response(200, "success", $campus->name, $campus->abbreviation, $campus->address, $campus->phone);
+                return response()->json($campus);
             }
         }
     }
@@ -130,36 +128,4 @@ class CampusController extends Controller {
     public function findbyID() {
         return view('campusfindwithid');
     }
-
-    public function findcampus() {
-        if (isset($_POST['submit'])) {
-            $id = $_POST['id'];
-            $url = "http://localhost:8000/campus/restapi?id=" . $id;
-            $client = curl_init($url);
-            curl_setopt($client, CURLOPT_RETURNTRANSFER, true);
-            $response = curl_exec($client);
-            $result = json_decode($response);
-            $campus = new Campus();
-            $campus->name = $result->name;
-            $campus->abbreviation = $result->abbreviation;
-            $campus->address = $result->address;
-            $campus->phone = $result->phone;
-            return view('campusfindwithid', compact('campus'));
-        }
-    }
-
-    function response($status, $status_message, $name, $abbreviation, $address, $phone) {
-        header("HTTP/1.1 " . $status);
-
-        $response['status'] = $status;
-        $response['status_message'] = $status_message;
-        $response['name'] = $name;
-        $response['abbreviation'] = $abbreviation;
-        $response['address'] = $address;
-        $response['phone'] = $phone;
-
-        $json_response = json_encode($response);
-        echo $json_response;
-    }
-
 }

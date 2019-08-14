@@ -1,3 +1,3 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <?xml-stylesheet type="text/xsl" href="facultyxslt.xsl"?>
-<Faculties/>
+<Faculties><Faculty><name>123</name><aboutUs>123</aboutUs><abbreviation>123</abbreviation><costPerCreditHour>123.00</costPerCreditHour></Faculty></Faculties>

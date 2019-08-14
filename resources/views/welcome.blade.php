@@ -73,9 +73,8 @@
                 <nav id="fh5co-main-menu" role="navigation">
                     <ul>
                         <li class="fh5co-active"><a href="index.html">Home</a></li>
-                        <li><a href="portfolio.html">Portfolio</a></li>
-                        <li><a href="about.html">About</a></li>
-                        <li><a href="contact.html">Contact</a></li>
+                        <li><a href="http://localhost:8000/programmes/listprogdetails/view">Programme</a></li>
+                        <li><a href="http://localhost:8000/login">Login/Register</a></li>
                         <li><a href="{{url('campus')}}">Admin View</a></li>
                         <li><a href="">Log Out</a></li>
                     </ul>
@@ -90,16 +89,6 @@
                         <li><a href="#"><i class="icon-linkedin"></i></a></li>
                     </ul>
                 </div>
-			<h1 id="fh5co-logo"><a href="index.html"><img src="/images/logo.png" alt="Free HTML5 Bootstrap Website Template"></a></h1>
-			<nav id="fh5co-main-menu" role="navigation">
-				<ul>
-					<li class="fh5co-active"><a href="index.html">Home</a></li>
-					<li><a href="portfolio.html">Portfolio</a></li>
-					<li><a href="about.html">About</a></li>
-					<li><a href="contact.html">Contact</a></li>
-                                        <li><a href="http://localhost:8000/login">Login/Register</a></li>
-				</ul>
-			</nav>
 
             </aside>
 
