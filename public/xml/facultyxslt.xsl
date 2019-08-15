@@ -29,7 +29,7 @@
                         <th>Faculty's Abbreviation</th>
                         <th>Faculty's Cost per Credit Hour</th>
                     </tr>
-                    <xsl:for-each select="xml/Faculty">
+                    <xsl:for-each select="Faculties/Faculty">
                         <xsl:sort select="name" order="ascending"/>
                         <tr>
                             <td>

@@ -19,6 +19,18 @@ Route::get('/', function () {
 
 Route::resource('programmes', 'ProgrammeController');
 Route::resource('faculties', 'FacultyController');
+Route::resource('login', 'Auth\LoginController');
+
+Auth::routes();
+Route::get('user/retrievedata/display', 'userController@retrievedata');
+Route::get('user/retrievedata/edit', 'userController@edit');
+Route::get('user/retrievedata/update', 'userController@update');
+Route::post('createUserXML', [
+    'uses' => 'userController@createUserXML'
+]);
+Route::get('/home', 'HomeController@index')->name('home');
+
+Route::resource('view', 'userController'); 
 Route::patch('programmes/{programme}/edit', 'ProgrammeController@edit')->name('programmes.edit');
 Route::patch('courses/{course}/edit', 'CourseController@edit')->name('courses.edit');
 Route::resource('courses', 'CourseController');
@@ -56,8 +68,9 @@ Route::get('partner/{faculty}/editPartner', 'PartnerController@editPartner');
 Route::get('accreditation/{faculty}/editAccreditation', 'AccreditationController@editAccreditation');
 Route::patch('accreditation/{faculty}/update', 'AccreditationController@update');
 Route::get('faculties/xml/generateXML', 'FacultyController@generateXML');
+Route::get('faculties/xml/previewXML', 'FacultyController@previewXML');
+Route::get('faculties/xml/previewXSLT', 'FacultyController@previewXSLT');
 Route::get('campus/api/findbyID', 'CampusController@findbyID');
-Route::post('campus/api/findcampus', 'CampusController@findcampus');
 Route::get('campus/api/restapi', 'CampusController@restapi');
 Route::post('createProgrammeXML', [
     'uses' => 'ProgrammeController@createXML'

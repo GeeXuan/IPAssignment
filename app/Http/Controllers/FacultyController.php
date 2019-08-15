@@ -1,5 +1,5 @@
 <?php
-
+//Saw Gee Xuan
 namespace App\Http\Controllers;
 
 use App\Faculty;
@@ -128,14 +128,144 @@ class FacultyController extends Controller {
             'Content-Type: application/xsl',
         );
         return \Response::download($file, 'faculty.xml', $headers);
-//        $file = \File::get("C:/xampp/htdocs/IPAssignment/xml/faculty.xml");
-//        $response = \Response::make($file, 200);
-//        $response->header('Content-Type', 'application/xsl');
-//        return $response;
-//        $proc = new \XSLTProcessor();
-//        $proc->importStylesheet(\DOMDocument::load("C:\xampp\htdocs\IPAssignment\xml\\facultyxslt.xsl")); //load XSL script
-//        return $proc->transformToXML(\DOMDocument::load("C:\xampp\htdocs\IPAssignment\xml\\faculty.xml")); //load XML file and echo
-//        return view('faculties')->with('success', 'Generated');
+    }
+
+    public function previewXML() {
+        $data = Faculty::all();
+        $xml = new \DOMDocument("1.0", "ISO-8859-1");
+        $root = $xml->createElement('Faculties');
+        $root = $xml->appendChild($root);
+        foreach ($data as $row) {
+            $node = $xml->createElement('Faculty');
+
+            $name = $xml->createElement('name');
+            $name->nodeValue = $row->name;
+            $node->appendChild($name);
+
+            $aboutUs = $xml->createElement('aboutUs');
+            $aboutUs->nodeValue = $row->aboutUs;
+            $node->appendChild($aboutUs);
+
+            $abbreviation = $xml->createElement('abbreviation');
+            $abbreviation->nodeValue = $row->abbreviation;
+            $node->appendChild($abbreviation);
+
+            if ($row->whystudyhere != null && $row->whystudyhere . equalTo("")) {
+                $whystudyhere = $xml->createElement('whystudyhere');
+                $whystudyhere->nodeValue = $row->whystudyhere;
+                $node->appendChild($whystudyhere);
+            }
+
+            $costPerCreditHour = $xml->createElement('costPerCreditHour');
+            $costPerCreditHour->nodeValue = $row->costPerCreditHour;
+            $node->appendChild($costPerCreditHour);
+
+            if ($row->partner()->get() != null) {
+                foreach ($row->partner()->get() as $p) {
+                    $partner = $xml->createElement('partner');
+                    $type = $xml->createElement('type');
+                    $type->nodeValue = $p->type;
+                    $partner->appendChild($type);
+
+                    $name = $xml->createElement('name');
+                    $name->nodeValue = $p->name;
+                    $partner->appendChild($name);
+
+                    $description = $xml->createElement('description');
+                    $description->nodeValue = $p->description;
+                    $partner->appendChild($description);
+
+                    $node->appendChild($partner);
+                }
+            }
+            if ($row->accreditation()->get() != null) {
+                foreach ($row->accreditation()->get() as $a) {
+                    $accreditation = $xml->createElement('accreditation');
+
+                    $name = $xml->createElement('name');
+                    $name->nodeValue = $a->name;
+                    $accreditation->appendChild($name);
+
+                    $description = $xml->createElement('description');
+                    $description->nodeValue = $a->description;
+                    $accreditation->appendChild($description);
+
+                    $node->appendChild($accreditation);
+                }
+            }
+            $root->appendChild($node);
+        }
+        return response($xml->saveXML())->withHeaders(['Content-Type' => 'application/xml']);
+    }
+
+    public function previewXSLT() {
+        $data = Faculty::all();
+        $xml = new \DOMDocument("1.0", "ISO-8859-1");
+        $xslt = $xml->createProcessingInstruction('xml-stylesheet', 'type="text/xsl" href="/xml/facultyxslt.xsl"');
+        $xml->appendChild($xslt);
+        $root = $xml->createElement('Faculties');
+        $root = $xml->appendChild($root);
+        foreach ($data as $row) {
+            $node = $xml->createElement('Faculty');
+
+            $name = $xml->createElement('name');
+            $name->nodeValue = $row->name;
+            $node->appendChild($name);
+
+            $aboutUs = $xml->createElement('aboutUs');
+            $aboutUs->nodeValue = $row->aboutUs;
+            $node->appendChild($aboutUs);
+
+            $abbreviation = $xml->createElement('abbreviation');
+            $abbreviation->nodeValue = $row->abbreviation;
+            $node->appendChild($abbreviation);
+
+            if ($row->whystudyhere != null && $row->whystudyhere . equalTo("")) {
+                $whystudyhere = $xml->createElement('whystudyhere');
+                $whystudyhere->nodeValue = $row->whystudyhere;
+                $node->appendChild($whystudyhere);
+            }
+
+            $costPerCreditHour = $xml->createElement('costPerCreditHour');
+            $costPerCreditHour->nodeValue = $row->costPerCreditHour;
+            $node->appendChild($costPerCreditHour);
+
+            if ($row->partner()->get() != null) {
+                foreach ($row->partner()->get() as $p) {
+                    $partner = $xml->createElement('partner');
+                    $type = $xml->createElement('type');
+                    $type->nodeValue = $p->type;
+                    $partner->appendChild($type);
+
+                    $name = $xml->createElement('name');
+                    $name->nodeValue = $p->name;
+                    $partner->appendChild($name);
+
+                    $description = $xml->createElement('description');
+                    $description->nodeValue = $p->description;
+                    $partner->appendChild($description);
+
+                    $node->appendChild($partner);
+                }
+            }
+            if ($row->accreditation()->get() != null) {
+                foreach ($row->accreditation()->get() as $a) {
+                    $accreditation = $xml->createElement('accreditation');
+
+                    $name = $xml->createElement('name');
+                    $name->nodeValue = $a->name;
+                    $accreditation->appendChild($name);
+
+                    $description = $xml->createElement('description');
+                    $description->nodeValue = $a->description;
+                    $accreditation->appendChild($description);
+
+                    $node->appendChild($accreditation);
+                }
+            }
+            $root->appendChild($node);
+        }
+        return response($xml->saveXML())->withHeaders(['Content-Type' => 'application/xml']);
     }
 
 }

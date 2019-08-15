@@ -1,11 +1,12 @@
 <?php
 
+//Saw Gee Xuan
+
 namespace App\Http\Controllers;
 
 use App\Campus;
 use Illuminate\Http\Request;
 use App\Adapter\campusAdapter;
-
 
 class CampusController extends Controller {
 
@@ -112,16 +113,14 @@ class CampusController extends Controller {
     }
 
     public function restapi() {
-        header("Content-Type:application/json");
-
         if (!empty($_GET['id'])) {
             $id = $_GET['id'];
 
             if (\App\Campus::find($id) == null) {
-                response(400, "failed", null, null, null, null);
+                return response()->json("No campus found", 404);
             } else {
                 $campus = \App\Campus::find($id);
-                response(200, "success", $campus->name, $campus->abbreviation, $campus->address, $campus->phone);
+                return response()->json($campus);
             }
         }
     }

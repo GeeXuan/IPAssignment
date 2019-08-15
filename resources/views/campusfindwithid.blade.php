@@ -1,4 +1,5 @@
 <!-- create.blade.php -->
+<!-- Saw Gee Xuan -->
 
 
 <!DOCTYPE html>
@@ -100,16 +101,32 @@
             <div id="fh5co-main">
                 <div class="fh5co-narrow-content">
                     <h2>Campuses</h2>
-                    <form method="post" action="{{action('CampusController@findcampus')}}">
-                        @csrf
-                        Campus ID:<br/>
-                        <input type="text" name="id" placeholder="Campus ID" required/>
-                        <br/>
-                        <button type="submit" name="submit">Submit</button>
-                    </form>
+                    @csrf
+                    Campus ID:<br/>
+                    <input type="text" name="id" id="campusid" placeholder="Campus ID" required/>
+                    <br/>
+                    <br/>
+                    <button name="submit" onclick="myFunction()">Submit</button>
+                    <br/>
+                    <div id="campusobj"></div>
                 </div>
             </div>
         </div>
+
+        <script>
+            function myFunction() {
+                debugger;
+                var requests = {};
+                requests.url = "/campus/api/restapi?id=" + document.getElementById("campusid").value;
+                requests.type = "GET";
+                requests.dataType = "json";
+                requests.success = function (data) {
+                    document.getElementById("campusobj").innerHTML = "Campus name: " + data.name + "<br/>Campus address: " + data.address + "<br/>Campus phone: "
+                            + data.phone;
+                }
+                $.ajax(requests);
+            }
+        </script>
 
         <!-- jQuery -->
         <script src="/js/jquery.min.js"></script>

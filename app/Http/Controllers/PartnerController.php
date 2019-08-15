@@ -1,5 +1,5 @@
 <?php
-
+//Saw Gee Xuan
 namespace App\Http\Controllers;
 
 use App\Partner;
@@ -121,9 +121,7 @@ class PartnerController extends Controller {
     }
 
     public function editPartner(Faculty $faculty) {
-        \Debugbar::info($faculty);
         $partners = $faculty->partner;
-        \Debugbar::info($partners);
         return view('facultyeditPartners')->with('faculty', $faculty)->with('partners', $partners);
     }
 
