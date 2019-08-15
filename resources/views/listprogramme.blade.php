@@ -114,7 +114,7 @@
                                 @endforeach
                         </table>
                     </form>
-                    <form action="{{action('ProgrammeController@createCampusXML')}}" method="post">
+                    <form action="{{action('CampusController@createCampusXML')}}" method="post">
                             @csrf
                             <input name="_method" type="hidden">
                             <button class="btn btn-danger" type="submit">Create Course XML</button>

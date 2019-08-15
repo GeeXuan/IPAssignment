@@ -160,5 +160,26 @@ class CampusController extends Controller {
         $json_response = json_encode($response);
         echo $json_response;
     }
+    
+    public function createCampusXML(Request $request) {
+        $rootNode = new\SimpleXMLElement("<?xml version='1.0' encoding='UTF-8' standalone='yes'?><Campus></Campus>");
+
+        $campuses = campus::all();
+        foreach ($campuses as $campuses) {
+            $itemNode = $rootNode->addChild('Campus');
+            $itemNode->addChild('id', $campuses->id);
+            $itemNode->addChild('name', $campuses->name);
+            $itemNode->addChild('abbreviation', $campuses->abbreviation);
+            $itemNode->addChild('address', $campuses->address);
+            $itemNode->addChild('phone', $campuses->phone);
+            $itemNode->addChild('create_at', $campuses->create_at);
+            $itemNode->addChild('updated_at', $campuses->updated_at);
+        }
+
+        return response($rootNode->asXML())
+                        ->withHeaders([
+                            'Content-Type' => 'text/xml'
+        ]);
+    }
 
 }

@@ -30,7 +30,7 @@
                         <th>create_at</th>
                         <th>updated_at</th>                        
                     </tr>
-                    <xsl:for-each select="xml/Faculty">
+                    <xsl:for-each select="campus/Campus">
                         <xsl:sort select="name" order="ascending"/>
                         <tr>
                             <td>

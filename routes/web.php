@@ -32,7 +32,7 @@ Route::resource('accreditation', 'AccreditationController');
 Route::resource('accommodation', 'AccommodationController');
 Route::resource('loan', 'LoanInformationController');
 Route::post('createCoursesXML', [
-    'uses' => 'ProgrammeController@createCampusXML'
+    'uses' => 'CampusController@createCampusXML'
 ]);
 Route::get('programmes/listprogrammes/display', 'ProgrammeController@listProgramme');
 Route::get('programmes/listprogdetails/view', 'ProgrammeController@listprogdetail');
