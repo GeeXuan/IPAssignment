@@ -103,6 +103,7 @@
                     <h2>Campuses</h2>
                     <a href="{{action('CampusController@create')}}" class="btn btn-success">Create</a>
                     <br />
+                    <a href="{{action('CampusController@findbyID')}}" class="btn btn-success">Web Service</a>
                     <br />
                     @if (\Session::has('success'))
                     <div class="alert alert-success">
