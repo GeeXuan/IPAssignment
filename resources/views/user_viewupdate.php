@@ -1,5 +1,3 @@
-<!-- listprogramme.blade.php -->
-
 
 <!DOCTYPE html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
@@ -58,7 +56,6 @@
         <!-- Theme style  -->
         <link rel="stylesheet" href="/css/style.css">
 
-
         <!-- Modernizr JS -->
         <script src="/js/modernizr-2.6.2.min.js"></script>
         <!-- FOR IE9 below -->
@@ -75,10 +72,14 @@
                 <h1 id="fh5co-logo"><a href="index.html"><img src="/images/logo.png" alt="Free HTML5 Bootstrap Website Template"></a></h1>
                 <nav id="fh5co-main-menu" role="navigation">
                     <ul>
-                        <li class="fh5co-active"><a href="index.html">Home</a></li>
-                        <li><a href="portfolio.html">Portfolio</a></li>
-                        <li><a href="about.html">About</a></li>
-                        <li><a href="contact.html">Contact</a></li>
+                        <li class="fh5co-active"><a href="{{url('campus')}}">Campus</a></li>
+                        <li><a href="{{url('faculties')}}">Faculty</a></li>
+                        <li><a href="{{url('programmes')}}">Programme</a></li>
+                        <li><a href="{{url('courses')}}">Course</a></li>
+                        <li><a href="{{url('accommodation')}}">Accommodation</a></li>
+                        <li><a href="{{url('loan')}}">Loan Information</a></li>
+                        <li><a href="{{url('/')}}">Customer View</a></li>
+                        <li><a href="">Log Out</a></li>
                     </ul>
                 </nav>
 
@@ -95,69 +96,67 @@
             </aside>
 
             <div id="fh5co-main">
-
                 <div class="fh5co-narrow-content">
-                    <h2 class="fh5co-heading animate-box" data-animate-effect="fadeInLeft">Admin Account<span></h2>
-
-                    <form method="get" role="search" action="{{url('programmes/listfilter/filtering')}}">
-                        {{csrf_field()}}
-                        <table class="table table-striped">
-                            <tr>
-                                <th>ID</th>
-                                <th>Name</th>
-                                <th>Email</th>
-                                <th>Modify</th>
-                            </tr>
-                            @foreach($users as $user)
-                            <tr>
-                                <td>{{$user['id']}}</td>
-                                <td>{{$user['name']}}</td>
-                                <td>{{$user['email']}}</td>
-
-                                <td>
-                                    <a href="{{action('userController@edit', $user)}}" 
-                                       class="btn btn-success">Edit</a>
-                                    <form action="{{action('userController@destroy', $user)}}" 
-                                          method="post">
-                                        @csrf
-                                        <input name="_method" type="hidden" value="DELETE">
-                                        <button class="btn btn-danger" type="submit">Delete</button>
-                                    </form>
-                                </td>
-
-                            </tr>
-
+                    @if (\Session::has('success'))
+                    <div class="alert alert-success">
+                        <p>{{ \Session::get('success') }}</p>
+                    </div><br />
+                    @endif
+                    <h2>Edit Account</h2><br/>
+                    @if ($errors->any())
+                    <div class="alert alert-danger">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
                             @endforeach
-                        </table>
-                    </form>
-                    <form action="{{action('userController@createUserXML')}}" method="post">
+                        </ul>
+                    </div>
+                    @endif
+                    <form method="post" action="{{action('userController@update', $users)}}">
+                        <input name="_method" type="hidden" value="PATCH">
                         @csrf
-                        <input name="_method" type="hidden">
-                        <button class="btn btn-danger" type="submit">Create User XML</button>
+                        <p>
+                            <label for="name">ID:</label>
+                            <br/>
+                            <input type="text"  size="12" maxlength="10"  name="id" value="{{$users->id}}" required="">  
+                        </p>
+                        <p>
+                            <label for="code">Name:</label>
+                            <br/>
+                            <input type="text"  size="12" maxlength="10"  name="name" value="{{$users->name}}" required>
+                        </p>
+                        <p>
+                            <label for="code">Email:</label>
+                            <br/>
+                            <input type="text"  size="12" maxlength="10"  name="email" value="{{$users->email}}" required>
+                        </p>
+                        <p>
+                            <button type="submit" name="cancel" class="btn btn-danger">Cancel</button>&nbsp&nbsp
+                            <button type="submit" name="update" class="btn btn-success">Update</button>
+                        </p>
                     </form>
+                </div>
+            </div>
+        </div>
 
-                    <!-- jQuery -->
-                    <script src="/js/jquery.min.js"></script>
-                    <!-- jQuery Easing -->
-                    <script src="/js/jquery.easing.1.3.js"></script>
-                    <!-- Bootstrap -->
-                    <script src="/js/bootstrap.min.js"></script>
-                    <!-- Carousel -->
-                    <script src="/js/owl.carousel.min.js"></script>
-                    <!-- Stellar -->
-                    <script src="/js/jquery.stellar.min.js"></script>
-                    <!-- Waypoints -->
-                    <script src="/js/jquery.waypoints.min.js"></script>
-                    <!-- Counters -->
-                    <script src="/js/jquery.countTo.js"></script>
-
-
-                    <!-- MAIN JS -->
-                    <script src="/js/main.js"></script>
-
-                    </body>
-                    </html>
+        <!-- jQuery -->
+        <script src="/js/jquery.min.js"></script>
+        <!-- jQuery Easing -->
+        <script src="/js/jquery.easing.1.3.js"></script>
+        <!-- Bootstrap -->
+        <script src="/js/bootstrap.min.js"></script>
+        <!-- Carousel -->
+        <script src="/js/owl.carousel.min.js"></script>
+        <!-- Stellar -->
+        <script src="/js/jquery.stellar.min.js"></script>
+        <!-- Waypoints -->
+        <script src="/js/jquery.waypoints.min.js"></script>
+        <!-- Counters -->
+        <script src="/js/jquery.countTo.js"></script>
 
 
+        <!-- MAIN JS -->
+        <script src="/js/main.js"></script>
 
-
+    </body>
+</html>

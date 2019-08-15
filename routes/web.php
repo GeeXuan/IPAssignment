@@ -22,7 +22,10 @@ Route::resource('faculties', 'FacultyController');
 Route::resource('login', 'Auth\LoginController');
 
 Auth::routes();
-
+Route::get('user/retrievedata/display', 'userController@retrievedata');
+Route::post('createUserXML', [
+    'uses' => 'userController@createUserXML'
+]);
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::resource('view', 'userController'); 
